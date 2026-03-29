@@ -860,37 +860,83 @@ function submitVisit() {
   const badge = document.getElementById('badge').textContent;
   const comment = document.getElementById('overall').value;
   const statusMap = {g:'🟢 Норма', y:'🟡 Внимание', r:'🔴 Риск', '':'Не указан'};
+  const statusLabel = statusMap[visitStatus] || 'Не указан';
 
-  let totalOk = 0, total = 0;
+  // Считаем результаты по разделам
+  let totalOk = 0, totalItems = 0;
+  const secPcts = {};
   if (currentChecklist) {
-    total = currentChecklist.reduce((a,s) => a + s.items.length, 0);
-    Object.values(ratings).forEach(v => { if (v === 'ok') totalOk++; });
+    currentChecklist.forEach(sec => {
+      let ok = 0;
+      sec.items.forEach((_, i) => { if (ratings[`${sec.id}_${i}`] === 'ok') ok++; });
+      const pct = Math.round(ok / sec.items.length * 100);
+      secPcts[sec.id] = pct;
+      totalOk += ok;
+      totalItems += sec.items.length;
+    });
   }
-  const pct = total > 0 ? Math.round(totalOk / total * 100) : null;
+  const totalPct = totalItems > 0 ? Math.round(totalOk / totalItems * 100) : 0;
 
   const tasks = [1,2,3].map(i => {
     const t = document.getElementById('t'+i).value.trim();
     const o = document.getElementById('to'+i).value;
     const d = document.getElementById('td'+i).value;
-    return t ? `${i}. ${t}${o?' — '+o:''}${d?' · до '+d:''}` : null;
-  }).filter(Boolean);
+    return t ? `${t}${o?' — '+o:''}${d?' · до '+d:''}` : '';
+  });
 
-  document.getElementById('succSub').textContent = `Отчёт зафиксирован${email !== '—' ? ' и готов к отправке' : ''}.`;
-  document.getElementById('sendInfo').innerHTML = `📧 Магазин: <b>${email}</b>`;
+  // Показываем экран успеха сразу
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('succ').style.display = 'block';
+  window.scrollTo(0, 0);
+
+  document.getElementById('succSub').textContent = 'Отправляем отчёт...';
+  document.getElementById('sendInfo').innerHTML = '📧 ' + email;
   document.getElementById('succCard').innerHTML = `
     <b>Магазин:</b> SELA ${storeName}<br>
     <b>Дата:</b> ${date} · <b>Роль:</b> ${badge}<br>
     <b>Визитёр:</b> ${vname}<br>
-    <b>Представитель магазина:</b> ${storeManager}${managerRoleLabel ? ' · ' + managerRoleLabel : ''}<br>
-    ${pct !== null ? `<b>Результат:</b> ${pct}% (${totalOk}/${total})<br>` : ''}
-    <b>Статус:</b> ${statusMap[visitStatus]}
-    ${tasks.length ? '<br><br><b>Задачи:</b><br>' + tasks.join('<br>') : ''}
+    <b>Представитель:</b> ${storeManager}${managerRoleLabel ? ' · ' + managerRoleLabel : ''}<br>
+    <b>Результат:</b> ${totalPct}%<br>
+    <b>Статус:</b> ${statusLabel}
+    ${tasks.filter(Boolean).length ? '<br><br><b>Задачи:</b><br>' + tasks.filter(Boolean).map((t,i)=>`${i+1}. ${t}`).join('<br>') : ''}
     ${comment ? `<br><br><b>Заметка:</b> ${comment.slice(0,120)}${comment.length>120?'…':''}` : ''}
   `;
 
-  document.getElementById('app').style.display = 'none';
-  document.getElementById('succ').style.display = 'block';
-  window.scrollTo(0, 0);
+  // Отправка на webhook
+  const payload = {
+    store:       storeName,
+    visitor:     vname,
+    role:        badge,
+    visitDate:   date,
+    manager:     storeManager,
+    managerRole: managerRoleLabel,
+    storeEmail:  email,
+    totalPct:    totalPct,
+    status:      statusLabel,
+    sec1:        secPcts[1] || 0,
+    sec2:        secPcts[2] || 0,
+    sec3:        secPcts[3] || 0,
+    sec4:        secPcts[4] || 0,
+    sec5:        secPcts[5] || 0,
+    sec6:        secPcts[6] || 0,
+    task1:       tasks[0],
+    task2:       tasks[1],
+    task3:       tasks[2],
+    comment:     comment,
+  };
+
+  fetch('https://sedovnn.app.n8n.cloud/webhook/50e2edb8-ac57-4aca-89b6-3f362bdc6737', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  })
+  .then(r => r.json())
+  .then(() => {
+    document.getElementById('succSub').textContent = 'Отчёт отправлен в Telegram и на почту магазина.';
+  })
+  .catch(() => {
+    document.getElementById('succSub').textContent = 'Визит сохранён. Проверь соединение — отчёт мог не уйти.';
+  });
 }
 
 // ═══════════════════════════════════════════════════════
