@@ -3,563 +3,261 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Расписание визитов · SELA</title>
+<title>Расписание · SELA</title>
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
-:root {
-  --navy:#0F1E35; --navy2:#1B2D4A; --navy3:#243550;
-  --blue:#2563EB; --blue-light:#64B5F6; --blue-bg:#EFF6FF;
-  --green:#16A34A; --green-bg:#F0FDF4;
-  --amber:#D97706; --amber-bg:#FFFBEB;
-  --red:#DC2626;
-  --grey:#6B7280; --grey-bg:#F3F4F6;
-  --border:#E5E7EB; --border-dark:rgba(255,255,255,0.1);
-  --text:#111827; --white:#FFFFFF;
-  --r:12px; --rs:8px;
-}
+:root{--navy:#0F1E35;--navy2:#1B2D4A;--blue:#2563EB;--blue-light:#64B5F6;--blue-bg:#EFF6FF;--green:#16A34A;--green-bg:#F0FDF4;--amber:#D97706;--red:#DC2626;--red-bg:#FEF2F2;--grey:#6B7280;--grey-bg:#F3F4F6;--border:#E5E7EB;--border-dark:rgba(255,255,255,0.1);--text:#111827;--white:#FFFFFF;--r:12px;--rs:8px}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-
-/* ── SCREENS ── */
-body{font-family:'Golos Text',sans-serif;min-height:100vh;overflow-x:hidden}
-.screen{display:none;min-height:100vh}
-.screen.active{display:flex;flex-direction:column}
-
-/* ══════════════════════════════════════
-   SCREEN 0: ВЫБОР РОЛИ (тёмная)
-══════════════════════════════════════ */
-#s0{background:var(--navy);color:var(--white);padding:0 20px 40px;max-width:480px;margin:0 auto;width:100%}
-#s0::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 50% at 20% 0%,rgba(37,99,235,.15) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 80% 100%,rgba(100,181,246,.08) 0%,transparent 60%);pointer-events:none;z-index:0}
-
-.s0-inner{position:relative;z-index:1}
-.s0-header{padding:40px 0 24px}
-.s0-back{display:flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:rgba(255,255,255,.45);text-decoration:none;margin-bottom:24px}
-.s0-back svg{width:14px;height:14px}
-.s0-tag{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--blue-light);letter-spacing:.3px;margin-bottom:8px}
+body{font-family:"Golos Text",sans-serif;min-height:100vh}
+.screen{display:none;min-height:100vh}.screen.active{display:flex;flex-direction:column}
+#s0{background:var(--navy);color:#fff;padding:0 20px 40px;max-width:480px;margin:0 auto;width:100%}
+#s0::before{content:"";position:fixed;inset:0;background:radial-gradient(ellipse 80% 50% at 20% 0%,rgba(37,99,235,.15) 0%,transparent 60%);pointer-events:none;z-index:0}
+.s0i{position:relative;z-index:1}
+.s0-hdr{padding:40px 0 24px}
+.bk{display:flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:rgba(255,255,255,.45);text-decoration:none;margin-bottom:24px}
+.bk svg{width:14px;height:14px}
+.s0-tag{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--blue-light);margin-bottom:8px}
 .s0-title{font-size:28px;font-weight:900;letter-spacing:-1px;line-height:1.1;margin-bottom:8px}
 .s0-sub{font-size:13px;color:rgba(255,255,255,.5);line-height:1.5}
-.s0-divider{width:40px;height:2px;background:linear-gradient(90deg,var(--blue),transparent);margin:20px 0;border-radius:2px}
-
-.role-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.role-card{padding:14px 12px;border:1.5px solid var(--border-dark);border-radius:var(--r);background:rgba(255,255,255,.04);cursor:pointer;transition:all .15s;text-align:left}
-.role-card:active{transform:scale(.97)}
-.role-card.sel{border-color:var(--blue);background:rgba(37,99,235,.15)}
-.role-card .ri{font-size:20px;display:block;margin-bottom:6px}
-.role-card .rn{font-size:12px;font-weight:700;color:var(--white);display:block;line-height:1.3}
-.role-card .rs{font-size:10px;color:rgba(255,255,255,.4);display:block;margin-top:2px}
-.role-card.sel .rs{color:var(--blue-light)}
-
-.s0-btn{width:100%;padding:14px;background:var(--blue);color:var(--white);font-family:'Golos Text',sans-serif;font-size:15px;font-weight:700;border:none;border-radius:var(--r);cursor:pointer;margin-top:16px;display:none}
-.s0-btn.visible{display:block}
-
-/* ══════════════════════════════════════
-   SCREEN 1: МОЯ НЕДЕЛЯ (светлая)
-══════════════════════════════════════ */
-#s1{background:#EEF2F7;padding-bottom:80px}
-
-.top-bar{background:var(--navy);padding:14px 16px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.2)}
-.top-bar-back{display:flex;align-items:center;gap:4px;font-size:12px;font-weight:600;color:rgba(255,255,255,.45);cursor:pointer;flex-shrink:0}
-.top-bar-back svg{width:14px;height:14px}
-.top-bar-title{flex:1;text-align:center;font-size:15px;font-weight:700;color:var(--white)}
-.top-bar-role{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--navy);background:var(--blue-light);padding:3px 8px;border-radius:20px;flex-shrink:0}
-
-/* Week strip */
-.week-strip{background:var(--navy2);padding:12px 16px;overflow-x:auto;display:flex;gap:8px;scrollbar-width:none;border-bottom:1px solid rgba(255,255,255,.07)}
-.week-strip::-webkit-scrollbar{display:none}
-.week-day{flex-shrink:0;width:48px;text-align:center;cursor:pointer;border-radius:10px;padding:7px 4px;transition:background .15s}
-.week-day.today{background:var(--blue)}
-.week-day.selected{background:rgba(255,255,255,.12)}
-.week-day .wd-name{font-size:9px;font-weight:600;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.3px;display:block}
-.week-day .wd-num{font-family:'JetBrains Mono',monospace;font-size:18px;font-weight:700;color:var(--white);display:block;line-height:1.1;margin:2px 0}
-.week-day .wd-dot{width:5px;height:5px;border-radius:50%;background:var(--blue-light);margin:0 auto;opacity:0}
-.week-day.has-visits .wd-dot{opacity:1}
-.week-day.today .wd-name,.week-day.today .wd-num{color:var(--white)}
-.week-day.today .wd-dot{background:rgba(255,255,255,.6)}
-
-/* Content */
-.s1-content{padding:10px 12px}
-.day-header{font-size:11px;font-weight:700;color:var(--grey);text-transform:uppercase;letter-spacing:.5px;padding:8px 2px 6px;font-family:'JetBrains Mono',monospace}
-
-/* Visit card */
-.visit-item{background:var(--white);border-radius:var(--r);padding:12px 14px;margin-bottom:8px;box-shadow:0 1px 3px rgba(0,0,0,.06);display:flex;align-items:flex-start;gap:10px}
-.visit-item.done{opacity:.6}
-.visit-check{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;margin-top:1px;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center}
-.visit-check.checked{background:var(--green);border-color:var(--green)}
-.visit-check svg{width:10px;height:10px;stroke:white;stroke-width:2.5;opacity:0;transition:opacity .15s}
-.visit-check.checked svg{opacity:1}
-.visit-info{flex:1}
-.visit-store{font-size:14px;font-weight:700;color:var(--text);display:block;margin-bottom:2px}
-.visit-meta{font-size:11px;color:var(--grey);display:flex;align-items:center;gap:6px}
-.visit-meta span{display:flex;align-items:center;gap:3px}
-.visit-role-badge{font-size:9px;font-weight:700;color:var(--navy);background:var(--grey-bg);padding:2px 6px;border-radius:20px;font-family:'JetBrains Mono',monospace}
-.visit-delete{width:28px;height:28px;border-radius:8px;background:var(--grey-bg);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--grey);font-size:14px;transition:background .15s}
-.visit-delete:active{background:#FEE2E2;color:var(--red)}
-
-.empty-day{text-align:center;padding:20px;color:var(--grey);font-size:13px}
-
-/* Team view toggle */
-.view-toggle{display:flex;background:var(--white);border-radius:var(--r);padding:3px;margin:0 0 10px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.view-btn{flex:1;padding:8px;font-size:12px;font-weight:600;border:none;background:none;cursor:pointer;border-radius:var(--rs);color:var(--grey);transition:all .15s;font-family:'Golos Text',sans-serif}
-.view-btn.active{background:var(--navy);color:var(--white)}
-
-/* Team visit — slightly different style */
-.visit-item.team{border-left:3px solid var(--border)}
-.visit-item.team[data-role="div"]{border-left-color:#8B5CF6}
-.visit-item.team[data-role="ops"]{border-left-color:var(--blue)}
-.visit-item.team[data-role="hr"]{border-left-color:var(--green)}
-.visit-item.team[data-role="rkr_w1"]{border-left-color:#EC4899}
-.visit-item.team[data-role="rkr_w2"]{border-left-color:#F97316}
-.visit-item.team[data-role="rkr_m"]{border-left-color:var(--amber)}
-.visit-item.team[data-role="rkr_k"]{border-left-color:#14B8A6}
-
-/* ADD VISIT FAB */
-.fab{position:fixed;bottom:20px;right:20px;width:56px;height:56px;border-radius:50%;background:var(--blue);color:var(--white);font-size:26px;border:none;cursor:pointer;box-shadow:0 4px 16px rgba(37,99,235,.4);display:flex;align-items:center;justify-content:center;z-index:200;transition:transform .15s}
+.s0-div{width:40px;height:2px;background:linear-gradient(90deg,var(--blue),transparent);margin:20px 0;border-radius:2px}
+.rgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.rc{padding:14px 12px;border:1.5px solid var(--border-dark);border-radius:var(--r);background:rgba(255,255,255,.04);cursor:pointer;transition:all .15s}
+.rc:active{transform:scale(.97)}.rc.sel{border-color:var(--blue);background:rgba(37,99,235,.15)}
+.rc .ri{font-size:20px;display:block;margin-bottom:6px}
+.rc .rn{font-size:12px;font-weight:700;color:#fff;display:block;line-height:1.3}
+.rc .rs{font-size:10px;color:rgba(255,255,255,.4);display:block;margin-top:2px}
+.rc.sel .rs{color:var(--blue-light)}
+.s0-btn{width:100%;padding:14px;background:var(--blue);color:#fff;font-family:"Golos Text",sans-serif;font-size:15px;font-weight:700;border:none;border-radius:var(--r);cursor:pointer;margin-top:16px;display:none}
+.s0-btn.vis{display:block}
+#s1{background:#EEF2F7;padding-bottom:90px}
+.topbar{background:var(--navy);padding:14px 16px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.2)}
+.topbar-back{display:flex;align-items:center;gap:4px;font-size:12px;font-weight:600;color:rgba(255,255,255,.45);cursor:pointer;flex-shrink:0}
+.topbar-back svg{width:14px;height:14px}
+.topbar-title{flex:1;text-align:center;font-size:15px;font-weight:700;color:#fff}
+.topbar-badge{font-family:"JetBrains Mono",monospace;font-size:10px;font-weight:700;color:var(--navy);background:var(--blue-light);padding:3px 8px;border-radius:20px;flex-shrink:0}
+.wstrip{background:var(--navy2);padding:12px 16px;overflow-x:auto;display:flex;gap:8px;scrollbar-width:none;border-bottom:1px solid rgba(255,255,255,.07)}
+.wstrip::-webkit-scrollbar{display:none}
+.wd{flex-shrink:0;width:48px;text-align:center;cursor:pointer;border-radius:10px;padding:7px 4px;transition:background .15s}
+.wd.today{background:var(--blue)}.wd.sel:not(.today){background:rgba(255,255,255,.12)}
+.wd .wdn{font-size:9px;font-weight:600;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.3px;display:block}
+.wd .wdnum{font-family:"JetBrains Mono",monospace;font-size:18px;font-weight:700;color:#fff;display:block;line-height:1.1;margin:2px 0}
+.wd .wddot{width:5px;height:5px;border-radius:50%;background:var(--blue-light);margin:0 auto;opacity:0;transition:opacity .2s}
+.wd.hasvs .wddot{opacity:1}.wd.today .wddot{background:rgba(255,255,255,.7)}
+.s1c{padding:10px 12px}
+.vtog{display:flex;background:#fff;border-radius:var(--r);padding:3px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.vbtn{flex:1;padding:8px;font-size:12px;font-weight:600;border:none;background:none;cursor:pointer;border-radius:var(--rs);color:var(--grey);transition:all .15s;font-family:"Golos Text",sans-serif}
+.vbtn.on{background:var(--navy);color:#fff}
+.daylbl{font-size:11px;font-weight:700;color:var(--grey);text-transform:uppercase;letter-spacing:.5px;padding:8px 2px 6px;font-family:"JetBrains Mono",monospace}
+.vi{background:#fff;border-radius:var(--r);padding:12px 14px;margin-bottom:8px;box-shadow:0 1px 3px rgba(0,0,0,.06);display:flex;align-items:flex-start;gap:10px;border-left:3px solid transparent}
+.vi.done .vstore{text-decoration:line-through;opacity:.5}
+.vi[data-role=div]{border-left-color:#8B5CF6}.vi[data-role=ops]{border-left-color:var(--blue)}
+.vi[data-role=hr]{border-left-color:var(--green)}.vi[data-role=rkr_w1]{border-left-color:#EC4899}
+.vi[data-role=rkr_w2]{border-left-color:#F97316}.vi[data-role=rkr_m]{border-left-color:var(--amber)}
+.vi[data-role=rkr_k]{border-left-color:#14B8A6}
+.vchk{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;margin-top:1px;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center}
+.vchk.on{background:var(--green);border-color:var(--green)}
+.vchk svg{width:10px;height:10px;stroke:#fff;stroke-width:2.5;opacity:0;transition:opacity .15s}.vchk.on svg{opacity:1}
+.vinfo{flex:1;min-width:0}.vstore{font-size:14px;font-weight:700;color:var(--text);display:block;margin-bottom:3px}
+.vmeta{font-size:11px;color:var(--grey);display:flex;flex-wrap:wrap;align-items:center;gap:5px}
+.vbadge{font-size:9px;font-weight:700;color:var(--navy);background:var(--grey-bg);padding:2px 6px;border-radius:20px;font-family:"JetBrains Mono",monospace}
+.vstatus{font-size:9px;font-weight:700;padding:2px 6px;border-radius:20px;font-family:"JetBrains Mono",monospace}
+.vstatus.plan{background:#EFF6FF;color:var(--blue)}.vstatus.done{background:var(--green-bg);color:var(--green)}
+.vacts{display:flex;gap:5px;flex-shrink:0;margin-top:1px}
+.abtn{width:28px;height:28px;border-radius:8px;background:var(--grey-bg);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px}
+.empty{text-align:center;padding:28px 20px;color:var(--grey)}
+.empty .eico{font-size:32px;margin-bottom:8px}.empty .etxt{font-size:13px;line-height:1.5}
+.loading{text-align:center;padding:32px;color:var(--grey);font-size:13px}
+.spinner{width:24px;height:24px;border:2px solid var(--border);border-top-color:var(--blue);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 10px}
+@keyframes spin{to{transform:rotate(360deg)}}
+.fab{position:fixed;bottom:24px;right:20px;width:56px;height:56px;border-radius:50%;background:var(--blue);color:#fff;font-size:26px;border:none;cursor:pointer;box-shadow:0 4px 20px rgba(37,99,235,.45);display:flex;align-items:center;justify-content:center;z-index:200;transition:transform .15s}
 .fab:active{transform:scale(.92)}
-
-/* ══════════════════════════════════════
-   MODAL: ДОБАВИТЬ ВИЗИТ
-══════════════════════════════════════ */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:300;display:none;align-items:flex-end}
-.modal-overlay.open{display:flex}
-.modal{background:var(--white);border-radius:20px 20px 0 0;padding:0 0 40px;width:100%;max-width:480px;margin:0 auto;max-height:90vh;overflow-y:auto}
-.modal-handle{width:40px;height:4px;background:var(--border);border-radius:2px;margin:12px auto 0}
-.modal-title{font-size:17px;font-weight:800;color:var(--navy);padding:16px 20px 12px;border-bottom:1px solid var(--border)}
-.modal-body{padding:16px 20px}
-.field{margin-bottom:14px}
-.field label{display:block;font-size:10px;font-weight:700;color:var(--grey);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
-.field select,.field input,.field textarea{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--rs);font-size:15px;font-family:'Golos Text',sans-serif;color:var(--text);background:var(--grey-bg);appearance:none;-webkit-appearance:none}
-.field select:focus,.field input:focus,.field textarea:focus{outline:none;border-color:var(--blue);background:var(--white)}
-.field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.modal-actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 20px}
-.modal-btn{padding:13px;font-family:'Golos Text',sans-serif;font-size:14px;font-weight:700;border:none;border-radius:var(--r);cursor:pointer}
-.modal-btn-cancel{background:var(--grey-bg);color:var(--navy)}
-.modal-btn-save{background:var(--navy);color:var(--white)}
+.rfab{position:fixed;bottom:24px;left:20px;width:44px;height:44px;border-radius:50%;background:#fff;border:1px solid var(--border);cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:200;box-shadow:0 2px 8px rgba(0,0,0,.1);font-size:18px}
+.rfab.spin{animation:spin .8s linear infinite}
+.mov{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:300;display:none;align-items:flex-end;justify-content:center}
+.mov.open{display:flex}
+.modal{background:#fff;border-radius:20px 20px 0 0;padding:0 0 40px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto}
+.mhandle{width:40px;height:4px;background:var(--border);border-radius:2px;margin:12px auto 0}
+.mtitle{font-size:17px;font-weight:800;color:var(--navy);padding:16px 20px 12px;border-bottom:1px solid var(--border)}
+.mbody{padding:14px 20px}
+.fld{margin-bottom:12px}
+.fld label{display:block;font-size:10px;font-weight:700;color:var(--grey);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.fld select,.fld input{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--rs);font-size:15px;font-family:"Golos Text",sans-serif;color:var(--text);background:var(--grey-bg);appearance:none;-webkit-appearance:none}
+.fld select:focus,.fld input:focus{outline:none;border-color:var(--blue);background:#fff}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.macts{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:4px 20px 0}
+.mbtn{padding:13px;font-family:"Golos Text",sans-serif;font-size:14px;font-weight:700;border:none;border-radius:var(--r);cursor:pointer}
+.mbtn-c{background:var(--grey-bg);color:var(--navy)}.mbtn-s{background:var(--navy);color:#fff}
+.mbtn-s.saving{opacity:.6;pointer-events:none}
 </style>
 </head>
 <body>
-
-<!-- ══ SCREEN 0: ВЫБОР РОЛИ ══ -->
-<div class="screen active" id="s0">
-  <div class="s0-inner">
-    <div class="s0-header">
-      <a href="index.html" class="s0-back">
-        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 8H3M7 4l-4 4 4 4"/></svg>
-        Главная
-      </a>
-      <div class="s0-tag">// Расписание визитов</div>
-      <h1 class="s0-title">Кто ты<br>в команде?</h1>
-      <p class="s0-sub">Выбери роль — форма покажет твои магазины и план на неделю.</p>
-    </div>
-    <div class="s0-divider"></div>
-    <div class="role-grid">
-      <div class="role-card" data-role="div" onclick="selectRole(this)">
-        <span class="ri">📊</span><span class="rn">Директор Дивизиона</span><span class="rs">Николай Седов</span>
-      </div>
-      <div class="role-card" data-role="ops" onclick="selectRole(this)">
-        <span class="ri">🔍</span><span class="rn">Операционный Директор</span><span class="rs">Ольга Щуренкова</span>
-      </div>
-      <div class="role-card" data-role="hr" onclick="selectRole(this)">
-        <span class="ri">👥</span><span class="rn">HRBP</span><span class="rs">Карина Авдышева</span>
-      </div>
-      <div class="role-card" data-role="rkr_w1" onclick="selectRole(this)">
-        <span class="ri">👗</span><span class="rn">РКР Женского · Москва 1</span><span class="rs">Светлана Чечура</span>
-      </div>
-      <div class="role-card" data-role="rkr_w2" onclick="selectRole(this)">
-        <span class="ri">👗</span><span class="rn">РКР Женского · Москва 2</span><span class="rs">Евгения Урсул</span>
-      </div>
-      <div class="role-card" data-role="rkr_m" onclick="selectRole(this)">
-        <span class="ri">👔</span><span class="rn">РКР Мужского</span><span class="rs">Дарья Домот</span>
-      </div>
-      <div class="role-card" data-role="rkr_k" onclick="selectRole(this)">
-        <span class="ri">🧒</span><span class="rn">РКР Детского</span><span class="rs">Олеся Привалова</span>
-      </div>
-    </div>
-    <button class="s0-btn" id="s0Btn" onclick="enterSchedule()">Открыть расписание →</button>
+<div class="screen active" id="s0"><div class="s0i">
+  <div class="s0-hdr">
+    <a href="index.html" class="bk"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 8H3M7 4l-4 4 4 4"/></svg>Главная</a>
+    <div class="s0-tag">// Расписание визитов</div>
+    <h1 class="s0-title">Кто ты<br>в команде?</h1>
+    <p class="s0-sub">Выбери роль — увидишь общее расписание и сможешь добавить свои визиты.</p>
   </div>
-</div>
+  <div class="s0-div"></div>
+  <div class="rgrid">
+    <div class="rc" data-role="div" onclick="selRole(this)"><span class="ri">📊</span><span class="rn">Директор Дивизиона</span><span class="rs">Николай Седов</span></div>
+    <div class="rc" data-role="ops" onclick="selRole(this)"><span class="ri">🔍</span><span class="rn">Операционный Директор</span><span class="rs">Ольга Щуренкова</span></div>
+    <div class="rc" data-role="hr"  onclick="selRole(this)"><span class="ri">👥</span><span class="rn">HRBP</span><span class="rs">Карина Авдышева</span></div>
+    <div class="rc" data-role="rkr_w1" onclick="selRole(this)"><span class="ri">👗</span><span class="rn">РКР Женского · Москва 1</span><span class="rs">Светлана Чечура</span></div>
+    <div class="rc" data-role="rkr_w2" onclick="selRole(this)"><span class="ri">👗</span><span class="rn">РКР Женского · Москва 2</span><span class="rs">Евгения Урсул</span></div>
+    <div class="rc" data-role="rkr_m" onclick="selRole(this)"><span class="ri">👔</span><span class="rn">РКР Мужского</span><span class="rs">Дарья Домот</span></div>
+    <div class="rc" data-role="rkr_k" onclick="selRole(this)"><span class="ri">🧒</span><span class="rn">РКР Детского</span><span class="rs">Олеся Привалова</span></div>
+  </div>
+  <button class="s0-btn" id="s0b" onclick="enter()">Открыть расписание →</button>
+</div></div>
 
-<!-- ══ SCREEN 1: НЕДЕЛЯ ══ -->
 <div class="screen" id="s1">
-  <div class="top-bar">
-    <div class="top-bar-back" onclick="showScreen('s0')">
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 8H3M7 4l-4 4 4 4"/></svg>
-      Роли
-    </div>
-    <div class="top-bar-title" id="topTitle">Моя неделя</div>
-    <div class="top-bar-role" id="topRole">—</div>
+  <div class="topbar">
+    <div class="topbar-back" onclick="showScr('s0')"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 8H3M7 4l-4 4 4 4"/></svg>Роли</div>
+    <div class="topbar-title">Расписание</div>
+    <div class="topbar-badge" id="topBadge">—</div>
   </div>
-
-  <div class="week-strip" id="weekStrip"></div>
-
-  <div class="s1-content" id="s1Content">
-    <!-- view toggle — only for div -->
-    <div class="view-toggle" id="viewToggle" style="display:none">
-      <button class="view-btn active" id="btnMy"    onclick="setView('my')">Мои визиты</button>
-      <button class="view-btn"        id="btnTeam"  onclick="setView('team')">Вся команда</button>
+  <div class="wstrip" id="wstrip"></div>
+  <div class="s1c">
+    <div class="vtog" id="vtog" style="display:none">
+      <button class="vbtn on" id="bmy"   onclick="setView('my')">Мои визиты</button>
+      <button class="vbtn"    id="bteam" onclick="setView('team')">Вся команда</button>
     </div>
-    <div id="visitList"></div>
+    <div id="vlist"></div>
   </div>
-
-  <button class="fab" onclick="openModal()">＋</button>
+  <button class="fab" onclick="openM()">+</button>
+  <button class="rfab" id="rfab" onclick="load()">🔄</button>
 </div>
 
-<!-- ══ MODAL: ДОБАВИТЬ ВИЗИТ ══ -->
-<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <div class="modal-title">Добавить визит</div>
-    <div class="modal-body">
-      <div class="field">
-        <label>Магазин</label>
-        <select id="mStore"><option value="">— выбрать магазин</option></select>
-      </div>
-      <div class="field-row">
-        <div class="field">
-          <label>Дата</label>
-          <input type="date" id="mDate">
-        </div>
-        <div class="field">
-          <label>Время</label>
-          <input type="time" id="mTime" value="10:00">
-        </div>
-      </div>
-      <div class="field">
-        <label>Комментарий (необязательно)</label>
-        <input type="text" id="mComment" placeholder="Цель визита...">
-      </div>
+<div class="mov" id="mov" onclick="closeOut(event)"><div class="modal">
+  <div class="mhandle"></div>
+  <div class="mtitle" id="mtitle">Добавить визит</div>
+  <div class="mbody">
+    <div class="fld"><label>Магазин</label><select id="mst"><option value="">— выбрать</option></select></div>
+    <div class="frow">
+      <div class="fld"><label>Дата</label><input type="date" id="mdt"></div>
+      <div class="fld"><label>Время</label><input type="time" id="mtm" value="10:00"></div>
     </div>
-    <div class="modal-actions">
-      <button class="modal-btn modal-btn-cancel" onclick="closeModal()">Отмена</button>
-      <button class="modal-btn modal-btn-save"   onclick="saveVisit()">Сохранить</button>
-    </div>
+    <div class="fld"><label>Комментарий</label><input type="text" id="mcm" placeholder="Цель визита..."></div>
   </div>
-</div>
+  <div class="macts">
+    <button class="mbtn mbtn-c" onclick="closeM()">Отмена</button>
+    <button class="mbtn mbtn-s" id="msave" onclick="save()">Сохранить</button>
+  </div>
+</div></div>
 
 <script>
-// ═══════════════════════════════════════
-// ДАННЫЕ
-// ═══════════════════════════════════════
-const VISITOR_NAMES = {
-  div:'Николай Седов', ops:'Ольга Щуренкова', hr:'Карина Авдышева',
-  rkr_w1:'Светлана Чечура', rkr_w2:'Евгения Урсул',
-  rkr_m:'Дарья Домот', rkr_k:'Олеся Привалова',
-};
-
-const ROLE_BADGES = {
-  div:'ДИВ', ops:'ОПЕРАЦИЯ', hr:'HR',
-  rkr_w1:'РКР ЖЕН·1', rkr_w2:'РКР ЖЕН·2',
-  rkr_m:'РКР МУЖ', rkr_k:'РКР ДЕТ',
-};
-
-const ALL_STORES = [
-  { name:'Москва Columbus',               has_m:true,  has_k:true,  rkr_w:'rkr_w1' },
-  { name:'Москва Мега Химки',             has_m:true,  has_k:true,  rkr_w:'rkr_w2' },
-  { name:'Москва Авиапарк',               has_m:true,  has_k:true,  rkr_w:'rkr_w2' },
-  { name:'Москва Метрополис',             has_m:true,  has_k:true,  rkr_w:'rkr_w2' },
-  { name:'Москва Саларис',                has_m:true,  has_k:true,  rkr_w:'rkr_w1' },
-  { name:'Москва Афимолл',                has_m:true,  has_k:true,  rkr_w:'rkr_w1' },
-  { name:'Москва Европейский',            has_m:false, has_k:true,  rkr_w:'rkr_w1' },
-  { name:'Москва Город Лефортово-2',      has_m:true,  has_k:true,  rkr_w:'rkr_w2' },
-  { name:'Зеленоград Зеленопарк',         has_m:true,  has_k:true,  rkr_w:'rkr_w2' },
-  { name:'Москва Павелецкая Плаза',       has_m:true,  has_k:true,  rkr_w:'rkr_w1' },
-  { name:'Москва BOTANICA',               has_m:true,  has_k:true,  rkr_w:'rkr_w2' },
-  { name:'Мытищи Красный Кит',            has_m:true,  has_k:true,  rkr_w:'rkr_w2' },
-  { name:'Москва Мега Белая Дача',        has_m:true,  has_k:true,  rkr_w:'rkr_w1' },
-  { name:'Одинцово Одипарк',              has_m:true,  has_k:true,  rkr_w:'rkr_w1' },
-  { name:'Москва Хорошо',                 has_m:true,  has_k:true,  rkr_w:'rkr_w2' },
-  { name:'Москва Мега Тёплый Стан',       has_m:true,  has_k:true,  rkr_w:'rkr_w1' },
-  { name:'Москва Бутово Молл',            has_m:true,  has_k:true,  rkr_w:'rkr_w1' },
-  { name:'Москва Каширская Плаза',        has_m:true,  has_k:true,  rkr_w:'rkr_w1' },
-  { name:'Москва Вегас 2',                has_m:false, has_k:true,  rkr_w:'rkr_w1' },
-  { name:'Москва Вегас (Кунцево)',        has_m:false, has_k:true,  rkr_w:'rkr_w1' },
-  { name:'Москва Пушкино Парк',           has_m:true,  has_k:true,  rkr_w:'rkr_w2' },
-  { name:'Москва ЗУМ',                    has_m:true,  has_k:true,  rkr_w:'rkr_w1' },
-  { name:'Москва Европолис (Золотой Вавилон)', has_m:false, has_k:true, rkr_w:'rkr_w2' },
-  { name:'Москва Щёлковский',             has_m:false, has_k:true,  rkr_w:'rkr_w2' },
-  { name:'Москва Селигерская (Avenue Sever)', has_m:true, has_k:true, rkr_w:'rkr_w2' },
-  { name:'Москва Весна',                  has_m:false, has_k:true,  rkr_w:'rkr_w2' },
-  { name:'Москва Ареал (Беляево)',        has_m:false, has_k:false, rkr_w:'rkr_w1' },
-  { name:'Москва Домодедовский',          has_m:false, has_k:true,  rkr_w:'rkr_w1' },
-  { name:'Москва Шоколад',               has_m:false, has_k:true,  rkr_w:'rkr_w2' },
-  { name:'Москва Ладья',                  has_m:false, has_k:true,  rkr_w:'rkr_w2' },
-  { name:'Москва Мегаполис',              has_m:false, has_k:true,  rkr_w:'rkr_w1' },
-  { name:'Красногорск РигаМолл',          has_m:true,  has_k:true,  rkr_w:'rkr_w2' },
-  { name:'Москва Вэйпарк',               has_m:false, has_k:true,  rkr_w:'rkr_w2' },
-  { name:'Москва Иридиум',               has_m:false, has_k:true,  rkr_w:'rkr_w2' },
-  { name:'Москва Ривьера',               has_m:true,  has_k:true,  rkr_w:'rkr_w1' },
-  { name:'Москва Океания',               has_m:true,  has_k:true,  rkr_w:'rkr_w1' },
-  { name:'Москва Остров Мечты Kids',     has_m:false, has_k:true,  rkr_w:null },
-  { name:'Москва XL',                    has_m:false, has_k:true,  rkr_w:'rkr_w2' },
+const WR="https://sedovnn.app.n8n.cloud/webhook/sela-schedule-write";
+const RD="https://sedovnn.app.n8n.cloud/webhook/sela-schedule-read";
+const NAMES={div:"Николай Седов",ops:"Ольга Щуренкова",hr:"Карина Авдышева",rkr_w1:"Светлана Чечура",rkr_w2:"Евгения Урсул",rkr_m:"Дарья Домот",rkr_k:"Олеся Привалова"};
+const BADGES={div:"ДИВ",ops:"ОПЕРАЦИЯ",hr:"HR",rkr_w1:"РКР ЖЕН·1",rkr_w2:"РКР ЖЕН·2",rkr_m:"РКР МУЖ",rkr_k:"РКР ДЕТ"};
+const DNS=["Вс","Пн","Вт","Ср","Чт","Пт","Сб"];
+const DNF=["Воскресенье","Понедельник","Вторник","Среда","Четверг","Пятница","Суббота"];
+const MNS=["янв","фев","мар","апр","май","июн","июл","авг","сен","окт","ноя","дек"];
+const ST=[
+  {n:"Москва Columbus",m:true,k:true,w:"rkr_w1"},{n:"Москва Мега Химки",m:true,k:true,w:"rkr_w2"},
+  {n:"Москва Авиапарк",m:true,k:true,w:"rkr_w2"},{n:"Москва Метрополис",m:true,k:true,w:"rkr_w2"},
+  {n:"Москва Саларис",m:true,k:true,w:"rkr_w1"},{n:"Москва Афимолл",m:true,k:true,w:"rkr_w1"},
+  {n:"Москва Европейский",m:false,k:true,w:"rkr_w1"},{n:"Москва Город Лефортово-2",m:true,k:true,w:"rkr_w2"},
+  {n:"Зеленоград Зеленопарк",m:true,k:true,w:"rkr_w2"},{n:"Москва Павелецкая Плаза",m:true,k:true,w:"rkr_w1"},
+  {n:"Москва BOTANICA",m:true,k:true,w:"rkr_w2"},{n:"Мытищи Красный Кит",m:true,k:true,w:"rkr_w2"},
+  {n:"Москва Мега Белая Дача",m:true,k:true,w:"rkr_w1"},{n:"Одинцово Одипарк",m:true,k:true,w:"rkr_w1"},
+  {n:"Москва Хорошо",m:true,k:true,w:"rkr_w2"},{n:"Москва Мега Тёплый Стан",m:true,k:true,w:"rkr_w1"},
+  {n:"Москва Бутово Молл",m:true,k:true,w:"rkr_w1"},{n:"Москва Каширская Плаза",m:true,k:true,w:"rkr_w1"},
+  {n:"Москва Вегас 2",m:false,k:true,w:"rkr_w1"},{n:"Москва Вегас (Кунцево)",m:false,k:true,w:"rkr_w1"},
+  {n:"Москва Пушкино Парк",m:true,k:true,w:"rkr_w2"},{n:"Москва ЗУМ",m:true,k:true,w:"rkr_w1"},
+  {n:"Москва Европолис (Золотой Вавилон)",m:false,k:true,w:"rkr_w2"},{n:"Москва Щёлковский",m:false,k:true,w:"rkr_w2"},
+  {n:"Москва Селигерская (Avenue Sever)",m:true,k:true,w:"rkr_w2"},{n:"Москва Весна",m:false,k:true,w:"rkr_w2"},
+  {n:"Москва Ареал (Беляево)",m:false,k:false,w:"rkr_w1"},{n:"Москва Домодедовский",m:false,k:true,w:"rkr_w1"},
+  {n:"Москва Шоколад",m:false,k:true,w:"rkr_w2"},{n:"Москва Ладья",m:false,k:true,w:"rkr_w2"},
+  {n:"Москва Мегаполис",m:false,k:true,w:"rkr_w1"},{n:"Красногорск РигаМолл",m:true,k:true,w:"rkr_w2"},
+  {n:"Москва Вэйпарк",m:false,k:true,w:"rkr_w2"},{n:"Москва Иридиум",m:false,k:true,w:"rkr_w2"},
+  {n:"Москва Ривьера",m:true,k:true,w:"rkr_w1"},{n:"Москва Океания",m:true,k:true,w:"rkr_w1"},
+  {n:"Москва Остров Мечты Kids",m:false,k:true,w:null},{n:"Москва XL",m:false,k:true,w:"rkr_w2"},
 ];
-
-function storesForRole(role) {
-  if (role === 'div' || role === 'ops' || role === 'hr') return ALL_STORES;
-  if (role === 'rkr_w1') return ALL_STORES.filter(s => s.rkr_w === 'rkr_w1');
-  if (role === 'rkr_w2') return ALL_STORES.filter(s => s.rkr_w === 'rkr_w2');
-  if (role === 'rkr_m')  return ALL_STORES.filter(s => s.has_m);
-  if (role === 'rkr_k')  return ALL_STORES.filter(s => s.has_k);
-  return ALL_STORES;
+function sf(r){if(["div","ops","hr"].includes(r))return ST;if(r==="rkr_w1")return ST.filter(s=>s.w==="rkr_w1");if(r==="rkr_w2")return ST.filter(s=>s.w==="rkr_w2");if(r==="rkr_m")return ST.filter(s=>s.m);if(r==="rkr_k")return ST.filter(s=>s.k);return ST}
+let role=null,view="my",selDay=iso(new Date()),visits=[],eid=null;
+function iso(d){return d.toISOString().slice(0,10)}
+function fmtDate(s){const d=new Date(s+"T00:00:00");return DNF[d.getDay()]+", "+d.getDate()+" "+MNS[d.getMonth()]}
+function showScr(id){document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));document.getElementById(id).classList.add("active");window.scrollTo(0,0)}
+function selRole(c){document.querySelectorAll(".rc").forEach(x=>x.classList.remove("sel"));c.classList.add("sel");role=c.dataset.role;document.getElementById("s0b").classList.add("vis")}
+function enter(){
+  if(!role)return;
+  document.getElementById("topBadge").textContent=BADGES[role];
+  document.getElementById("vtog").style.display=role==="div"?"flex":"none";
+  const sel=document.getElementById("mst");sel.innerHTML="<option value=\'\'>— выбрать</option>";
+  sf(role).forEach(s=>sel.appendChild(new Option("SELA "+s.n,s.n)));
+  document.getElementById("mdt").valueAsDate=new Date();
+  showScr("s1");buildStrip();load();
 }
-
-// ═══════════════════════════════════════
-// СОСТОЯНИЕ
-// ═══════════════════════════════════════
-let currentRole = null;
-let currentView = 'my'; // 'my' | 'team'
-let selectedWeekDay = null;
-// visits: { id, role, visitorName, store, date, time, comment, done }
-let visits = JSON.parse(localStorage.getItem('sela_visits') || '[]');
-
-function saveVisits() {
-  localStorage.setItem('sela_visits', JSON.stringify(visits));
+async function load(){
+  const btn=document.getElementById("rfab");btn.classList.add("spin");
+  document.getElementById("vlist").innerHTML="<div class=\'loading\'><div class=\'spinner\'></div>Загружаем...</div>";
+  try{
+    const r=await fetch(RD);const d=await r.json();
+    visits=(d.visits||[]).map(v=>({id:v.ID||v.id,role:v["Роль"]||v.role,name:v["Визитёр"]||v.name,store:v["Магазин"]||v.store,date:v["Дата"]||v.date,time:v["Время"]||v.time,comment:v["Комментарий"]||v.comment||"",status:v["Статус"]||v.status||"план"}));
+    buildStrip();render();
+  }catch(e){document.getElementById("vlist").innerHTML="<div class=\'empty\'><div class=\'eico\'>⚠️</div><div class=\'etxt\'>Не удалось загрузить.<br>Нажми 🔄</div></div>"}
+  btn.classList.remove("spin");
 }
-
-// ═══════════════════════════════════════
-// SCREEN NAVIGATION
-// ═══════════════════════════════════════
-function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  window.scrollTo(0, 0);
-}
-
-// ═══════════════════════════════════════
-// SCREEN 0: ВЫБОР РОЛИ
-// ═══════════════════════════════════════
-function selectRole(card) {
-  document.querySelectorAll('.role-card').forEach(c => c.classList.remove('sel'));
-  card.classList.add('sel');
-  currentRole = card.dataset.role;
-  const btn = document.getElementById('s0Btn');
-  btn.classList.add('visible');
-}
-
-function enterSchedule() {
-  if (!currentRole) return;
-
-  // Header
-  document.getElementById('topRole').textContent = ROLE_BADGES[currentRole];
-  document.getElementById('topTitle').textContent = currentRole === 'div' ? 'Расписание' : 'Моя неделя';
-
-  // Show team toggle only for div
-  document.getElementById('viewToggle').style.display = currentRole === 'div' ? 'flex' : 'none';
-
-  // Build week strip
-  buildWeekStrip();
-
-  // Populate store dropdown in modal
-  const sel = document.getElementById('mStore');
-  sel.innerHTML = '<option value="">— выбрать магазин</option>';
-  storesForRole(currentRole).forEach(s => {
-    sel.appendChild(new Option('SELA ' + s.name, s.name));
-  });
-
-  // Set modal date to today
-  document.getElementById('mDate').valueAsDate = new Date();
-
-  showScreen('s1');
-  renderVisits();
-}
-
-// ═══════════════════════════════════════
-// WEEK STRIP
-// ═══════════════════════════════════════
-const DAY_NAMES = ['Вс','Пн','Вт','Ср','Чт','Пт','Сб'];
-const DAY_NAMES_FULL = ['Воскресенье','Понедельник','Вторник','Среда','Четверг','Пятница','Суббота'];
-
-function buildWeekStrip() {
-  const strip = document.getElementById('weekStrip');
-  strip.innerHTML = '';
-  const today = new Date();
-  today.setHours(0,0,0,0);
-
-  // Show current week Mon–Sun
-  const monday = new Date(today);
-  monday.setDate(today.getDate() - ((today.getDay() + 6) % 7));
-
-  for (let i = 0; i < 7; i++) {
-    const d = new Date(monday);
-    d.setDate(monday.getDate() + i);
-    const iso = toISO(d);
-    const isToday = d.getTime() === today.getTime();
-
-    const div = document.createElement('div');
-    div.className = 'week-day' + (isToday ? ' today selected' : '');
-    div.dataset.iso = iso;
-
-    const hasV = visits.some(v => v.date === iso && (currentView === 'team' || v.role === currentRole));
-    if (hasV) div.classList.add('has-visits');
-
-    div.innerHTML = `
-      <span class="wd-name">${DAY_NAMES[d.getDay()]}</span>
-      <span class="wd-num">${d.getDate()}</span>
-      <span class="wd-dot"></span>`;
-    div.onclick = () => selectDay(iso);
-    strip.appendChild(div);
-
-    if (isToday || (!selectedWeekDay && isToday)) selectedWeekDay = iso;
-  }
-  if (!selectedWeekDay) {
-    selectedWeekDay = toISO(monday);
-    strip.firstChild?.classList.add('selected');
+function buildStrip(){
+  const st=document.getElementById("wstrip");st.innerHTML="";
+  const today=new Date();today.setHours(0,0,0,0);
+  const mon=new Date(today);mon.setDate(today.getDate()-((today.getDay()+6)%7));
+  for(let i=0;i<7;i++){
+    const d=new Date(mon);d.setDate(mon.getDate()+i);
+    const s=iso(d),isT=d.getTime()===today.getTime();
+    const hasV=visits.some(v=>v.date===s&&(view==="team"||v.role===role));
+    const div=document.createElement("div");
+    div.className="wd"+(isT?" today":"")+(s===selDay?" sel":"")+(hasV?" hasvs":"");
+    div.dataset.iso=s;
+    div.innerHTML="<span class=\'wdn\'>"+DNS[d.getDay()]+"</span><span class=\'wdnum\'>"+d.getDate()+"</span><span class=\'wddot\'></span>";
+    div.onclick=()=>selD(s);st.appendChild(div);
   }
 }
-
-function selectDay(iso) {
-  selectedWeekDay = iso;
-  document.querySelectorAll('.week-day').forEach(d => {
-    d.classList.toggle('selected', d.dataset.iso === iso);
+function selD(s){selDay=s;document.getElementById("mdt").value=s;document.querySelectorAll(".wd").forEach(d=>d.classList.toggle("sel",d.dataset.iso===s));render()}
+function setView(v){view=v;document.getElementById("bmy").classList.toggle("on",v==="my");document.getElementById("bteam").classList.toggle("on",v==="team");buildStrip();render()}
+function render(){
+  const list=document.getElementById("vlist");
+  const f=visits.filter(v=>v.date===selDay&&(view==="team"||v.role===role)).sort((a,b)=>(a.time||"").localeCompare(b.time||""));
+  list.innerHTML="<div class=\'daylbl\'>"+fmtDate(selDay)+"</div>";
+  if(!f.length){list.innerHTML+="<div class=\'empty\'><div class=\'eico\'>📅</div><div class=\'etxt\'>Нет визитов на этот день<br><span style=\'font-size:11px;opacity:.6\'>Нажми + чтобы добавить</span></div></div>";return}
+  f.forEach(v=>{
+    const own=v.role===role,done=v.status==="выполнен";
+    const el=document.createElement("div");el.className="vi"+(done?" done":"");el.dataset.role=v.role;
+    el.innerHTML="<div class=\'vchk"+(done?" on":"")+"\' onclick=\'tgD(\""+v.id+"\",\""+v.status+"\")\'><svg viewBox=\'0 0 10 10\' fill=\'none\'><path d=\'M1.5 5l2.5 2.5 4.5-4\' stroke=\'white\' stroke-width=\'2.5\' stroke-linecap=\'round\' stroke-linejoin=\'round\'/></svg></div>"
+      +"<div class=\'vinfo\'><span class=\'vstore\'>SELA "+v.store+"</span><div class=\'vmeta\'>"
+      +(v.time?"<span>🕐 "+v.time+"</span>":"")
+      +(view==="team"?"<span class=\'vbadge\'>"+( BADGES[v.role]||v.role)+"</span>":"")
+      +"<span class=\'vstatus "+(done?"done":"plan")+"\'>"+( done?"✓ выполнен":"план")+"</span>"
+      +(v.comment?"<span>· "+v.comment+"</span>":"")
+      +"</div></div>"
+      +(own?"<div class=\'vacts\'><button class=\'abtn\' onclick=\'openEdit(\""+v.id+"\")\'>✏️</button><button class=\'abtn\' onclick=\'del(\""+v.id+"\")\'>✕</button></div>":"");
+    list.appendChild(el);
   });
-  // Update modal date
-  document.getElementById('mDate').value = iso;
-  renderVisits();
 }
-
-function toISO(d) {
-  return d.toISOString().slice(0,10);
-}
-
-function formatDate(iso) {
-  const d = new Date(iso + 'T00:00:00');
-  return DAY_NAMES_FULL[d.getDay()] + ', ' + d.getDate() + ' ' + ['янв','фев','мар','апр','май','июн','июл','авг','сен','окт','ноя','дек'][d.getMonth()];
-}
-
-// ═══════════════════════════════════════
-// RENDER VISITS
-// ═══════════════════════════════════════
-function setView(v) {
-  currentView = v;
-  document.getElementById('btnMy').classList.toggle('active', v === 'my');
-  document.getElementById('btnTeam').classList.toggle('active', v === 'team');
-  renderVisits();
-  buildWeekStrip();
-}
-
-function renderVisits() {
-  const list = document.getElementById('visitList');
-  const iso = selectedWeekDay || toISO(new Date());
-
-  const filtered = visits.filter(v => {
-    if (v.date !== iso) return false;
-    if (currentView === 'team' && currentRole === 'div') return true;
-    return v.role === currentRole;
-  }).sort((a,b) => (a.time||'').localeCompare(b.time||''));
-
-  const header = document.createElement('div');
-  header.className = 'day-header';
-  header.textContent = formatDate(iso);
-  list.innerHTML = '';
-  list.appendChild(header);
-
-  if (filtered.length === 0) {
-    list.innerHTML += `<div class="empty-day">Нет визитов на этот день<br><span style="font-size:11px;opacity:.6">Нажми + чтобы добавить</span></div>`;
-    return;
+async function tgD(id,cur){const ns=cur==="выполнен"?"план":"выполнен";const v=visits.find(x=>x.id===id);if(!v)return;v.status=ns;render();try{await fetch(WR,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"update",id,status:ns,store:v.store,date:v.date,time:v.time,comment:v.comment})})}catch(e){}}
+async function del(id){visits=visits.filter(x=>x.id!==id);buildStrip();render();try{await fetch(WR,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"delete",id})})}catch(e){}}
+function openEdit(id){const v=visits.find(x=>x.id===id);if(!v)return;eid=id;document.getElementById("mtitle").textContent="Изменить визит";document.getElementById("mst").value=v.store;document.getElementById("mdt").value=v.date;document.getElementById("mtm").value=v.time||"10:00";document.getElementById("mcm").value=v.comment||"";document.getElementById("mov").classList.add("open")}
+function openM(){eid=null;document.getElementById("mtitle").textContent="Добавить визит";document.getElementById("mst").value="";document.getElementById("mdt").value=selDay;document.getElementById("mtm").value="10:00";document.getElementById("mcm").value="";document.getElementById("mov").classList.add("open")}
+function closeM(){document.getElementById("mov").classList.remove("open");eid=null}
+function closeOut(e){if(e.target===document.getElementById("mov"))closeM()}
+async function save(){
+  const store=document.getElementById("mst").value;const date=document.getElementById("mdt").value;
+  const time=document.getElementById("mtm").value;const comment=document.getElementById("mcm").value.trim();
+  if(!store||!date){alert("Выбери магазин и дату");return}
+  const btn=document.getElementById("msave");btn.classList.add("saving");btn.textContent="Сохраняем...";
+  if(eid){
+    const v=visits.find(x=>x.id===eid);if(v){v.store=store;v.date=date;v.time=time;v.comment=comment}
+    try{await fetch(WR,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"update",id:eid,store,date,time,comment,status:v?.status||"план"})})}catch(e){}
+  }else{
+    const id=Date.now().toString();const nv={id,role,name:NAMES[role],store,date,time,comment,status:"план"};visits.push(nv);
+    try{await fetch(WR,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"create",...nv})})}catch(e){}
   }
-
-  filtered.forEach(v => {
-    const isTeam = currentView === 'team';
-    const div = document.createElement('div');
-    div.className = 'visit-item' + (v.done ? ' done' : '') + (isTeam ? ' team' : '');
-    if (isTeam) div.dataset.role = v.role;
-
-    div.innerHTML = `
-      <div class="visit-check ${v.done?'checked':''}" onclick="toggleDone('${v.id}')">
-        <svg viewBox="0 0 10 10" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 5l2.5 2.5 4.5-4"/></svg>
-      </div>
-      <div class="visit-info">
-        <span class="visit-store">SELA ${v.store}</span>
-        <div class="visit-meta">
-          ${v.time ? `<span>🕐 ${v.time}</span>` : ''}
-          ${isTeam ? `<span class="visit-role-badge">${ROLE_BADGES[v.role]||v.role}</span>` : ''}
-          ${v.comment ? `<span>· ${v.comment}</span>` : ''}
-        </div>
-      </div>
-      ${!isTeam || currentRole==='div' ? `<button class="visit-delete" onclick="deleteVisit('${v.id}')">✕</button>` : ''}
-    `;
-    list.appendChild(div);
-  });
-
-  // Update dot on week strip
-  buildWeekStrip();
-  // Re-select current day
-  document.querySelectorAll('.week-day').forEach(d => {
-    d.classList.toggle('selected', d.dataset.iso === selectedWeekDay);
-  });
+  btn.classList.remove("saving");btn.textContent="Сохранить";closeM();selDay=date;buildStrip();render();
+  document.querySelectorAll(".wd").forEach(d=>d.classList.toggle("sel",d.dataset.iso===date));
 }
-
-function toggleDone(id) {
-  const v = visits.find(x => x.id === id);
-  if (v) { v.done = !v.done; saveVisits(); renderVisits(); }
-}
-
-function deleteVisit(id) {
-  visits = visits.filter(x => x.id !== id);
-  saveVisits();
-  renderVisits();
-  buildWeekStrip();
-}
-
-// ═══════════════════════════════════════
-// MODAL
-// ═══════════════════════════════════════
-function openModal() {
-  document.getElementById('mDate').value = selectedWeekDay || toISO(new Date());
-  document.getElementById('modalOverlay').classList.add('open');
-}
-
-function closeModal() {
-  document.getElementById('modalOverlay').classList.remove('open');
-}
-
-function closeModalOutside(e) {
-  if (e.target === document.getElementById('modalOverlay')) closeModal();
-}
-
-function saveVisit() {
-  const store   = document.getElementById('mStore').value;
-  const date    = document.getElementById('mDate').value;
-  const time    = document.getElementById('mTime').value;
-  const comment = document.getElementById('mComment').value.trim();
-
-  if (!store || !date) {
-    alert('Выбери магазин и дату');
-    return;
-  }
-
-  const visit = {
-    id: Date.now().toString(),
-    role: currentRole,
-    visitorName: VISITOR_NAMES[currentRole],
-    store, date, time, comment,
-    done: false,
-  };
-
-  visits.push(visit);
-  saveVisits();
-
-  // Send to n8n
-  fetch('https://sedovnn.app.n8n.cloud/webhook/50e2edb8-ac57-4aca-89b6-3f362bdc6737', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ type: 'schedule', ...visit }),
-  }).catch(() => {});
-
-  // Reset form
-  document.getElementById('mStore').value = '';
-  document.getElementById('mComment').value = '';
-  closeModal();
-
-  selectedWeekDay = date;
-  renderVisits();
-  buildWeekStrip();
-  document.querySelectorAll('.week-day').forEach(d => {
-    d.classList.toggle('selected', d.dataset.iso === date);
-  });
-}
-
-// ═══════════════════════════════════════
-// INIT
-// ═══════════════════════════════════════
-selectedWeekDay = toISO(new Date());
+selDay=iso(new Date());
 </script>
 </body>
 </html>
