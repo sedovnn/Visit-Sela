@@ -137,6 +137,18 @@ body{font-family:"Golos Text",sans-serif;min-height:100vh}
 .loading{text-align:center;padding:32px;color:var(--grey);font-size:13px}
 .spinner{width:24px;height:24px;border:2px solid var(--border);border-top-color:var(--blue);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 10px}
 
+/* WEEK NAV */
+.wstrip-wrap{background:var(--navy2);border-bottom:1px solid rgba(255,255,255,.07)}
+.week-nav{display:flex;align-items:center;justify-content:space-between;padding:8px 16px 4px}
+.wnav-btn{background:rgba(255,255,255,.1);border:none;color:#fff;width:32px;height:32px;border-radius:50%;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s}
+.wnav-btn:active{background:rgba(255,255,255,.25)}
+.wnav-label{font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:700;color:rgba(255,255,255,.7);letter-spacing:.3px}
+.wstrip{padding:4px 16px 10px;border-bottom:none}
+/* BLOCK TYPE */
+.vi.block{border-left-color:#7C3AED;background:#F5F3FF}
+.vi.block .vstore{color:#7C3AED}
+.vstatus.block-s{background:#EDE9FE;color:#7C3AED}
+
 /* MODAL */
 .mov{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:300;display:none;align-items:flex-end;justify-content:center}
 .mov.open{display:flex}
@@ -209,7 +221,14 @@ body{font-family:"Golos Text",sans-serif;min-height:100vh}
     <div class="tb-title">Расписание</div>
     <div class="tb-badge" id="tb2badge">—</div>
   </div>
+  <div class="wstrip-wrap">
+  <div class="week-nav" id="weekNav">
+    <button class="wnav-btn" onclick="changeWeek(-1)">‹</button>
+    <span class="wnav-label" id="wnavLabel">Эта неделя</span>
+    <button class="wnav-btn" onclick="changeWeek(1)">›</button>
+  </div>
   <div class="wstrip" id="wstrip"></div>
+</div>
   <div class="cnt">
     <div class="vtog" id="vtog" style="display:none">
       <button class="vbtn on" id="bmy"   onclick="setView('my')">Мои</button>
@@ -220,6 +239,8 @@ body{font-family:"Golos Text",sans-serif;min-height:100vh}
   <div class="fabarea">
     <div class="fab-label">Добавить событие</div>
     <button class="fab fab-event" onclick="openEvt()">🔴 Событие</button>
+    <div class="fab-label">Блок (отгул / отпуск)</div>
+    <button class="fab" style="background:#7C3AED;box-shadow:0 4px 16px rgba(124,58,237,.4);font-size:13px;font-weight:700;width:auto;padding:0 14px;border-radius:24px;height:40px;white-space:nowrap" onclick="openBlock()">🟣 Блок</button>
     <div class="fab-label">Добавить визит</div>
     <button class="fab" onclick="openVisit()">＋</button>
     <button class="rfab" id="rfab" onclick="load()">🔄</button>
@@ -259,6 +280,32 @@ body{font-family:"Golos Text",sans-serif;min-height:100vh}
   <div class="macts">
     <button class="mbtn mbtn-c" onclick="closeM('movEvt')">Отмена</button>
     <button class="mbtn mbtn-event" id="evSave" onclick="saveEvent()">Добавить</button>
+  </div>
+</div></div>
+
+<!-- MODAL: БЛОК -->
+<div class="mov" id="movBlock" onclick="closeOut(event,'movBlock')"><div class="modal">
+  <div class="mhandle"></div>
+  <div class="mtitle">🟣 Блок периода</div>
+  <div class="mbody">
+    <div class="fld"><label>Тип блока</label>
+      <select id="blType">
+        <option value="Отгул">🌴 Отгул</option>
+        <option value="Отпуск">🏖 Отпуск</option>
+        <option value="Больничный">🤒 Больничный</option>
+        <option value="Обучение">📚 Обучение</option>
+        <option value="Другое">📌 Другое</option>
+      </select>
+    </div>
+    <div class="frow">
+      <div class="fld"><label>Дата начала</label><input type="date" id="blFrom"></div>
+      <div class="fld"><label>Дата конца</label><input type="date" id="blTo"></div>
+    </div>
+    <div class="fld"><label>Комментарий</label><input type="text" id="blCm" placeholder="Подробности..."></div>
+  </div>
+  <div class="macts">
+    <button class="mbtn mbtn-c" onclick="closeM('movBlock')">Отмена</button>
+    <button class="mbtn" style="background:#7C3AED;color:#fff;padding:13px;font-family:'Golos Text',sans-serif;font-size:14px;font-weight:700;border:none;border-radius:var(--r);cursor:pointer" id="blSave" onclick="saveBlock()">Добавить блок</button>
   </div>
 </div></div>
 
@@ -324,7 +371,7 @@ function storesFor(r) {
 }
 
 // ── STATE ──
-let role=null, view="my", selDay=iso(new Date()), visits=[], eid=null;
+let role=null, view="my", selDay=iso(new Date()), visits=[], eid=null, weekOffset=0;
 
 function iso(d) {
   const y = d.getFullYear();
@@ -370,7 +417,8 @@ function selRole(c) {
 // ── SCREEN 1: PLAN WEEK ──
 function getWeekDays() {
   const today=new Date(); today.setHours(0,0,0,0);
-  const mon=new Date(today); mon.setDate(today.getDate()-((today.getDay()+6)%7));
+  const baseMonday=new Date(today); baseMonday.setDate(today.getDate()-((today.getDay()+6)%7));
+  const mon=new Date(baseMonday); mon.setDate(baseMonday.getDate()+(weekOffset*7));
   const days=[];
   for(let i=0;i<7;i++){const d=new Date(mon);d.setDate(mon.getDate()+i);days.push(d);}
   return days;
@@ -458,7 +506,8 @@ async function load() {
 function buildStrip() {
   const st=document.getElementById("wstrip"); st.innerHTML="";
   const today=new Date(); today.setHours(0,0,0,0);
-  const mon=new Date(today); mon.setDate(today.getDate()-((today.getDay()+6)%7));
+  const baseMonday=new Date(today); baseMonday.setDate(today.getDate()-((today.getDay()+6)%7));
+  const mon=new Date(baseMonday); mon.setDate(baseMonday.getDate()+(weekOffset*7));
   const todayIso = iso(today);
   for(let i=0;i<7;i++){
     const d=new Date(mon); d.setDate(mon.getDate()+i);
@@ -477,6 +526,24 @@ function buildStrip() {
     div.onclick=()=>selD(s);
     st.appendChild(div);
   }
+}
+
+function changeWeek(delta) {
+  weekOffset += delta;
+  // Update label
+  const lbl = document.getElementById("wnavLabel");
+  if (weekOffset === 0) lbl.textContent = "Эта неделя";
+  else if (weekOffset === 1) lbl.textContent = "Следующая";
+  else if (weekOffset === -1) lbl.textContent = "Прошлая";
+  else if (weekOffset > 0) lbl.textContent = "+" + weekOffset + " нед.";
+  else lbl.textContent = weekOffset + " нед.";
+  // Set selDay to monday of new week
+  const today=new Date(); today.setHours(0,0,0,0);
+  const baseMonday=new Date(today); baseMonday.setDate(today.getDate()-((today.getDay()+6)%7));
+  const newMonday=new Date(baseMonday); newMonday.setDate(baseMonday.getDate()+(weekOffset*7));
+  selDay = iso(newMonday);
+  buildStrip();
+  render();
 }
 
 function selD(s) {
@@ -515,11 +582,11 @@ function render() {
   }
 
   f.forEach(v=>{
-    const isEvent=v.type==="event";
+    const isEvent=v.type==="event"; const isBlock=v.type==="block";
     const own=v.role===role||isEvent;
     const done=v.status==="выполнен";
     const el=document.createElement("div");
-    el.className="vi"+(done?" done":"")+(isEvent?" event":"");
+    el.className="vi"+(done?" done":"")+(isEvent?" event":"")+(isBlock?" block":"");
     if(!isEvent) el.dataset.role=v.role;
 
     el.innerHTML=`
@@ -527,10 +594,10 @@ function render() {
         <svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
       <div class="vinfo">
-        <span class="vstore">${isEvent?"🔴 "+v.store:"SELA "+v.store}</span>
+        <span class="vstore">${isEvent?"🔴 "+v.store:isBlock?"🟣 "+v.store:"SELA "+v.store}</span>
         <div class="vmeta">
           ${v.time?`<span>🕐 ${v.time}</span>`:""}
-          ${isEvent?`<span class="vstatus event">событие</span>`:
+          ${isBlock?`<span class="vstatus block-s">${v.comment||"блок"}</span>`:isEvent?`<span class="vstatus event">событие</span>`:
             (view==="team"?`<span class="vbadge">${BADGES[v.role]||v.role}</span>`:"")+
             `<span class="vstatus ${done?"done":"plan"}">${done?"✓ выполнен":"план"}</span>`}
           ${v.comment?`<span>· ${v.comment}</span>`:""}
@@ -657,6 +724,48 @@ async function saveEvent() {
   selDay=date; buildStrip(); render();
   document.querySelectorAll(".wd").forEach(d=>d.classList.toggle("sel",d.dataset.iso===date));
 }
+function openBlock() {
+  const today = iso(new Date());
+  document.getElementById("blType").value = "Отгул";
+  document.getElementById("blFrom").value = selDay || today;
+  document.getElementById("blTo").value = selDay || today;
+  document.getElementById("blCm").value = "";
+  document.getElementById("movBlock").classList.add("open");
+}
+
+async function saveBlock() {
+  const type  = document.getElementById("blType").value;
+  const from  = document.getElementById("blFrom").value;
+  const to    = document.getElementById("blTo").value;
+  const comment = document.getElementById("blCm").value.trim();
+  if (!from || !to) { alert("Укажи даты"); return; }
+
+  const btn = document.getElementById("blSave");
+  btn.textContent = "Сохраняем...";
+
+  // Create one entry per day in the range
+  const start = new Date(from + "T00:00:00");
+  const end   = new Date(to   + "T00:00:00");
+  const promises = [];
+
+  for (let d = new Date(start); d <= end; d.setDate(d.getDate()+1)) {
+    const dateIso = iso(new Date(d));
+    const id = Date.now().toString() + "_" + dateIso;
+    const nv = { id, role, name: NAMES[role], store: type, date: dateIso,
+                 time: "", comment, status: "блок", type: "block" };
+    visits.push(nv);
+    promises.push(
+      fetch(WR, { method:"POST", headers:{"Content-Type":"application/json"},
+        body: JSON.stringify({ action:"create", ...nv }) }).catch(()=>{})
+    );
+  }
+  await Promise.all(promises);
+
+  btn.textContent = "Добавить блок";
+  closeM("movBlock");
+  buildStrip(); render();
+}
+
 </script>
 </body>
 </html>
