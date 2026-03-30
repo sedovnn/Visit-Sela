@@ -326,6 +326,9 @@ body { font-family:'Golos Text',sans-serif; background:var(--bg); color:var(--te
       <svg class="rc-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4l4 4-4 4"/></svg>
     </div>
   </div>
+  <div id="rsChange" style="display:none;align-items:center;justify-content:center;margin-bottom:10px">
+    <button onclick="resetRoles()" style="background:none;border:none;font-family:'Golos Text',sans-serif;font-size:13px;font-weight:600;color:rgba(255,255,255,.4);cursor:pointer;padding:4px 8px;">← Выбрать другую роль</button>
+  </div>
   <button class="rs-cta" id="rsCta" onclick="enterMain()">Открыть расписание →</button>
 </div>
 </div>
@@ -539,10 +542,38 @@ function init() {
 
 // ─── ROLE PICKER ──────────────────────────────────────────
 function pickRole(card) {
-  document.querySelectorAll(".rc").forEach(c=>c.classList.remove("sel"));
+  const prev = document.querySelector(".rc.sel");
+  document.querySelectorAll(".rc").forEach(c => {
+    c.classList.remove("sel");
+    c.style.display = "flex";
+  });
   card.classList.add("sel");
   role = card.dataset.role;
-  document.getElementById("rsCta").classList.add("vis");
+
+  // Hide all other cards, show only selected
+  document.querySelectorAll(".rc").forEach(c => {
+    if (!c.classList.contains("sel")) c.style.display = "none";
+  });
+
+  // Show CTA and change button text
+  const cta = document.getElementById("rsCta");
+  cta.classList.add("vis");
+
+  // Show "change" link
+  document.getElementById("rsChange").style.display = "flex";
+
+  // Scroll to CTA
+  setTimeout(() => cta.scrollIntoView({behavior:"smooth", block:"nearest"}), 100);
+}
+
+function resetRoles() {
+  document.querySelectorAll(".rc").forEach(c => {
+    c.classList.remove("sel");
+    c.style.display = "flex";
+  });
+  role = null;
+  document.getElementById("rsCta").classList.remove("vis");
+  document.getElementById("rsChange").style.display = "none";
 }
 
 function enterMain() {
@@ -556,8 +587,7 @@ function switchRole() {
   localStorage.removeItem("sela_role");
   document.getElementById("mainView").classList.remove("on");
   document.getElementById("rolePicker").style.display = "flex";
-  document.querySelectorAll(".rc").forEach(c=>c.classList.remove("sel"));
-  document.getElementById("rsCta").classList.remove("vis");
+  resetRoles();
 }
 
 function showMain() {
@@ -702,11 +732,14 @@ function render() {
     const barCls = isBlock ? "bar-block" : isEvent ? "bar-event" : `bar-${v.role}`;
 
     // Title
-    const title = isEvent ? "🔴 "+v.store : isBlock ? "🟣 "+v.store : "SELA "+v.store;
+    const title = isEvent ? "🔴 "+v.store : isBlock ? "🟣 "+v.store+" · "+(v.name||NAMES[v.role]||v.role) : "SELA "+v.store;
 
     // Pills
     let pills = "";
-    if (isBlock)      pills = `<span class="pill pill-block">${v.comment||"блок"}</span>`;
+    if (isBlock) {
+      const blockName = view==="team" ? `<span class="pill pill-role">${BADGES[v.role]||v.role}</span>` : "";
+      pills = `<span class="pill pill-block">${v.comment||v.store}</span>${blockName}`;
+    }
     else if (isEvent) pills = `<span class="pill pill-event">событие</span>`;
     else              pills = `<span class="pill ${done?"pill-done":"pill-plan"}">${done?"✓ выполнен":"план"}</span>`;
 
@@ -818,7 +851,10 @@ function closeSheet(id) {
 }
 
 function closeOverlay(e, id) {
-  if (e.target === document.getElementById(id)) closeSheet(id);
+  if (e.target === document.getElementById(id)) {
+    e.stopPropagation();
+    closeSheet(id);
+  }
 }
 
 async function saveVisit() {
@@ -906,6 +942,7 @@ async function saveBlock() {
 document.getElementById("content").addEventListener("click", function(e) {
   const btn = e.target.closest("[data-action]");
   if (!btn) return;
+  e.stopPropagation();
   const action = btn.dataset.action;
   const id = btn.dataset.id;
   if (action === "edit")   editEntry(id);
