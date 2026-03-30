@@ -326,8 +326,17 @@ function storesFor(r) {
 // ── STATE ──
 let role=null, view="my", selDay=iso(new Date()), visits=[], eid=null;
 
-function iso(d) { return d.toISOString().slice(0,10); }
-function fmtDate(s) { const d=new Date(s+"T00:00:00"); return DNF[d.getDay()]+", "+d.getDate()+" "+MNS[d.getMonth()]; }
+function iso(d) {
+  const y = d.getFullYear();
+  const m = String(d.getMonth()+1).padStart(2,"0");
+  const day = String(d.getDate()).padStart(2,"0");
+  return y+"-"+m+"-"+day;
+}
+function fmtDate(s) {
+  const parts = s.split("-");
+  const d = new Date(parseInt(parts[0]), parseInt(parts[1])-1, parseInt(parts[2]));
+  return DNF[d.getDay()]+", "+d.getDate()+" "+MNS[d.getMonth()];
+}
 
 // ── NAVIGATION ──
 function goScreen(id) {
@@ -437,7 +446,10 @@ async function load() {
       status:v["Статус"]||v.status||"план",
       type:v["Тип"]||v.type||"visit",
     }));
-    buildStrip(); render();
+    // Always reset selDay to today on fresh load
+    selDay = iso(new Date());
+    buildStrip();
+    render();
   } catch(e) {
     document.getElementById("vlist").innerHTML="<div class='empty'><div class='eico'>⚠️</div><div class='etxt'>Не удалось загрузить.<br>Нажми 🔄</div></div>";
   }
@@ -448,10 +460,12 @@ function buildStrip() {
   const st=document.getElementById("wstrip"); st.innerHTML="";
   const today=new Date(); today.setHours(0,0,0,0);
   const mon=new Date(today); mon.setDate(today.getDate()-((today.getDay()+6)%7));
+  const todayIso = iso(today);
   for(let i=0;i<7;i++){
     const d=new Date(mon); d.setDate(mon.getDate()+i);
-    const s=iso(d), isT=d.getTime()===today.getTime();
-    const isSel=s===selDay;
+    const s=iso(d);
+    const isT = s === todayIso;
+    const isSel = s === selDay;
     const hasV=visits.some(v=>v.date===s&&(view==="team"||v.role===role));
     const div=document.createElement("div");
     const classes=["wd"];
@@ -467,14 +481,13 @@ function buildStrip() {
 }
 
 function selD(s) {
-  selDay=s;
-  document.getElementById("mvDt").value=s;
-  document.getElementById("evDt").value=s;
-  document.querySelectorAll(".wd").forEach(d=>{
-    d.classList.remove("sel","today");
-    const isT=d.dataset.iso===iso(new Date());
-    if(isT) d.classList.add("today");
-    if(d.dataset.iso===s) d.classList.add("sel");
+  selDay = s;
+  document.getElementById("mvDt").value = s;
+  document.getElementById("evDt").value = s;
+  const todayIso = iso(new Date());
+  document.querySelectorAll(".wd").forEach(d => {
+    d.classList.remove("sel");
+    if (d.dataset.iso === s) d.classList.add("sel");
   });
   render();
 }
