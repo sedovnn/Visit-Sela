@@ -387,8 +387,8 @@ const VISITOR_CONFIG = {
   hr: {
     label: "HRBP",
     badge: "HR",
-    pages: [7], // единый чек-лист
-    mode: "single",
+    pages: [1,2,3,4],
+    mode: "multi",
     storeFilter: () => true,
   },
   rkr_w1: {
@@ -524,7 +524,7 @@ const CHECKLIST_DIV = [
 const CHECKLIST_HR = [
   {
     id: 1,
-    title: "👥 Команда — разговор с директором",
+    title: "Команда",
     items: [
       "Укомплектованность по ШР — все позиции закрыты, нет вакансий дольше 14 дней?",
       "График активности составлен корректно — все зоны перекрыты, нет пустых слотов?",
@@ -537,7 +537,7 @@ const CHECKLIST_HR = [
   },
   {
     id: 2,
-    title: "📋 Документы",
+    title: "Документы",
     items: [
       "Договоры о материальной ответственности у кассиров подписаны в КЭДО?",
       "Журнал вводного инструктажа актуален — новые сотрудники подписаны?",
@@ -547,7 +547,7 @@ const CHECKLIST_HR = [
   },
   {
     id: 3,
-    title: "🧑 Разговор с сотрудниками (выборочно, 2–3 человека)",
+    title: "Сотрудники",
     items: [
       "Знает ли сотрудник 4 правила торгового зала? (Покупатель / Порядок / Подсортировка / Потери)",
       "Знает ли стандарты обслуживания? (приветствие, доступность, влияние на продажи, благодарность)",
@@ -558,11 +558,12 @@ const CHECKLIST_HR = [
   },
   {
     id: 4,
-    title: "📊 Метрики (берёт из системы перед визитом)",
+    title: "Метрики",
     items: [
       "Текучесть за последние 30 дней по магазину — выше или ниже нормы?",
       "Количество незакрытых вакансий на момент визита",
-      "Средний стаж команды — есть ли признаки нестабильности?"
+      "Средний стаж команды — есть ли признаки нестабильности?",
+      "ФОТ% магазина — соответствует ли норме дивизиона?"
     ]
   }
 ];
@@ -741,8 +742,18 @@ function startVisit() {
 
   // Определяем активные страницы
   if (cfg.mode === 'multi' && currentChecklist) {
-    activePages = cfg.pages; // [1..6]
+    activePages = cfg.pages;
     buildMultiChecklist(currentChecklist);
+    // Rename tab labels from checklist section titles
+    currentChecklist.forEach((sec, i) => {
+      const tabEl = document.querySelector('.tab[data-p="' + (i+1) + '"]');
+      if (tabEl) {
+        // Keep dot span if present
+        const dot = tabEl.querySelector('.dot');
+        tabEl.textContent = sec.title;
+        if (dot) tabEl.appendChild(dot);
+      }
+    });
   } else if (cfg.mode === 'single') {
     activePages = [7];
     buildSingleChecklist(currentRole);
@@ -778,19 +789,38 @@ function buildSingleChecklist(role) {
   const cont = document.getElementById('items7');
   cont.innerHTML = '';
 
-  // Заглушка для ролей без чек-листа
-  const placeholderRoles = { hr:'HRBP', rkr_w1:'РКР Женского', rkr_w2:'РКР Женского', rkr_m:'РКР Мужского', rkr_k:'РКР Детского' };
-  if (placeholderRoles[role]) {
+  // Получаем чек-лист для роли
+  const checklist = getChecklist(role);
+
+  // Заглушка если чек-лист ещё не готов
+  if (!checklist) {
+    const roleNames = { rkr_w1:'РКР Женского', rkr_w2:'РКР Женского', rkr_m:'РКР Мужского', rkr_k:'РКР Детского' };
     cont.innerHTML = `
       <div class="placeholder">
         <div class="placeholder-ico">📋</div>
         <div class="placeholder-txt">
-          Чек-лист <b>${placeholderRoles[role]}</b> будет добавлен после получения файла.<br><br>
+          Чек-лист <b>${roleNames[role] || role}</b> будет добавлен после получения файла.<br><br>
           Сейчас можно перейти к разделу <b>Задачи</b> и зафиксировать наблюдения вручную.
         </div>
       </div>`;
     return;
   }
+
+  // Рендерим разделы чек-листа
+  currentChecklist = checklist;
+  checklist.forEach(sec => {
+    const secDiv = document.createElement('div');
+    secDiv.className = 'sec';
+    secDiv.innerHTML = `<div class="sec-title">${sec.title}</div>`;
+    sec.items.forEach((text, i) => {
+      const key = `${sec.id}_${i}`;
+      secDiv.appendChild(makeItem(key, text));
+    });
+    cont.appendChild(secDiv);
+  });
+
+  // Обновляем счётчик
+  updateProgress();
 }
 
 function makeItem(key, text) {
