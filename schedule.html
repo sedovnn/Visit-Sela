@@ -451,9 +451,14 @@ function buildStrip() {
   for(let i=0;i<7;i++){
     const d=new Date(mon); d.setDate(mon.getDate()+i);
     const s=iso(d), isT=d.getTime()===today.getTime();
+    const isSel=s===selDay;
     const hasV=visits.some(v=>v.date===s&&(view==="team"||v.role===role));
     const div=document.createElement("div");
-    div.className="wd"+(isT?" today":"")+(s===selDay?" sel":"")+(hasV?" hasvs":"");
+    const classes=["wd"];
+    if(isT) classes.push("today");
+    if(isSel) classes.push("sel");
+    if(hasV) classes.push("hasvs");
+    div.className=classes.join(" ");
     div.dataset.iso=s;
     div.innerHTML="<span class='wdn'>"+DNS[d.getDay()]+"</span><span class='wdnum'>"+d.getDate()+"</span><span class='wddot'></span>";
     div.onclick=()=>selD(s);
@@ -465,7 +470,12 @@ function selD(s) {
   selDay=s;
   document.getElementById("mvDt").value=s;
   document.getElementById("evDt").value=s;
-  document.querySelectorAll(".wd").forEach(d=>d.classList.toggle("sel",d.dataset.iso===s));
+  document.querySelectorAll(".wd").forEach(d=>{
+    d.classList.remove("sel","today");
+    const isT=d.dataset.iso===iso(new Date());
+    if(isT) d.classList.add("today");
+    if(d.dataset.iso===s) d.classList.add("sel");
+  });
   render();
 }
 
