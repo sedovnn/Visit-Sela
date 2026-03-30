@@ -345,6 +345,7 @@ function goScreen(id) {
   window.scrollTo(0,0);
   if (id==="s1") buildPlanWeek();
   if (id==="s2") { buildStrip(); load(); }
+  // selDay stays as-is
 }
 function showScr(id) { goScreen(id); }
 
@@ -446,8 +447,6 @@ async function load() {
       status:v["Статус"]||v.status||"план",
       type:v["Тип"]||v.type||"visit",
     }));
-    // Always reset selDay to today on fresh load
-    selDay = iso(new Date());
     buildStrip();
     render();
   } catch(e) {
@@ -585,6 +584,7 @@ function openVisit() {
   document.getElementById("mvDt").value=selDay;
   document.getElementById("mvTm").value="10:00";
   document.getElementById("mvCm").value="";
+  console.log("openVisit selDay=", selDay);
   document.getElementById("movVisit").classList.add("open");
 }
 
@@ -594,6 +594,7 @@ function openEvt() {
   document.getElementById("evDt").value=selDay;
   document.getElementById("evTm").value="10:00";
   document.getElementById("evCm").value="";
+  console.log("openEvt selDay=", selDay);
   document.getElementById("movEvt").classList.add("open");
 }
 
@@ -623,8 +624,9 @@ async function saveVisit() {
 
   btn.classList.remove("saving"); btn.textContent="Сохранить";
   closeM("movVisit");
-  selDay=date; buildStrip(); render();
-  document.querySelectorAll(".wd").forEach(d=>d.classList.toggle("sel",d.dataset.iso===date));
+  selDay = date;
+  buildStrip();
+  render();
   // Rebuild plan week if on s1
   if(document.getElementById("s1").classList.contains("on")) buildPlanWeek();
 }
@@ -655,8 +657,6 @@ async function saveEvent() {
   selDay=date; buildStrip(); render();
   document.querySelectorAll(".wd").forEach(d=>d.classList.toggle("sel",d.dataset.iso===date));
 }
-
-selDay=iso(new Date());
 </script>
 </body>
 </html>
