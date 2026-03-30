@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --navy:#0F1E35; --navy2:#1B2D4A; --blue:#2563EB; --blue-bg:#EFF6FF;
+  --navy:#0F1E35; --navy2:#1B2D4A; --blue:#3CB24B; --blue-bg:rgba(60,178,75,.08);
   --green:#16A34A; --green-bg:#F0FDF4; --amber:#D97706; --amber-bg:#FFFBEB;
   --red:#DC2626; --red-bg:#FEF2F2; --grey:#6B7280; --grey-bg:#F3F4F6;
   --border:#E5E7EB; --text:#111827; --white:#FFFFFF; --r:12px; --rs:8px;
@@ -18,15 +18,15 @@ body{font-family:'Golos Text',sans-serif;background:#EEF2F7;color:var(--text);mi
 .hdr{background:var(--navy);position:sticky;top:0;z-index:200;box-shadow:0 2px 16px rgba(0,0,0,.25)}
 .hdr-top{display:flex;align-items:center;justify-content:space-between;padding:14px 14px 0}
 .hdr-title{font-size:16px;font-weight:700;color:#fff;letter-spacing:-.3px}
-.hdr-badge{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--navy);background:#64B5F6;padding:3px 9px;border-radius:20px;transition:background .2s}
+.hdr-badge{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--navy);background:#3CB24B;padding:3px 9px;border-radius:20px;transition:background .2s}
 .prog-wrap{padding:8px 14px 0}
 .prog-bar{height:3px;background:rgba(255,255,255,.15);border-radius:2px;overflow:hidden}
-.prog-fill{height:100%;background:linear-gradient(90deg,#64B5F6,#2563EB);border-radius:2px;width:0%;transition:width .35s ease}
+.prog-fill{height:100%;background:linear-gradient(90deg,#3CB24B,#3CB24B);border-radius:2px;width:0%;transition:width .35s ease}
 .prog-lbl{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,.45);margin-top:3px;padding-bottom:2px}
 .tabs{display:flex;overflow-x:auto;scrollbar-width:none;background:var(--navy2);border-top:1px solid rgba(255,255,255,.07)}
 .tabs::-webkit-scrollbar{display:none}
 .tab{flex-shrink:0;padding:9px 12px;font-size:11px;font-weight:600;color:rgba(255,255,255,.4);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .2s;position:relative}
-.tab.active{color:#64B5F6;border-bottom-color:#64B5F6}
+.tab.active{color:#3CB24B;border-bottom-color:#3CB24B}
 .tab .dot{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--green);margin-left:3px;vertical-align:middle;opacity:0;transition:opacity .2s}
 .tab.done .dot{opacity:1}
 .tab.hidden{display:none}
@@ -39,7 +39,7 @@ body{font-family:'Golos Text',sans-serif;background:#EEF2F7;color:var(--text);mi
 .meta{background:var(--white);border-radius:var(--r);padding:14px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
 .meta label{display:block;font-size:10px;font-weight:700;color:var(--grey);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
 .meta input,.meta select{width:100%;padding:10px 11px;border:1.5px solid var(--border);border-radius:var(--rs);font-size:15px;font-family:'Golos Text',sans-serif;color:var(--text);background:var(--grey-bg);appearance:none;-webkit-appearance:none;transition:border-color .2s}
-.meta input:focus,.meta select:focus{outline:none;border-color:var(--blue);background:var(--white)}
+.meta input:focus,.meta select:focus{outline:none;border-color:var(--green);background:var(--white)}
 .meta-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .email-hint{font-size:11px;color:var(--grey);margin-top:5px;padding:6px 8px;background:var(--grey-bg);border-radius:var(--rs);font-family:'JetBrains Mono',monospace;word-break:break-all;min-height:26px;transition:all .2s}
 .email-hint.found{color:var(--green);background:var(--green-bg)}
@@ -47,11 +47,11 @@ body{font-family:'Golos Text',sans-serif;background:#EEF2F7;color:var(--text);mi
 /* VISITOR CARDS */
 .visitor-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .vcard{padding:10px 8px;border:2px solid var(--border);border-radius:var(--r);background:var(--white);text-align:center;cursor:pointer;transition:all .15s}
-.vcard.sel{border-color:var(--blue);background:var(--blue-bg)}
+.vcard.sel{border-color:var(--green);background:var(--blue-bg)}
 .vcard .vi{font-size:18px;display:block;margin-bottom:3px}
 .vcard .vn{font-size:11px;font-weight:700;color:var(--text);display:block;line-height:1.3}
 .vcard .vs{font-size:10px;color:var(--grey);display:block;margin-top:2px}
-.vcard.sel .vn{color:var(--blue)}
+.vcard.sel .vn{color:var(--green)}
 
 /* SECTION */
 .sec{background:var(--white);border-radius:var(--r);margin-bottom:10px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06)}
@@ -70,11 +70,11 @@ body{font-family:'Golos Text',sans-serif;background:#EEF2F7;color:var(--text);mi
 .rb[data-v="pt"]{border-color:#FDE68A}.rb[data-v="pt"].on{background:var(--amber);color:#fff;border-color:var(--amber)}
 .rb[data-v="no"]{border-color:#FECACA}.rb[data-v="no"].on{background:var(--red);color:#fff;border-color:var(--red)}
 .rb[data-v="na"]{border-color:var(--border)}.rb[data-v="na"].on{background:var(--grey);color:#fff;border-color:var(--grey)}
-.note-tog{display:inline-flex;align-items:center;gap:3px;font-size:11px;color:var(--blue);margin-top:6px;cursor:pointer;font-weight:600}
+.note-tog{display:inline-flex;align-items:center;gap:3px;font-size:11px;color:var(--green);margin-top:6px;cursor:pointer;font-weight:600}
 .note-box{display:none;margin-top:7px}
 .note-box.open{display:block}
 .note-box textarea{width:100%;padding:8px 10px;border:1.5px solid var(--border);border-radius:var(--rs);font-size:13px;font-family:'Golos Text',sans-serif;resize:none;min-height:52px;background:var(--grey-bg);color:var(--text)}
-.note-box textarea:focus{outline:none;border-color:var(--blue);background:var(--white)}
+.note-box textarea:focus{outline:none;border-color:var(--green);background:var(--white)}
 
 /* PLACEHOLDER */
 .placeholder{padding:32px 20px;text-align:center}
@@ -87,14 +87,14 @@ body{font-family:'Golos Text',sans-serif;background:#EEF2F7;color:var(--text);mi
 .task-card{background:var(--white);border-radius:var(--r);padding:13px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
 .task-card:nth-child(2){border-left:3px solid var(--red)}
 .task-card:nth-child(3){border-left:3px solid var(--amber)}
-.task-card:nth-child(4){border-left:3px solid var(--blue)}
+.task-card:nth-child(4){border-left:3px solid var(--green)}
 .task-num{font-size:10px;font-weight:700;color:var(--grey);text-transform:uppercase;letter-spacing:.4px;margin-bottom:7px}
 .task-card textarea{width:100%;padding:9px 10px;border:1.5px solid var(--border);border-radius:var(--rs);font-size:14px;font-family:'Golos Text',sans-serif;resize:none;min-height:50px;background:var(--grey-bg);color:var(--text);margin-bottom:7px}
-.task-card textarea:focus{outline:none;border-color:var(--blue);background:var(--white)}
+.task-card textarea:focus{outline:none;border-color:var(--green);background:var(--white)}
 .task-row{display:grid;grid-template-columns:1fr 1fr;gap:7px}
 .task-lbl{font-size:10px;font-weight:700;color:var(--grey);text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px}
 .task-card select,.task-card input{width:100%;padding:8px 10px;border:1.5px solid var(--border);border-radius:var(--rs);font-size:13px;font-family:'Golos Text',sans-serif;color:var(--text);background:var(--grey-bg);appearance:none;-webkit-appearance:none}
-.task-card select:focus,.task-card input:focus{outline:none;border-color:var(--blue);background:var(--white)}
+.task-card select:focus,.task-card input:focus{outline:none;border-color:var(--green);background:var(--white)}
 
 /* SUMMARY */
 .sum-block{background:var(--white);border-radius:var(--r);padding:14px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
@@ -109,7 +109,7 @@ body{font-family:'Golos Text',sans-serif;background:#EEF2F7;color:var(--text);mi
 .st-btn[data-s="y"].on{background:var(--amber);color:#fff;border-color:var(--amber)}
 .st-btn[data-s="r"].on{background:var(--red);color:#fff;border-color:var(--red)}
 .overall{width:100%;padding:10px 11px;border:1.5px solid var(--border);border-radius:var(--rs);font-size:14px;font-family:'Golos Text',sans-serif;resize:none;min-height:68px;background:var(--grey-bg);color:var(--text)}
-.overall:focus{outline:none;border-color:var(--blue);background:var(--white)}
+.overall:focus{outline:none;border-color:var(--green);background:var(--white)}
 
 /* BAR */
 .bar{position:fixed;bottom:0;left:0;right:0;padding:10px 12px;background:var(--white);border-top:1px solid var(--border);z-index:200}
@@ -119,7 +119,7 @@ body{font-family:'Golos Text',sans-serif;background:#EEF2F7;color:var(--text);mi
 .btn-sec{background:var(--grey-bg);color:var(--navy)}
 .btn-pri{background:var(--navy);color:#fff}
 .btn-full{width:100%;padding:14px;font-family:'Golos Text',sans-serif;font-size:15px;font-weight:700;border:none;border-radius:var(--r);cursor:pointer;background:var(--navy);color:#fff}
-.btn-full:active{background:var(--blue)}
+.btn-full:active{background:var(--green)}
 
 /* SUCCESS */
 .success{display:none;padding:48px 16px;text-align:center}
@@ -140,7 +140,10 @@ body{font-family:'Golos Text',sans-serif;background:#EEF2F7;color:var(--text);mi
         <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 8H3M7 4l-4 4 4 4"/></svg>
         Главная
       </a>
-      <div class="hdr-title" style="flex:1;text-align:center">Визит · SELA</div>
+      <div style="flex:1;text-align:center;display:flex;align-items:center;justify-content:center;gap:6px">
+      <span style="font-family:'Golos Text',sans-serif;font-size:15px;font-weight:900;color:#3CB24B;letter-spacing:-.3px">sela.</span>
+      <span style="font-size:13px;font-weight:600;color:rgba(255,255,255,.6)">Визит</span>
+    </div>
       <div class="hdr-badge" id="badge">—</div>
     </div>
     <div class="prog-wrap">
@@ -675,7 +678,7 @@ function onManagerSelect() {
   const parts = val.split('||');
   const roleMap = { dm:'Директор / Управляющий магазина', adm:'Администратор', vm:'Визуальный мерчандайзер' };
   roleEl.textContent = '👤 ' + (roleMap[parts[1]] || '');
-  roleEl.style.color = parts[1] === 'vm' ? 'var(--blue)' : parts[1] === 'adm' ? 'var(--amber)' : 'var(--green)';
+  roleEl.style.color = parts[1] === 'vm' ? 'var(--green)' : parts[1] === 'adm' ? 'var(--amber)' : 'var(--green)';
 }
 
 // ═══════════════════════════════════════════════════════

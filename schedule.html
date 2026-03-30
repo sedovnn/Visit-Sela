@@ -10,8 +10,8 @@
   --bg: #F0F2F5;
   --navy: #0D1B2E;
   --navy2: #162338;
-  --blue: #2261D3;
-  --blue-dim: rgba(34,97,211,.12);
+  --blue: #3CB24B;
+  --blue-dim: rgba(60,178,75,.12);
   --green: #0F9E5A;
   --green-dim: rgba(15,158,90,.12);
   --red: #D63B3B;
@@ -44,13 +44,13 @@ body { font-family:'Golos Text',sans-serif; background:var(--bg); color:var(--te
 .role-screen::before {
   content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
   background:
-    radial-gradient(ellipse 70% 40% at 10% 5%, rgba(34,97,211,.2) 0%, transparent 60%),
-    radial-gradient(ellipse 50% 30% at 90% 90%, rgba(34,97,211,.1) 0%, transparent 60%);
+    radial-gradient(ellipse 70% 40% at 10% 5%, rgba(60,178,75,.2) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 30% at 90% 90%, rgba(60,178,75,.12) 0%, transparent 60%);
 }
 .rsi { position:relative; z-index:1; padding-top:44px; }
 .rs-back { display:flex; align-items:center; gap:5px; font-size:12px; font-weight:600; color:rgba(255,255,255,.4); text-decoration:none; margin-bottom:28px; }
 .rs-back svg { width:14px; height:14px; }
-.rs-eyebrow { font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:700; color:var(--blue); letter-spacing:1.5px; text-transform:uppercase; margin-bottom:10px; }
+.rs-eyebrow { font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:700; color:var(--green); letter-spacing:1.5px; text-transform:uppercase; margin-bottom:10px; }
 .rs-title { font-size:30px; font-weight:900; color:#fff; letter-spacing:-1px; line-height:1.1; margin-bottom:8px; }
 .rs-sub { font-size:13px; color:rgba(255,255,255,.45); line-height:1.55; margin-bottom:28px; }
 
@@ -62,18 +62,18 @@ body { font-family:'Golos Text',sans-serif; background:var(--bg); color:var(--te
   cursor:pointer; transition:all .15s;
 }
 .rc:active { transform:scale(.98); }
-.rc.sel { border-color:var(--blue); background:rgba(34,97,211,.15); }
+.rc.sel { border-color:var(--green); background:rgba(60,178,75,.15); }
 .rc-ico { width:36px; height:36px; border-radius:10px; background:rgba(255,255,255,.07); display:flex; align-items:center; justify-content:center; font-size:17px; flex-shrink:0; }
-.rc.sel .rc-ico { background:rgba(34,97,211,.25); }
+.rc.sel .rc-ico { background:rgba(60,178,75,.25); }
 .rc-info { flex:1; min-width:0; }
 .rc-name { font-size:13px; font-weight:700; color:#fff; display:block; }
 .rc-person { font-size:11px; color:rgba(255,255,255,.4); display:block; margin-top:1px; }
-.rc.sel .rc-person { color:rgba(100,181,246,.8); }
+.rc.sel .rc-person { color:rgba(60,178,75,.8); }
 .rc-arrow { color:rgba(255,255,255,.2); flex-shrink:0; transition:all .15s; }
-.rc.sel .rc-arrow { color:var(--blue); }
+.rc.sel .rc-arrow { color:var(--green); }
 
 .rs-cta {
-  width:100%; padding:15px; background:var(--blue); color:#fff;
+  width:100%; padding:15px; background:var(--green); color:#fff;
   font-family:'Golos Text',sans-serif; font-size:15px; font-weight:700;
   border:none; border-radius:var(--r); cursor:pointer; display:none;
   letter-spacing:-.2px; transition:opacity .15s;
@@ -97,7 +97,7 @@ body { font-family:'Golos Text',sans-serif; background:var(--bg); color:var(--te
 .tb-name { flex:1; text-align:center; font-size:13px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .tb-badge {
   font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700;
-  color:var(--navy); background:rgba(100,181,246,.9); padding:3px 7px; border-radius:20px; flex-shrink:0;
+  color:var(--navy); background:rgba(60,178,75,.9); padding:3px 7px; border-radius:20px; flex-shrink:0;
 }
 
 /* WEEK NAV */
@@ -113,7 +113,7 @@ body { font-family:'Golos Text',sans-serif; background:var(--bg); color:var(--te
 }
 .wn-btn:active { background:rgba(255,255,255,.18); }
 .wn-label { font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:700; color:rgba(255,255,255,.5); letter-spacing:.5px; }
-.wn-label.current { color:rgba(100,181,246,.9); }
+.wn-label.current { color:rgba(60,178,75,.9); }
 
 /* DAY STRIP */
 .day-strip { display:flex; gap:4px; padding-bottom:10px; }
@@ -122,11 +122,11 @@ body { font-family:'Golos Text',sans-serif; background:var(--bg); color:var(--te
   border-radius:10px; cursor:pointer; transition:background .12s; position:relative;
 }
 .ds-day:active { background:rgba(255,255,255,.1); }
-.ds-day.today { background:var(--blue); }
+.ds-day.today { background:var(--green); }
 .ds-day.sel:not(.today) { background:rgba(255,255,255,.1); }
 .ds-dn { font-size:9px; font-weight:700; color:rgba(255,255,255,.35); text-transform:uppercase; display:block; letter-spacing:.3px; }
 .ds-num { font-family:'JetBrains Mono',monospace; font-size:17px; font-weight:700; color:#fff; display:block; line-height:1; margin:3px 0 4px; }
-.ds-dot { width:4px; height:4px; border-radius:50%; background:rgba(100,181,246,.7); margin:0 auto; opacity:0; transition:opacity .2s; }
+.ds-dot { width:4px; height:4px; border-radius:50%; background:rgba(60,178,75,.7); margin:0 auto; opacity:0; transition:opacity .2s; }
 .ds-day.has-v .ds-dot { opacity:1; }
 .ds-day.today .ds-dn { color:rgba(255,255,255,.7); }
 .ds-day.today .ds-dot { background:rgba(255,255,255,.6); }
@@ -170,7 +170,7 @@ body { font-family:'Golos Text',sans-serif; background:var(--bg); color:var(--te
   font-size:9px; font-weight:700; padding:2px 6px; border-radius:20px;
   font-family:'JetBrains Mono',monospace; letter-spacing:.3px;
 }
-.pill-plan  { background:var(--blue-dim); color:var(--blue); }
+.pill-plan  { background:var(--green-dim); color:var(--green); }
 .pill-done  { background:var(--green-dim); color:var(--green); }
 .pill-block { background:var(--purple-dim); color:var(--purple); }
 .pill-event { background:var(--red-dim); color:var(--red); }
@@ -193,7 +193,7 @@ body { font-family:'Golos Text',sans-serif; background:var(--bg); color:var(--te
 
 /* Role bar colors */
 .bar-div    { background:#8B5CF6; }
-.bar-ops    { background:var(--blue); }
+.bar-ops    { background:var(--green); }
 .bar-hr     { background:var(--green); }
 .bar-rkr_w1 { background:#E8408A; }
 .bar-rkr_w2 { background:#F97316; }
@@ -211,7 +211,7 @@ body { font-family:'Golos Text',sans-serif; background:var(--bg); color:var(--te
 .loading { text-align:center; padding:40px; color:var(--grey); font-size:13px; }
 .spinner {
   width:22px; height:22px; border:2px solid var(--border);
-  border-top-color:var(--blue); border-radius:50%;
+  border-top-color:var(--green); border-radius:50%;
   animation:spin .7s linear infinite; margin:0 auto 10px;
 }
 @keyframes spin { to { transform:rotate(360deg); } }
@@ -266,7 +266,7 @@ body { font-family:'Golos Text',sans-serif; background:var(--bg); color:var(--te
   color:var(--text); background:#FAFBFC; appearance:none; -webkit-appearance:none;
   transition:border-color .15s;
 }
-.field select:focus, .field input:focus { outline:none; border-color:var(--blue); background:var(--white); }
+.field select:focus, .field input:focus { outline:none; border-color:var(--green); background:var(--white); }
 .field-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
 .sheet-actions { display:grid; grid-template-columns:1fr 1fr; gap:10px; padding:16px 20px 0; }
 .sheet-btn { padding:13px; font-family:'Golos Text',sans-serif; font-size:14px; font-weight:700; border:none; border-radius:var(--r); cursor:pointer; transition:opacity .15s; }
@@ -285,6 +285,9 @@ body { font-family:'Golos Text',sans-serif; background:var(--bg); color:var(--te
     <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 8H3M7 4l-4 4 4 4"/></svg>
     Главная
   </a>
+  <div style="margin-bottom:16px">
+    <span style="font-family:'Golos Text',sans-serif;font-size:28px;font-weight:900;color:#3CB24B;letter-spacing:-.5px">sela.</span>
+  </div>
   <div class="rs-eyebrow">Расписание визитов</div>
   <h1 class="rs-title">Выбери<br>свою роль</h1>
   <p class="rs-sub">Один раз — и форма запомнит тебя. Сменить можно в любой момент.</p>
@@ -341,7 +344,11 @@ body { font-family:'Golos Text',sans-serif; background:var(--bg); color:var(--te
       <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 8H3M7 4l-4 4 4 4"/></svg>
       Сменить
     </div>
-    <div class="tb-name" id="tbName">—</div>
+    <div style="display:flex;align-items:center;gap:6px;flex:1;justify-content:center">
+      <span style="font-family:'Golos Text',sans-serif;font-size:17px;font-weight:900;color:#3CB24B;letter-spacing:-.5px">sela.</span>
+      <span style="width:1px;height:14px;background:rgba(255,255,255,.15)"></span>
+      <div class="tb-name" id="tbName" style="flex:none"></div>
+    </div>
     <div class="tb-badge" id="tbBadge">—</div>
   </div>
 
@@ -367,7 +374,7 @@ body { font-family:'Golos Text',sans-serif; background:var(--bg); color:var(--te
     <div class="fab-menu" id="fabMenu">
       <div class="fab-item" onclick="openSheet('visit')">
         <span class="fab-item-lbl">Добавить визит</span>
-        <button class="fab-item-btn" style="background:var(--blue);color:#fff">＋</button>
+        <button class="fab-item-btn" style="background:var(--green);color:#fff">＋</button>
       </div>
       <div class="fab-item" onclick="openSheet('event')">
         <span class="fab-item-lbl">Событие</span>
