@@ -439,10 +439,8 @@ const CHECKLIST_OPS = [
     "Нет экстры и пустых мест, поразмерка соблюдена",
     "Выполнены все актуальные переоценки",
     "Алармирование товара по стандартам",
-    "Подсортировка выполнена, зал наполнен",
     "Вешалки соответствуют товарным группам, нет сломанных",
     "Товар в зале и манекены отпарены",
-    "Библиотека оформлена по стандарту",
   ]},
   { id:3, label:"Касса", ico:"💳", items:[
     "Порядок на кассе — нет мусора и личных вещей сотрудников",
@@ -517,6 +515,7 @@ const CHECKLIST_DIV = [
 const CHECKLIST_HR = [
   {
     id: 1,
+    label: "Команда",
     title: "Команда",
     items: [
       "Укомплектованность по ШР — все позиции закрыты, нет вакансий дольше 14 дней?",
@@ -530,6 +529,7 @@ const CHECKLIST_HR = [
   },
   {
     id: 2,
+    label: "Документы",
     title: "Документы",
     items: [
       "Договоры о материальной ответственности у кассиров подписаны в КЭДО?",
@@ -540,6 +540,7 @@ const CHECKLIST_HR = [
   },
   {
     id: 3,
+    label: "Сотрудники",
     title: "Сотрудники",
     items: [
       "Знает ли сотрудник 4 правила торгового зала? (Покупатель / Порядок / Подсортировка / Потери)",
@@ -551,6 +552,7 @@ const CHECKLIST_HR = [
   },
   {
     id: 4,
+    label: "Метрики",
     title: "Метрики",
     items: [
       "Текучесть за последние 30 дней по магазину — выше или ниже нормы?",
@@ -770,7 +772,17 @@ function buildMultiChecklist(checklist) {
   checklist.forEach(sec => {
     const cont = document.getElementById('items' + sec.id);
     cont.innerHTML = '';
-    document.getElementById('s' + sec.id).textContent = '0/' + sec.items.length;
+    // Add section title if present (for dynamic checklists like HR)
+    const titleKey = sec.title || sec.label;
+    const ico = sec.ico || '';
+    if (titleKey) {
+      const titleDiv = document.createElement('div');
+      titleDiv.className = 'sec-title';
+      titleDiv.textContent = (ico ? ico + ' ' : '') + titleKey;
+      cont.appendChild(titleDiv);
+    }
+    const scoreEl = document.getElementById('s' + sec.id);
+    if (scoreEl) scoreEl.textContent = '0/' + sec.items.length;
     sec.items.forEach((text, idx) => {
       const key = `${sec.id}_${idx}`;
       cont.appendChild(makeItem(key, text));

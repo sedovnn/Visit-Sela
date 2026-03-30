@@ -750,7 +750,11 @@ function render() {
     else if (isEvent) pills = `<span class="pill pill-event">событие</span>`;
     else              pills = `<span class="pill ${done?"pill-done":"pill-plan"}">${done?"✓ выполнен":"план"}</span>`;
 
-    if (view==="team" && !isBlock && !isEvent) pills += ` <span class="pill pill-role">${BADGES[v.role]||v.role}</span>`;
+    if (view==="team" && !isBlock && !isEvent) {
+      const nameParts = (v.name||NAMES[v.role]||v.role).toUpperCase().split(' ');
+      const visitorName = nameParts[1] || nameParts[0]; // Имя (второе слово)
+      pills += ` <span class="pill pill-role">${visitorName}</span>`;
+    }
     if (v.comment && !isBlock) pills += ` <span style="font-size:11px;color:var(--grey)">· ${v.comment}</span>`;
 
     const el = document.createElement("div");
@@ -764,6 +768,7 @@ function render() {
         <span class="vc-title">${title}</span>
         <div class="vc-meta">
           ${v.time ? `<span class="vc-time">🕐 ${v.time}</span>` : ""}
+          ${!isBlock && !isEvent && view!=="team" ? `<span class="pill pill-role">${((v.name||NAMES[v.role]||v.role).toUpperCase().split(' ')[1]||(v.name||NAMES[v.role]||v.role).toUpperCase().split(' ')[0])}</span>` : ""}
           ${pills}
         </div>
       </div>
