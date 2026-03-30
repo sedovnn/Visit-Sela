@@ -717,7 +717,7 @@ function render() {
     el.className = "vc" + (done?" done":"");
     el.innerHTML = `
       <div class="vc-bar ${barCls}"></div>
-      <div class="va-check ${done?"on":""}" data-action="toggle" data-id="${v.id}" data-status="${v.status}">
+      <div class="va-check ${done?"on":""}" data-action="toggle" data-id="${String(v.id)}" data-status="${v.status}">
         <svg viewBox="0 0 10 10" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 5l2.5 2.5 4.5-4"/></svg>
       </div>
       <div class="vc-body">
@@ -728,8 +728,8 @@ function render() {
         </div>
       </div>
       ${own ? `<div class="vc-actions">
-        <button class="va-btn" data-action="edit" data-id="${v.id}">✏️</button>
-        <button class="va-btn" data-action="delete" data-id="${v.id}">✕</button>
+        <button class="va-btn" data-action="edit" data-id="${String(v.id)}">✏️</button>
+        <button class="va-btn" data-action="delete" data-id="${String(v.id)}">✕</button>
       </div>` : ""}`;
     content.appendChild(el);
   });
@@ -738,19 +738,19 @@ function render() {
 // ─── ACTIONS ──────────────────────────────────────────────
 async function toggleDone(id, cur) {
   const ns = cur==="выполнен" ? "план" : "выполнен";
-  const v = visits.find(x=>x.id===id); if(!v) return;
+  const v = visits.find(x=>String(x.id)===String(id)); if(!v) return;
   v.status = ns; render();
   try { await fetch(WR,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"update",id,status:ns,store:v.store,date:v.date,time:v.time,comment:v.comment})}); } catch(e){}
 }
 
 async function deleteEntry(id) {
-  visits = visits.filter(x=>x.id!==id);
+  visits = visits.filter(x=>String(x.id)!==String(id));
   buildStrip(); render();
   try { await fetch(WR,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"delete",id})}); } catch(e){}
 }
 
 function editEntry(id) {
-  const v = visits.find(x=>x.id===id); if(!v) return;
+  const v = visits.find(x=>String(x.id)===String(id)); if(!v) return;
   editId = id;
   if (v.type==="event") {
     document.getElementById("evTitle").value = v.store;
@@ -832,7 +832,7 @@ async function saveVisit() {
   btn.classList.add("saving"); btn.textContent = "Сохраняем...";
 
   if (editId) {
-    const v = visits.find(x=>x.id===editId);
+    const v = visits.find(x=>String(x.id)===String(editId));
     if (v) { v.store=store; v.date=date; v.time=time; v.comment=comment; }
     try { await fetch(WR,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"update",id:editId,store,date,time,comment,status:v?.status||"план"})}); } catch(e){}
   } else {
@@ -859,7 +859,7 @@ async function saveEvent() {
   btn.classList.add("saving"); btn.textContent = "Добавляем...";
 
   if (editId) {
-    const v = visits.find(x=>x.id===editId);
+    const v = visits.find(x=>String(x.id)===String(editId));
     if (v) { v.store=title; v.date=date; v.time=time; v.comment=comment; }
     try { await fetch(WR,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"update",id:editId,store:title,date,time,comment,status:"событие"})}); } catch(e){}
   } else {
