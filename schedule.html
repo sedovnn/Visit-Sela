@@ -6,73 +6,138 @@
 <title>Расписание · SELA</title>
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
-:root{--navy:#0F1E35;--navy2:#1B2D4A;--blue:#2563EB;--blue-light:#64B5F6;--blue-bg:#EFF6FF;--green:#16A34A;--green-bg:#F0FDF4;--amber:#D97706;--red:#DC2626;--red-bg:#FEF2F2;--grey:#6B7280;--grey-bg:#F3F4F6;--border:#E5E7EB;--border-dark:rgba(255,255,255,0.1);--text:#111827;--white:#FFFFFF;--r:12px;--rs:8px}
+:root{--navy:#0F1E35;--navy2:#1B2D4A;--blue:#2563EB;--blue-light:#64B5F6;--blue-bg:#EFF6FF;--green:#16A34A;--green-bg:#F0FDF4;--amber:#D97706;--red:#DC2626;--red-bg:#FEF2F2;--grey:#6B7280;--grey-bg:#F3F4F6;--border:#E5E7EB;--bdark:rgba(255,255,255,.1);--text:#111827;--r:12px;--rs:8px}
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{font-family:"Golos Text",sans-serif;min-height:100vh}
-.screen{display:none;min-height:100vh}.screen.active{display:flex;flex-direction:column}
-#s0{background:var(--navy);color:#fff;padding:0 20px 40px;max-width:480px;margin:0 auto;width:100%}
+.scr{display:none;min-height:100vh;flex-direction:column}
+.scr.on{display:flex}
+
+/* ── SCREEN 0: РОЛЬ ── */
+#s0{background:var(--navy);color:#fff;padding:0 20px 48px;max-width:480px;margin:0 auto;width:100%}
 #s0::before{content:"";position:fixed;inset:0;background:radial-gradient(ellipse 80% 50% at 20% 0%,rgba(37,99,235,.15) 0%,transparent 60%);pointer-events:none;z-index:0}
-.s0i{position:relative;z-index:1}
-.s0-hdr{padding:40px 0 24px}
-.bk{display:flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:rgba(255,255,255,.45);text-decoration:none;margin-bottom:24px}
-.bk svg{width:14px;height:14px}
-.s0-tag{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--blue-light);margin-bottom:8px}
-.s0-title{font-size:28px;font-weight:900;letter-spacing:-1px;line-height:1.1;margin-bottom:8px}
-.s0-sub{font-size:13px;color:rgba(255,255,255,.5);line-height:1.5}
-.s0-div{width:40px;height:2px;background:linear-gradient(90deg,var(--blue),transparent);margin:20px 0;border-radius:2px}
-.rgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.rc{padding:14px 12px;border:1.5px solid var(--border-dark);border-radius:var(--r);background:rgba(255,255,255,.04);cursor:pointer;transition:all .15s}
+.s0i{position:relative;z-index:1;padding-top:40px}
+.backlink{display:flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:rgba(255,255,255,.45);text-decoration:none;margin-bottom:28px}
+.backlink svg{width:14px;height:14px;flex-shrink:0}
+.s0tag{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--blue-light);margin-bottom:8px}
+.s0ttl{font-size:28px;font-weight:900;letter-spacing:-1px;line-height:1.1;margin-bottom:8px}
+.s0sub{font-size:13px;color:rgba(255,255,255,.5);line-height:1.5;margin-bottom:24px}
+.divider{width:40px;height:2px;background:linear-gradient(90deg,var(--blue),transparent);margin-bottom:20px;border-radius:2px}
+.rgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
+.rc{padding:14px 12px;border:1.5px solid var(--bdark);border-radius:var(--r);background:rgba(255,255,255,.04);cursor:pointer;transition:all .15s}
 .rc:active{transform:scale(.97)}.rc.sel{border-color:var(--blue);background:rgba(37,99,235,.15)}
 .rc .ri{font-size:20px;display:block;margin-bottom:6px}
-.rc .rn{font-size:12px;font-weight:700;color:#fff;display:block;line-height:1.3}
+.rc .rn{font-size:11px;font-weight:700;color:#fff;display:block;line-height:1.3}
 .rc .rs{font-size:10px;color:rgba(255,255,255,.4);display:block;margin-top:2px}
 .rc.sel .rs{color:var(--blue-light)}
-.s0-btn{width:100%;padding:14px;background:var(--blue);color:#fff;font-family:"Golos Text",sans-serif;font-size:15px;font-weight:700;border:none;border-radius:var(--r);cursor:pointer;margin-top:16px;display:none}
-.s0-btn.vis{display:block}
+
+/* Action buttons after role select */
+.action-btns{display:none;gap:10px;flex-direction:column}
+.action-btns.vis{display:flex}
+.actbtn{width:100%;padding:15px 16px;border:none;border-radius:var(--r);cursor:pointer;font-family:"Golos Text",sans-serif;font-size:15px;font-weight:700;display:flex;align-items:center;gap:10px;transition:opacity .15s}
+.actbtn:active{opacity:.8}
+.actbtn-pri{background:var(--blue);color:#fff}
+.actbtn-sec{background:rgba(255,255,255,.08);color:#fff;border:1.5px solid var(--bdark)}
+.actbtn .abico{font-size:20px}
+
+/* ── SCREEN 1: СОСТАВИТЬ НА НЕДЕЛЮ ── */
 #s1{background:#EEF2F7;padding-bottom:90px}
+
+/* ── SCREEN 2: ПРОСМОТР ── */
+#s2{background:#EEF2F7;padding-bottom:90px}
+
+/* TOPBAR */
 .topbar{background:var(--navy);padding:14px 16px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.2)}
-.topbar-back{display:flex;align-items:center;gap:4px;font-size:12px;font-weight:600;color:rgba(255,255,255,.45);cursor:pointer;flex-shrink:0}
-.topbar-back svg{width:14px;height:14px}
-.topbar-title{flex:1;text-align:center;font-size:15px;font-weight:700;color:#fff}
-.topbar-badge{font-family:"JetBrains Mono",monospace;font-size:10px;font-weight:700;color:var(--navy);background:var(--blue-light);padding:3px 8px;border-radius:20px;flex-shrink:0}
+.tb-back{display:flex;align-items:center;gap:4px;font-size:12px;font-weight:600;color:rgba(255,255,255,.45);cursor:pointer;flex-shrink:0}
+.tb-back svg{width:14px;height:14px}
+.tb-title{flex:1;text-align:center;font-size:15px;font-weight:700;color:#fff}
+.tb-badge{font-family:"JetBrains Mono",monospace;font-size:10px;font-weight:700;color:var(--navy);background:var(--blue-light);padding:3px 8px;border-radius:20px;flex-shrink:0}
+
+/* WEEK STRIP */
 .wstrip{background:var(--navy2);padding:12px 16px;overflow-x:auto;display:flex;gap:8px;scrollbar-width:none;border-bottom:1px solid rgba(255,255,255,.07)}
 .wstrip::-webkit-scrollbar{display:none}
-.wd{flex-shrink:0;width:48px;text-align:center;cursor:pointer;border-radius:10px;padding:7px 4px;transition:background .15s}
+.wd{flex-shrink:0;width:46px;text-align:center;cursor:pointer;border-radius:10px;padding:7px 4px;transition:background .15s}
 .wd.today{background:var(--blue)}.wd.sel:not(.today){background:rgba(255,255,255,.12)}
 .wd .wdn{font-size:9px;font-weight:600;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.3px;display:block}
-.wd .wdnum{font-family:"JetBrains Mono",monospace;font-size:18px;font-weight:700;color:#fff;display:block;line-height:1.1;margin:2px 0}
+.wd .wdnum{font-family:"JetBrains Mono",monospace;font-size:17px;font-weight:700;color:#fff;display:block;line-height:1.1;margin:2px 0}
 .wd .wddot{width:5px;height:5px;border-radius:50%;background:var(--blue-light);margin:0 auto;opacity:0;transition:opacity .2s}
 .wd.hasvs .wddot{opacity:1}.wd.today .wddot{background:rgba(255,255,255,.7)}
-.s1c{padding:10px 12px}
+
+/* CONTENT */
+.cnt{padding:10px 12px}
+
+/* VIEW TOGGLE */
 .vtog{display:flex;background:#fff;border-radius:var(--r);padding:3px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
 .vbtn{flex:1;padding:8px;font-size:12px;font-weight:600;border:none;background:none;cursor:pointer;border-radius:var(--rs);color:var(--grey);transition:all .15s;font-family:"Golos Text",sans-serif}
 .vbtn.on{background:var(--navy);color:#fff}
+
+/* PLAN WEEK — day columns */
+.plan-week{display:flex;flex-direction:column;gap:8px}
+.plan-day{background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.plan-day-hdr{padding:10px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
+.plan-day-name{font-size:12px;font-weight:700;color:var(--navy)}
+.plan-day-date{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--grey)}
+.plan-day-body{padding:6px 8px}
+.plan-store-row{display:flex;align-items:center;gap:8px;padding:6px;border-radius:var(--rs);cursor:pointer;transition:background .15s}
+.plan-store-row:active{background:var(--grey-bg)}
+.plan-store-name{font-size:13px;color:var(--text);flex:1}
+.plan-store-check{width:18px;height:18px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.plan-store-check.on{background:var(--blue);border-color:var(--blue)}
+.plan-store-check svg{width:9px;height:9px;stroke:#fff;stroke-width:2.5;opacity:0}
+.plan-store-check.on svg{opacity:1}
+.plan-add-btn{width:100%;padding:8px;background:none;border:1.5px dashed var(--border);border-radius:var(--rs);font-size:12px;color:var(--grey);cursor:pointer;font-family:"Golos Text",sans-serif;margin-top:4px}
+.plan-add-btn:active{background:var(--grey-bg)}
+
+/* DAY LABEL */
 .daylbl{font-size:11px;font-weight:700;color:var(--grey);text-transform:uppercase;letter-spacing:.5px;padding:8px 2px 6px;font-family:"JetBrains Mono",monospace}
+
+/* VISIT ITEM */
 .vi{background:#fff;border-radius:var(--r);padding:12px 14px;margin-bottom:8px;box-shadow:0 1px 3px rgba(0,0,0,.06);display:flex;align-items:flex-start;gap:10px;border-left:3px solid transparent}
 .vi.done .vstore{text-decoration:line-through;opacity:.5}
+/* event type */
+.vi.event{border-left-color:var(--red);background:#FFF5F5}
+/* role colors */
 .vi[data-role=div]{border-left-color:#8B5CF6}.vi[data-role=ops]{border-left-color:var(--blue)}
 .vi[data-role=hr]{border-left-color:var(--green)}.vi[data-role=rkr_w1]{border-left-color:#EC4899}
 .vi[data-role=rkr_w2]{border-left-color:#F97316}.vi[data-role=rkr_m]{border-left-color:var(--amber)}
 .vi[data-role=rkr_k]{border-left-color:#14B8A6}
 .vchk{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;margin-top:1px;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center}
 .vchk.on{background:var(--green);border-color:var(--green)}
-.vchk svg{width:10px;height:10px;stroke:#fff;stroke-width:2.5;opacity:0;transition:opacity .15s}.vchk.on svg{opacity:1}
-.vinfo{flex:1;min-width:0}.vstore{font-size:14px;font-weight:700;color:var(--text);display:block;margin-bottom:3px}
+.vchk svg{width:10px;height:10px;stroke:#fff;stroke-width:2.5;opacity:0;transition:opacity .15s}
+.vchk.on svg{opacity:1}
+.vinfo{flex:1;min-width:0}
+.vstore{font-size:14px;font-weight:700;color:var(--text);display:block;margin-bottom:3px}
+.vi.event .vstore{color:var(--red)}
 .vmeta{font-size:11px;color:var(--grey);display:flex;flex-wrap:wrap;align-items:center;gap:5px}
 .vbadge{font-size:9px;font-weight:700;color:var(--navy);background:var(--grey-bg);padding:2px 6px;border-radius:20px;font-family:"JetBrains Mono",monospace}
 .vstatus{font-size:9px;font-weight:700;padding:2px 6px;border-radius:20px;font-family:"JetBrains Mono",monospace}
 .vstatus.plan{background:#EFF6FF;color:var(--blue)}.vstatus.done{background:var(--green-bg);color:var(--green)}
+.vstatus.event{background:#FEE2E2;color:var(--red)}
 .vacts{display:flex;gap:5px;flex-shrink:0;margin-top:1px}
 .abtn{width:28px;height:28px;border-radius:8px;background:var(--grey-bg);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px}
+.abtn:active{opacity:.7}
+
+/* SAVE BAR */
+.savebar{position:fixed;bottom:0;left:0;right:0;padding:12px 16px;background:#fff;border-top:1px solid var(--border);z-index:200}
+.savebar-btn{width:100%;padding:14px;background:var(--navy);color:#fff;font-family:"Golos Text",sans-serif;font-size:15px;font-weight:700;border:none;border-radius:var(--r);cursor:pointer}
+
+/* FAB area */
+.fabarea{position:fixed;bottom:24px;right:16px;display:flex;flex-direction:column;align-items:flex-end;gap:8px;z-index:200}
+.fab{width:52px;height:52px;border-radius:50%;background:var(--blue);color:#fff;font-size:22px;border:none;cursor:pointer;box-shadow:0 4px 16px rgba(37,99,235,.4);display:flex;align-items:center;justify-content:center;transition:transform .15s}
+.fab:active{transform:scale(.92)}
+.fab-event{background:var(--red);box-shadow:0 4px 16px rgba(220,38,38,.35);font-size:14px;font-weight:700;width:auto;padding:0 14px;border-radius:24px;height:40px;white-space:nowrap}
+.fab-label{font-size:10px;color:var(--grey);text-align:right;font-weight:600}
+.rfab{width:40px;height:40px;border-radius:50%;background:#fff;border:1px solid var(--border);cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.1);font-size:16px}
+.rfab.spin{animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* EMPTY */
 .empty{text-align:center;padding:28px 20px;color:var(--grey)}
-.empty .eico{font-size:32px;margin-bottom:8px}.empty .etxt{font-size:13px;line-height:1.5}
+.empty .eico{font-size:32px;margin-bottom:8px}
+.empty .etxt{font-size:13px;line-height:1.5}
 .loading{text-align:center;padding:32px;color:var(--grey);font-size:13px}
 .spinner{width:24px;height:24px;border:2px solid var(--border);border-top-color:var(--blue);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 10px}
-@keyframes spin{to{transform:rotate(360deg)}}
-.fab{position:fixed;bottom:24px;right:20px;width:56px;height:56px;border-radius:50%;background:var(--blue);color:#fff;font-size:26px;border:none;cursor:pointer;box-shadow:0 4px 20px rgba(37,99,235,.45);display:flex;align-items:center;justify-content:center;z-index:200;transition:transform .15s}
-.fab:active{transform:scale(.92)}
-.rfab{position:fixed;bottom:24px;left:20px;width:44px;height:44px;border-radius:50%;background:#fff;border:1px solid var(--border);cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:200;box-shadow:0 2px 8px rgba(0,0,0,.1);font-size:18px}
-.rfab.spin{animation:spin .8s linear infinite}
+
+/* MODAL */
 .mov{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:300;display:none;align-items:flex-end;justify-content:center}
 .mov.open{display:flex}
 .modal{background:#fff;border-radius:20px 20px 0 0;padding:0 0 40px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto}
@@ -86,19 +151,24 @@ body{font-family:"Golos Text",sans-serif;min-height:100vh}
 .frow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .macts{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:4px 20px 0}
 .mbtn{padding:13px;font-family:"Golos Text",sans-serif;font-size:14px;font-weight:700;border:none;border-radius:var(--r);cursor:pointer}
-.mbtn-c{background:var(--grey-bg);color:var(--navy)}.mbtn-s{background:var(--navy);color:#fff}
+.mbtn-c{background:var(--grey-bg);color:var(--navy)}
+.mbtn-s{background:var(--navy);color:#fff}
+.mbtn-event{background:var(--red);color:#fff}
 .mbtn-s.saving{opacity:.6;pointer-events:none}
 </style>
 </head>
 <body>
-<div class="screen active" id="s0"><div class="s0i">
-  <div class="s0-hdr">
-    <a href="index.html" class="bk"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 8H3M7 4l-4 4 4 4"/></svg>Главная</a>
-    <div class="s0-tag">// Расписание визитов</div>
-    <h1 class="s0-title">Кто ты<br>в команде?</h1>
-    <p class="s0-sub">Выбери роль — увидишь общее расписание и сможешь добавить свои визиты.</p>
-  </div>
-  <div class="s0-div"></div>
+
+<!-- ── SCREEN 0: РОЛЬ ── -->
+<div class="scr on" id="s0">
+<div class="s0i">
+  <a href="index.html" class="backlink">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 8H3M7 4l-4 4 4 4"/></svg>Главная
+  </a>
+  <div class="s0tag">// Расписание визитов</div>
+  <h1 class="s0ttl">Кто ты<br>в команде?</h1>
+  <p class="s0sub">Выбери роль — увидишь расписание команды и сможешь составить своё.</p>
+  <div class="divider"></div>
   <div class="rgrid">
     <div class="rc" data-role="div" onclick="selRole(this)"><span class="ri">📊</span><span class="rn">Директор Дивизиона</span><span class="rs">Николай Седов</span></div>
     <div class="rc" data-role="ops" onclick="selRole(this)"><span class="ri">🔍</span><span class="rn">Операционный Директор</span><span class="rs">Ольга Щуренкова</span></div>
@@ -108,155 +178,461 @@ body{font-family:"Golos Text",sans-serif;min-height:100vh}
     <div class="rc" data-role="rkr_m" onclick="selRole(this)"><span class="ri">👔</span><span class="rn">РКР Мужского</span><span class="rs">Дарья Домот</span></div>
     <div class="rc" data-role="rkr_k" onclick="selRole(this)"><span class="ri">🧒</span><span class="rn">РКР Детского</span><span class="rs">Олеся Привалова</span></div>
   </div>
-  <button class="s0-btn" id="s0b" onclick="enter()">Открыть расписание →</button>
-</div></div>
+  <div class="action-btns" id="actBtns">
+    <button class="actbtn actbtn-pri" onclick="goScreen('s1')">
+      <span class="abico">📅</span>Составить расписание на неделю
+    </button>
+    <button class="actbtn actbtn-sec" onclick="goScreen('s2')">
+      <span class="abico">👁</span>Открыть расписание
+    </button>
+  </div>
+</div>
+</div>
 
-<div class="screen" id="s1">
+<!-- ── SCREEN 1: СОСТАВИТЬ НА НЕДЕЛЮ ── -->
+<div class="scr" id="s1">
   <div class="topbar">
-    <div class="topbar-back" onclick="showScr('s0')"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 8H3M7 4l-4 4 4 4"/></svg>Роли</div>
-    <div class="topbar-title">Расписание</div>
-    <div class="topbar-badge" id="topBadge">—</div>
+    <div class="tb-back" onclick="goScreen('s0')"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 8H3M7 4l-4 4 4 4"/></svg>Назад</div>
+    <div class="tb-title">Моя неделя</div>
+    <div class="tb-badge" id="tb1badge">—</div>
+  </div>
+  <div class="cnt" id="planWeekCnt"></div>
+  <div class="savebar">
+    <button class="savebar-btn" onclick="savePlan()">Сохранить расписание →</button>
+  </div>
+</div>
+
+<!-- ── SCREEN 2: ПРОСМОТР ── -->
+<div class="scr" id="s2">
+  <div class="topbar">
+    <div class="tb-back" onclick="goScreen('s0')"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 8H3M7 4l-4 4 4 4"/></svg>Назад</div>
+    <div class="tb-title">Расписание</div>
+    <div class="tb-badge" id="tb2badge">—</div>
   </div>
   <div class="wstrip" id="wstrip"></div>
-  <div class="s1c">
+  <div class="cnt">
     <div class="vtog" id="vtog" style="display:none">
-      <button class="vbtn on" id="bmy"   onclick="setView('my')">Мои визиты</button>
+      <button class="vbtn on" id="bmy"   onclick="setView('my')">Мои</button>
       <button class="vbtn"    id="bteam" onclick="setView('team')">Вся команда</button>
     </div>
     <div id="vlist"></div>
   </div>
-  <button class="fab" onclick="openM()">+</button>
-  <button class="rfab" id="rfab" onclick="load()">🔄</button>
+  <div class="fabarea">
+    <div class="fab-label">Добавить событие</div>
+    <button class="fab fab-event" onclick="openEvt()">🔴 Событие</button>
+    <div class="fab-label">Добавить визит</div>
+    <button class="fab" onclick="openVisit()">＋</button>
+    <button class="rfab" id="rfab" onclick="load()">🔄</button>
+  </div>
 </div>
 
-<div class="mov" id="mov" onclick="closeOut(event)"><div class="modal">
+<!-- ── MODAL: ДОБАВИТЬ ВИЗИТ ── -->
+<div class="mov" id="movVisit" onclick="closeOut(event,'movVisit')"><div class="modal">
   <div class="mhandle"></div>
-  <div class="mtitle" id="mtitle">Добавить визит</div>
+  <div class="mtitle" id="mvTitle">Добавить визит</div>
   <div class="mbody">
-    <div class="fld"><label>Магазин</label><select id="mst"><option value="">— выбрать</option></select></div>
+    <div class="fld"><label>Магазин</label><select id="mvSt"><option value="">— выбрать</option></select></div>
     <div class="frow">
-      <div class="fld"><label>Дата</label><input type="date" id="mdt"></div>
-      <div class="fld"><label>Время</label><input type="time" id="mtm" value="10:00"></div>
+      <div class="fld"><label>Дата</label><input type="date" id="mvDt"></div>
+      <div class="fld"><label>Время</label><input type="time" id="mvTm" value="10:00"></div>
     </div>
-    <div class="fld"><label>Комментарий</label><input type="text" id="mcm" placeholder="Цель визита..."></div>
+    <div class="fld"><label>Комментарий</label><input type="text" id="mvCm" placeholder="Цель визита..."></div>
   </div>
   <div class="macts">
-    <button class="mbtn mbtn-c" onclick="closeM()">Отмена</button>
-    <button class="mbtn mbtn-s" id="msave" onclick="save()">Сохранить</button>
+    <button class="mbtn mbtn-c" onclick="closeM('movVisit')">Отмена</button>
+    <button class="mbtn mbtn-s" id="mvSave" onclick="saveVisit()">Сохранить</button>
+  </div>
+</div></div>
+
+<!-- ── MODAL: ДОБАВИТЬ СОБЫТИЕ ── -->
+<div class="mov" id="movEvt" onclick="closeOut(event,'movEvt')"><div class="modal">
+  <div class="mhandle"></div>
+  <div class="mtitle">🔴 Добавить событие</div>
+  <div class="mbody">
+    <div class="fld"><label>Название события</label><input type="text" id="evTitle" placeholder="Визит из офиса, аудит, обучение..."></div>
+    <div class="frow">
+      <div class="fld"><label>Дата</label><input type="date" id="evDt"></div>
+      <div class="fld"><label>Время</label><input type="time" id="evTm" value="10:00"></div>
+    </div>
+    <div class="fld"><label>Комментарий</label><input type="text" id="evCm" placeholder="Подробности..."></div>
+  </div>
+  <div class="macts">
+    <button class="mbtn mbtn-c" onclick="closeM('movEvt')">Отмена</button>
+    <button class="mbtn mbtn-event" id="evSave" onclick="saveEvent()">Добавить</button>
   </div>
 </div></div>
 
 <script>
-const WR="https://sedovnn.app.n8n.cloud/webhook/sela-schedule-write";
-const RD="https://sedovnn.app.n8n.cloud/webhook/sela-schedule-read";
-const NAMES={div:"Николай Седов",ops:"Ольга Щуренкова",hr:"Карина Авдышева",rkr_w1:"Светлана Чечура",rkr_w2:"Евгения Урсул",rkr_m:"Дарья Домот",rkr_k:"Олеся Привалова"};
-const BADGES={div:"ДИВ",ops:"ОПЕРАЦИЯ",hr:"HR",rkr_w1:"РКР ЖЕН·1",rkr_w2:"РКР ЖЕН·2",rkr_m:"РКР МУЖ",rkr_k:"РКР ДЕТ"};
-const DNS=["Вс","Пн","Вт","Ср","Чт","Пт","Сб"];
-const DNF=["Воскресенье","Понедельник","Вторник","Среда","Четверг","Пятница","Суббота"];
-const MNS=["янв","фев","мар","апр","май","июн","июл","авг","сен","окт","ноя","дек"];
-const ST=[
-  {n:"Москва Columbus",m:true,k:true,w:"rkr_w1"},{n:"Москва Мега Химки",m:true,k:true,w:"rkr_w2"},
-  {n:"Москва Авиапарк",m:true,k:true,w:"rkr_w2"},{n:"Москва Метрополис",m:true,k:true,w:"rkr_w2"},
-  {n:"Москва Саларис",m:true,k:true,w:"rkr_w1"},{n:"Москва Афимолл",m:true,k:true,w:"rkr_w1"},
-  {n:"Москва Европейский",m:false,k:true,w:"rkr_w1"},{n:"Москва Город Лефортово-2",m:true,k:true,w:"rkr_w2"},
-  {n:"Зеленоград Зеленопарк",m:true,k:true,w:"rkr_w2"},{n:"Москва Павелецкая Плаза",m:true,k:true,w:"rkr_w1"},
-  {n:"Москва BOTANICA",m:true,k:true,w:"rkr_w2"},{n:"Мытищи Красный Кит",m:true,k:true,w:"rkr_w2"},
-  {n:"Москва Мега Белая Дача",m:true,k:true,w:"rkr_w1"},{n:"Одинцово Одипарк",m:true,k:true,w:"rkr_w1"},
-  {n:"Москва Хорошо",m:true,k:true,w:"rkr_w2"},{n:"Москва Мега Тёплый Стан",m:true,k:true,w:"rkr_w1"},
-  {n:"Москва Бутово Молл",m:true,k:true,w:"rkr_w1"},{n:"Москва Каширская Плаза",m:true,k:true,w:"rkr_w1"},
-  {n:"Москва Вегас 2",m:false,k:true,w:"rkr_w1"},{n:"Москва Вегас (Кунцево)",m:false,k:true,w:"rkr_w1"},
-  {n:"Москва Пушкино Парк",m:true,k:true,w:"rkr_w2"},{n:"Москва ЗУМ",m:true,k:true,w:"rkr_w1"},
-  {n:"Москва Европолис (Золотой Вавилон)",m:false,k:true,w:"rkr_w2"},{n:"Москва Щёлковский",m:false,k:true,w:"rkr_w2"},
-  {n:"Москва Селигерская (Avenue Sever)",m:true,k:true,w:"rkr_w2"},{n:"Москва Весна",m:false,k:true,w:"rkr_w2"},
-  {n:"Москва Ареал (Беляево)",m:false,k:false,w:"rkr_w1"},{n:"Москва Домодедовский",m:false,k:true,w:"rkr_w1"},
-  {n:"Москва Шоколад",m:false,k:true,w:"rkr_w2"},{n:"Москва Ладья",m:false,k:true,w:"rkr_w2"},
-  {n:"Москва Мегаполис",m:false,k:true,w:"rkr_w1"},{n:"Красногорск РигаМолл",m:true,k:true,w:"rkr_w2"},
-  {n:"Москва Вэйпарк",m:false,k:true,w:"rkr_w2"},{n:"Москва Иридиум",m:false,k:true,w:"rkr_w2"},
-  {n:"Москва Ривьера",m:true,k:true,w:"rkr_w1"},{n:"Москва Океания",m:true,k:true,w:"rkr_w1"},
-  {n:"Москва Остров Мечты Kids",m:false,k:true,w:null},{n:"Москва XL",m:false,k:true,w:"rkr_w2"},
+const WR = "https://sedovnn.app.n8n.cloud/webhook/sela-schedule-write";
+const RD = "https://sedovnn.app.n8n.cloud/webhook/sela-schedule-read";
+
+const NAMES  = {div:"Николай Седов",ops:"Ольга Щуренкова",hr:"Карина Авдышева",rkr_w1:"Светлана Чечура",rkr_w2:"Евгения Урсул",rkr_m:"Дарья Домот",rkr_k:"Олеся Привалова"};
+const BADGES = {div:"ДИВ",ops:"ОПЕРАЦИЯ",hr:"HR",rkr_w1:"РКР ЖЕН·1",rkr_w2:"РКР ЖЕН·2",rkr_m:"РКР МУЖ",rkr_k:"РКР ДЕТ"};
+const DNS = ["Вс","Пн","Вт","Ср","Чт","Пт","Сб"];
+const DNF = ["Воскресенье","Понедельник","Вторник","Среда","Четверг","Пятница","Суббота"];
+const MNS = ["янв","фев","мар","апр","май","июн","июл","авг","сен","окт","ноя","дек"];
+
+// Alphabetically sorted stores with metadata
+const STORES_ALL = [
+  {n:"Зеленоград Зеленопарк",m:true,k:true,w:"rkr_w2"},
+  {n:"Красногорск РигаМолл",m:true,k:true,w:"rkr_w2"},
+  {n:"Москва BOTANICA",m:true,k:true,w:"rkr_w2"},
+  {n:"Москва Columbus",m:true,k:true,w:"rkr_w1"},
+  {n:"Москва XL",m:false,k:true,w:"rkr_w2"},
+  {n:"Москва Авиапарк",m:true,k:true,w:"rkr_w2"},
+  {n:"Москва Ареал (Беляево)",m:false,k:false,w:"rkr_w1"},
+  {n:"Москва Афимолл",m:true,k:true,w:"rkr_w1"},
+  {n:"Москва Бутово Молл",m:true,k:true,w:"rkr_w1"},
+  {n:"Москва Вегас (Кунцево)",m:false,k:true,w:"rkr_w1"},
+  {n:"Москва Вегас 2",m:false,k:true,w:"rkr_w1"},
+  {n:"Москва Весна",m:false,k:true,w:"rkr_w2"},
+  {n:"Москва Вэйпарк",m:false,k:true,w:"rkr_w2"},
+  {n:"Москва Город Лефортово-2",m:true,k:true,w:"rkr_w2"},
+  {n:"Москва Домодедовский",m:false,k:true,w:"rkr_w1"},
+  {n:"Москва Европейский",m:false,k:true,w:"rkr_w1"},
+  {n:"Москва Европолис (Золотой Вавилон)",m:false,k:true,w:"rkr_w2"},
+  {n:"Москва ЗУМ",m:true,k:true,w:"rkr_w1"},
+  {n:"Москва Иридиум",m:false,k:true,w:"rkr_w2"},
+  {n:"Москва Каширская Плаза",m:true,k:true,w:"rkr_w1"},
+  {n:"Москва Ладья",m:false,k:true,w:"rkr_w2"},
+  {n:"Москва Мега Белая Дача",m:true,k:true,w:"rkr_w1"},
+  {n:"Москва Мега Тёплый Стан",m:true,k:true,w:"rkr_w1"},
+  {n:"Москва Мега Химки",m:true,k:true,w:"rkr_w2"},
+  {n:"Москва Мегаполис",m:false,k:true,w:"rkr_w1"},
+  {n:"Москва Метрополис",m:true,k:true,w:"rkr_w2"},
+  {n:"Москва Океания",m:true,k:true,w:"rkr_w1"},
+  {n:"Москва Остров Мечты Kids",m:false,k:true,w:null},
+  {n:"Москва Павелецкая Плаза",m:true,k:true,w:"rkr_w1"},
+  {n:"Москва Пушкино Парк",m:true,k:true,w:"rkr_w2"},
+  {n:"Москва Ривьера",m:true,k:true,w:"rkr_w1"},
+  {n:"Москва Саларис",m:true,k:true,w:"rkr_w1"},
+  {n:"Москва Селигерская (Avenue Sever)",m:true,k:true,w:"rkr_w2"},
+  {n:"Москва Хорошо",m:true,k:true,w:"rkr_w2"},
+  {n:"Москва Шоколад",m:false,k:true,w:"rkr_w2"},
+  {n:"Москва Щёлковский",m:false,k:true,w:"rkr_w2"},
+  {n:"Мытищи Красный Кит",m:true,k:true,w:"rkr_w2"},
+  {n:"Одинцово Одипарк",m:true,k:true,w:"rkr_w1"},
 ];
-function sf(r){if(["div","ops","hr"].includes(r))return ST;if(r==="rkr_w1")return ST.filter(s=>s.w==="rkr_w1");if(r==="rkr_w2")return ST.filter(s=>s.w==="rkr_w2");if(r==="rkr_m")return ST.filter(s=>s.m);if(r==="rkr_k")return ST.filter(s=>s.k);return ST}
-let role=null,view="my",selDay=iso(new Date()),visits=[],eid=null;
-function iso(d){return d.toISOString().slice(0,10)}
-function fmtDate(s){const d=new Date(s+"T00:00:00");return DNF[d.getDay()]+", "+d.getDate()+" "+MNS[d.getMonth()]}
-function showScr(id){document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));document.getElementById(id).classList.add("active");window.scrollTo(0,0)}
-function selRole(c){document.querySelectorAll(".rc").forEach(x=>x.classList.remove("sel"));c.classList.add("sel");role=c.dataset.role;document.getElementById("s0b").classList.add("vis")}
-function enter(){
-  if(!role)return;
-  document.getElementById("topBadge").textContent=BADGES[role];
-  document.getElementById("vtog").style.display=role==="div"?"flex":"none";
-  const sel=document.getElementById("mst");sel.innerHTML="<option value=\'\'>— выбрать</option>";
-  sf(role).forEach(s=>sel.appendChild(new Option("SELA "+s.n,s.n)));
-  document.getElementById("mdt").valueAsDate=new Date();
-  showScr("s1");buildStrip();load();
+
+function storesFor(r) {
+  if (["div","ops","hr"].includes(r)) return STORES_ALL;
+  if (r==="rkr_w1") return STORES_ALL.filter(s=>s.w==="rkr_w1");
+  if (r==="rkr_w2") return STORES_ALL.filter(s=>s.w==="rkr_w2");
+  if (r==="rkr_m")  return STORES_ALL.filter(s=>s.m);
+  if (r==="rkr_k")  return STORES_ALL.filter(s=>s.k);
+  return STORES_ALL;
 }
-async function load(){
-  const btn=document.getElementById("rfab");btn.classList.add("spin");
-  document.getElementById("vlist").innerHTML="<div class=\'loading\'><div class=\'spinner\'></div>Загружаем...</div>";
-  try{
-    const r=await fetch(RD);const d=await r.json();
-    visits=(d.visits||[]).map(v=>({id:v.ID||v.id,role:v["Роль"]||v.role,name:v["Визитёр"]||v.name,store:v["Магазин"]||v.store,date:v["Дата"]||v.date,time:v["Время"]||v.time,comment:v["Комментарий"]||v.comment||"",status:v["Статус"]||v.status||"план"}));
-    buildStrip();render();
-  }catch(e){document.getElementById("vlist").innerHTML="<div class=\'empty\'><div class=\'eico\'>⚠️</div><div class=\'etxt\'>Не удалось загрузить.<br>Нажми 🔄</div></div>"}
+
+// ── STATE ──
+let role=null, view="my", selDay=iso(new Date()), visits=[], eid=null;
+
+function iso(d) { return d.toISOString().slice(0,10); }
+function fmtDate(s) { const d=new Date(s+"T00:00:00"); return DNF[d.getDay()]+", "+d.getDate()+" "+MNS[d.getMonth()]; }
+
+// ── NAVIGATION ──
+function goScreen(id) {
+  document.querySelectorAll(".scr").forEach(s=>s.classList.remove("on"));
+  document.getElementById(id).classList.add("on");
+  window.scrollTo(0,0);
+  if (id==="s1") buildPlanWeek();
+  if (id==="s2") { buildStrip(); load(); }
+}
+function showScr(id) { goScreen(id); }
+
+// ── SCREEN 0 ──
+function selRole(c) {
+  document.querySelectorAll(".rc").forEach(x=>x.classList.remove("sel"));
+  c.classList.add("sel"); role=c.dataset.role;
+  document.getElementById("actBtns").classList.add("vis");
+
+  // Populate store selects
+  const stores = storesFor(role);
+  ["mvSt"].forEach(id => {
+    const sel=document.getElementById(id);
+    sel.innerHTML="<option value=''>— выбрать</option>";
+    stores.forEach(s=>sel.appendChild(new Option("SELA "+s.n, s.n)));
+  });
+  document.getElementById("tb1badge").textContent=BADGES[role];
+  document.getElementById("tb2badge").textContent=BADGES[role];
+  document.getElementById("vtog").style.display=role==="div"?"flex":"none";
+}
+
+// ── SCREEN 1: PLAN WEEK ──
+function getWeekDays() {
+  const today=new Date(); today.setHours(0,0,0,0);
+  const mon=new Date(today); mon.setDate(today.getDate()-((today.getDay()+6)%7));
+  const days=[];
+  for(let i=0;i<7;i++){const d=new Date(mon);d.setDate(mon.getDate()+i);days.push(d);}
+  return days;
+}
+
+function buildPlanWeek() {
+  const cnt=document.getElementById("planWeekCnt");
+  cnt.innerHTML="";
+  const days=getWeekDays();
+  const stores=storesFor(role);
+
+  days.forEach(d => {
+    const s=iso(d);
+    const dayEl=document.createElement("div");
+    dayEl.className="plan-day";
+    dayEl.dataset.iso=s;
+
+    const isToday=iso(new Date())===s;
+    dayEl.innerHTML=`<div class="plan-day-hdr">
+      <span class="plan-day-name">${DNF[d.getDay()]}${isToday?" · сегодня":""}</span>
+      <span class="plan-day-date">${d.getDate()} ${MNS[d.getMonth()]}</span>
+    </div>
+    <div class="plan-day-body" id="pdb_${s}"></div>`;
+    cnt.appendChild(dayEl);
+
+    // Already planned visits for this role+day
+    const existing=visits.filter(v=>v.date===s&&v.role===role&&v.type!=="event");
+
+    const body=dayEl.querySelector(".plan-day-body");
+    if(existing.length) {
+      existing.forEach(v=>{
+        const row=document.createElement("div");
+        row.className="plan-store-row";
+        row.innerHTML=`<div class="plan-store-check on"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <span class="plan-store-name">SELA ${v.store}</span>`;
+        row.onclick=()=>{ if(confirm("Убрать визит в SELA "+v.store+"?")) del(v.id); buildPlanWeek(); };
+        body.appendChild(row);
+      });
+    }
+
+    const addBtn=document.createElement("button");
+    addBtn.className="plan-add-btn";
+    addBtn.textContent="+ Добавить магазин";
+    addBtn.onclick=()=>{ openVisitForDay(s); };
+    body.appendChild(addBtn);
+  });
+}
+
+function openVisitForDay(dateIso) {
+  eid=null;
+  document.getElementById("mvTitle").textContent="Добавить визит";
+  document.getElementById("mvSt").value="";
+  document.getElementById("mvDt").value=dateIso;
+  document.getElementById("mvTm").value="10:00";
+  document.getElementById("mvCm").value="";
+  document.getElementById("movVisit").classList.add("open");
+}
+
+async function savePlan() {
+  // Just close and go to view
+  goScreen("s2");
+}
+
+// ── SCREEN 2: VIEW ──
+async function load() {
+  const btn=document.getElementById("rfab"); btn.classList.add("spin");
+  document.getElementById("vlist").innerHTML="<div class='loading'><div class='spinner'></div>Загружаем...</div>";
+  try {
+    const r=await fetch(RD); const d=await r.json();
+    visits=(d.visits||[]).map(v=>({
+      id:v.ID||v.id, role:v["Роль"]||v.role, name:v["Визитёр"]||v.name,
+      store:v["Магазин"]||v.store, date:v["Дата"]||v.date,
+      time:v["Время"]||v.time, comment:v["Комментарий"]||v.comment||"",
+      status:v["Статус"]||v.status||"план",
+      type:v["Тип"]||v.type||"visit",
+    }));
+    buildStrip(); render();
+  } catch(e) {
+    document.getElementById("vlist").innerHTML="<div class='empty'><div class='eico'>⚠️</div><div class='etxt'>Не удалось загрузить.<br>Нажми 🔄</div></div>";
+  }
   btn.classList.remove("spin");
 }
-function buildStrip(){
-  const st=document.getElementById("wstrip");st.innerHTML="";
-  const today=new Date();today.setHours(0,0,0,0);
-  const mon=new Date(today);mon.setDate(today.getDate()-((today.getDay()+6)%7));
+
+function buildStrip() {
+  const st=document.getElementById("wstrip"); st.innerHTML="";
+  const today=new Date(); today.setHours(0,0,0,0);
+  const mon=new Date(today); mon.setDate(today.getDate()-((today.getDay()+6)%7));
   for(let i=0;i<7;i++){
-    const d=new Date(mon);d.setDate(mon.getDate()+i);
-    const s=iso(d),isT=d.getTime()===today.getTime();
+    const d=new Date(mon); d.setDate(mon.getDate()+i);
+    const s=iso(d), isT=d.getTime()===today.getTime();
     const hasV=visits.some(v=>v.date===s&&(view==="team"||v.role===role));
     const div=document.createElement("div");
     div.className="wd"+(isT?" today":"")+(s===selDay?" sel":"")+(hasV?" hasvs":"");
     div.dataset.iso=s;
-    div.innerHTML="<span class=\'wdn\'>"+DNS[d.getDay()]+"</span><span class=\'wdnum\'>"+d.getDate()+"</span><span class=\'wddot\'></span>";
-    div.onclick=()=>selD(s);st.appendChild(div);
+    div.innerHTML="<span class='wdn'>"+DNS[d.getDay()]+"</span><span class='wdnum'>"+d.getDate()+"</span><span class='wddot'></span>";
+    div.onclick=()=>selD(s);
+    st.appendChild(div);
   }
 }
-function selD(s){selDay=s;document.getElementById("mdt").value=s;document.querySelectorAll(".wd").forEach(d=>d.classList.toggle("sel",d.dataset.iso===s));render()}
-function setView(v){view=v;document.getElementById("bmy").classList.toggle("on",v==="my");document.getElementById("bteam").classList.toggle("on",v==="team");buildStrip();render()}
-function render(){
+
+function selD(s) {
+  selDay=s;
+  document.getElementById("mvDt").value=s;
+  document.getElementById("evDt").value=s;
+  document.querySelectorAll(".wd").forEach(d=>d.classList.toggle("sel",d.dataset.iso===s));
+  render();
+}
+
+function setView(v) {
+  view=v;
+  document.getElementById("bmy").classList.toggle("on",v==="my");
+  document.getElementById("bteam").classList.toggle("on",v==="team");
+  buildStrip(); render();
+}
+
+function render() {
   const list=document.getElementById("vlist");
-  const f=visits.filter(v=>v.date===selDay&&(view==="team"||v.role===role)).sort((a,b)=>(a.time||"").localeCompare(b.time||""));
-  list.innerHTML="<div class=\'daylbl\'>"+fmtDate(selDay)+"</div>";
-  if(!f.length){list.innerHTML+="<div class=\'empty\'><div class=\'eico\'>📅</div><div class=\'etxt\'>Нет визитов на этот день<br><span style=\'font-size:11px;opacity:.6\'>Нажми + чтобы добавить</span></div></div>";return}
+  const f=visits
+    .filter(v=>v.date===selDay&&(view==="team"||v.role===role||v.type==="event"))
+    .sort((a,b)=>{
+      if(a.type==="event"&&b.type!=="event") return -1;
+      if(b.type==="event"&&a.type!=="event") return 1;
+      return (a.time||"").localeCompare(b.time||"");
+    });
+
+  list.innerHTML="<div class='daylbl'>"+fmtDate(selDay)+"</div>";
+  if(!f.length){
+    list.innerHTML+="<div class='empty'><div class='eico'>📅</div><div class='etxt'>Нет записей на этот день<br><span style='font-size:11px;opacity:.6'>Нажми + чтобы добавить</span></div></div>";
+    return;
+  }
+
   f.forEach(v=>{
-    const own=v.role===role,done=v.status==="выполнен";
-    const el=document.createElement("div");el.className="vi"+(done?" done":"");el.dataset.role=v.role;
-    el.innerHTML="<div class=\'vchk"+(done?" on":"")+"\' onclick=\'tgD(\""+v.id+"\",\""+v.status+"\")\'><svg viewBox=\'0 0 10 10\' fill=\'none\'><path d=\'M1.5 5l2.5 2.5 4.5-4\' stroke=\'white\' stroke-width=\'2.5\' stroke-linecap=\'round\' stroke-linejoin=\'round\'/></svg></div>"
-      +"<div class=\'vinfo\'><span class=\'vstore\'>SELA "+v.store+"</span><div class=\'vmeta\'>"
-      +(v.time?"<span>🕐 "+v.time+"</span>":"")
-      +(view==="team"?"<span class=\'vbadge\'>"+( BADGES[v.role]||v.role)+"</span>":"")
-      +"<span class=\'vstatus "+(done?"done":"plan")+"\'>"+( done?"✓ выполнен":"план")+"</span>"
-      +(v.comment?"<span>· "+v.comment+"</span>":"")
-      +"</div></div>"
-      +(own?"<div class=\'vacts\'><button class=\'abtn\' onclick=\'openEdit(\""+v.id+"\")\'>✏️</button><button class=\'abtn\' onclick=\'del(\""+v.id+"\")\'>✕</button></div>":"");
+    const isEvent=v.type==="event";
+    const own=v.role===role||isEvent;
+    const done=v.status==="выполнен";
+    const el=document.createElement("div");
+    el.className="vi"+(done?" done":"")+(isEvent?" event":"");
+    if(!isEvent) el.dataset.role=v.role;
+
+    el.innerHTML=`
+      <div class="vchk${done?" on":""}" onclick="tgD('${v.id}','${v.status}')">
+        <svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+      <div class="vinfo">
+        <span class="vstore">${isEvent?"🔴 "+v.store:"SELA "+v.store}</span>
+        <div class="vmeta">
+          ${v.time?`<span>🕐 ${v.time}</span>`:""}
+          ${isEvent?`<span class="vstatus event">событие</span>`:
+            (view==="team"?`<span class="vbadge">${BADGES[v.role]||v.role}</span>`:"")+
+            `<span class="vstatus ${done?"done":"plan"}">${done?"✓ выполнен":"план"}</span>`}
+          ${v.comment?`<span>· ${v.comment}</span>`:""}
+        </div>
+      </div>
+      ${own?`<div class="vacts">
+        <button class="abtn" onclick="openEdit('${v.id}')">✏️</button>
+        <button class="abtn" onclick="del('${v.id}')">✕</button>
+      </div>`:""}`;
     list.appendChild(el);
   });
 }
-async function tgD(id,cur){const ns=cur==="выполнен"?"план":"выполнен";const v=visits.find(x=>x.id===id);if(!v)return;v.status=ns;render();try{await fetch(WR,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"update",id,status:ns,store:v.store,date:v.date,time:v.time,comment:v.comment})})}catch(e){}}
-async function del(id){visits=visits.filter(x=>x.id!==id);buildStrip();render();try{await fetch(WR,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"delete",id})})}catch(e){}}
-function openEdit(id){const v=visits.find(x=>x.id===id);if(!v)return;eid=id;document.getElementById("mtitle").textContent="Изменить визит";document.getElementById("mst").value=v.store;document.getElementById("mdt").value=v.date;document.getElementById("mtm").value=v.time||"10:00";document.getElementById("mcm").value=v.comment||"";document.getElementById("mov").classList.add("open")}
-function openM(){eid=null;document.getElementById("mtitle").textContent="Добавить визит";document.getElementById("mst").value="";document.getElementById("mdt").value=selDay;document.getElementById("mtm").value="10:00";document.getElementById("mcm").value="";document.getElementById("mov").classList.add("open")}
-function closeM(){document.getElementById("mov").classList.remove("open");eid=null}
-function closeOut(e){if(e.target===document.getElementById("mov"))closeM()}
-async function save(){
-  const store=document.getElementById("mst").value;const date=document.getElementById("mdt").value;
-  const time=document.getElementById("mtm").value;const comment=document.getElementById("mcm").value.trim();
+
+// ── ACTIONS ──
+async function tgD(id,cur) {
+  const ns=cur==="выполнен"?"план":"выполнен";
+  const v=visits.find(x=>x.id===id); if(!v) return;
+  v.status=ns; render();
+  try{await fetch(WR,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"update",id,status:ns,store:v.store,date:v.date,time:v.time,comment:v.comment})})}catch(e){}
+}
+
+async function del(id) {
+  visits=visits.filter(x=>x.id!==id); buildStrip(); render();
+  try{await fetch(WR,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"delete",id})})}catch(e){}
+}
+
+function openEdit(id) {
+  const v=visits.find(x=>x.id===id); if(!v) return;
+  eid=id;
+  if(v.type==="event") {
+    document.getElementById("evTitle").value=v.store;
+    document.getElementById("evDt").value=v.date;
+    document.getElementById("evTm").value=v.time||"10:00";
+    document.getElementById("evCm").value=v.comment||"";
+    document.getElementById("movEvt").classList.add("open");
+  } else {
+    document.getElementById("mvTitle").textContent="Изменить визит";
+    document.getElementById("mvSt").value=v.store;
+    document.getElementById("mvDt").value=v.date;
+    document.getElementById("mvTm").value=v.time||"10:00";
+    document.getElementById("mvCm").value=v.comment||"";
+    document.getElementById("movVisit").classList.add("open");
+  }
+}
+
+// ── MODALS ──
+function openVisit() {
+  eid=null;
+  document.getElementById("mvTitle").textContent="Добавить визит";
+  document.getElementById("mvSt").value="";
+  document.getElementById("mvDt").value=selDay;
+  document.getElementById("mvTm").value="10:00";
+  document.getElementById("mvCm").value="";
+  document.getElementById("movVisit").classList.add("open");
+}
+
+function openEvt() {
+  eid=null;
+  document.getElementById("evTitle").value="";
+  document.getElementById("evDt").value=selDay;
+  document.getElementById("evTm").value="10:00";
+  document.getElementById("evCm").value="";
+  document.getElementById("movEvt").classList.add("open");
+}
+
+function closeM(id) { document.getElementById(id).classList.remove("open"); eid=null; }
+function closeOut(e,id) { if(e.target===document.getElementById(id)) closeM(id); }
+
+async function saveVisit() {
+  const store=document.getElementById("mvSt").value;
+  const date=document.getElementById("mvDt").value;
+  const time=document.getElementById("mvTm").value;
+  const comment=document.getElementById("mvCm").value.trim();
   if(!store||!date){alert("Выбери магазин и дату");return}
-  const btn=document.getElementById("msave");btn.classList.add("saving");btn.textContent="Сохраняем...";
-  if(eid){
-    const v=visits.find(x=>x.id===eid);if(v){v.store=store;v.date=date;v.time=time;v.comment=comment}
+
+  const btn=document.getElementById("mvSave");
+  btn.classList.add("saving"); btn.textContent="Сохраняем...";
+
+  if(eid) {
+    const v=visits.find(x=>x.id===eid);
+    if(v){v.store=store;v.date=date;v.time=time;v.comment=comment;}
     try{await fetch(WR,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"update",id:eid,store,date,time,comment,status:v?.status||"план"})})}catch(e){}
-  }else{
-    const id=Date.now().toString();const nv={id,role,name:NAMES[role],store,date,time,comment,status:"план"};visits.push(nv);
+  } else {
+    const id=Date.now().toString();
+    const nv={id,role,name:NAMES[role],store,date,time,comment,status:"план",type:"visit"};
+    visits.push(nv);
     try{await fetch(WR,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"create",...nv})})}catch(e){}
   }
-  btn.classList.remove("saving");btn.textContent="Сохранить";closeM();selDay=date;buildStrip();render();
+
+  btn.classList.remove("saving"); btn.textContent="Сохранить";
+  closeM("movVisit");
+  selDay=date; buildStrip(); render();
+  document.querySelectorAll(".wd").forEach(d=>d.classList.toggle("sel",d.dataset.iso===date));
+  // Rebuild plan week if on s1
+  if(document.getElementById("s1").classList.contains("on")) buildPlanWeek();
+}
+
+async function saveEvent() {
+  const title=document.getElementById("evTitle").value.trim();
+  const date=document.getElementById("evDt").value;
+  const time=document.getElementById("evTm").value;
+  const comment=document.getElementById("evCm").value.trim();
+  if(!title||!date){alert("Укажи название и дату");return}
+
+  const btn=document.getElementById("evSave");
+  btn.classList.add("saving"); btn.textContent="Добавляем...";
+
+  if(eid) {
+    const v=visits.find(x=>x.id===eid);
+    if(v){v.store=title;v.date=date;v.time=time;v.comment=comment;}
+    try{await fetch(WR,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"update",id:eid,store:title,date,time,comment,status:"событие"})})}catch(e){}
+  } else {
+    const id=Date.now().toString();
+    const nv={id,role,name:NAMES[role],store:title,date,time,comment,status:"событие",type:"event"};
+    visits.push(nv);
+    try{await fetch(WR,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"create",...nv})})}catch(e){}
+  }
+
+  btn.classList.remove("saving"); btn.textContent="Добавить";
+  closeM("movEvt");
+  selDay=date; buildStrip(); render();
   document.querySelectorAll(".wd").forEach(d=>d.classList.toggle("sel",d.dataset.iso===date));
 }
+
 selDay=iso(new Date());
 </script>
 </body>
