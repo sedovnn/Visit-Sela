@@ -6,310 +6,445 @@
 <title>Расписание · SELA</title>
 <link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
-:root{--navy:#0F1E35;--navy2:#1B2D4A;--blue:#2563EB;--blue-light:#64B5F6;--blue-bg:#EFF6FF;--green:#16A34A;--green-bg:#F0FDF4;--amber:#D97706;--red:#DC2626;--red-bg:#FEF2F2;--grey:#6B7280;--grey-bg:#F3F4F6;--border:#E5E7EB;--bdark:rgba(255,255,255,.1);--text:#111827;--r:12px;--rs:8px}
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{font-family:"Golos Text",sans-serif;min-height:100vh}
-.scr{display:none;min-height:100vh;flex-direction:column}
-.scr.on{display:flex}
+:root {
+  --bg: #F0F2F5;
+  --navy: #0D1B2E;
+  --navy2: #162338;
+  --blue: #2261D3;
+  --blue-dim: rgba(34,97,211,.12);
+  --green: #0F9E5A;
+  --green-dim: rgba(15,158,90,.12);
+  --red: #D63B3B;
+  --red-dim: rgba(214,59,59,.1);
+  --amber: #C97B12;
+  --purple: #6D3AE6;
+  --purple-dim: rgba(109,58,230,.1);
+  --grey: #8895A7;
+  --grey-dim: #EEF0F3;
+  --text: #0D1B2E;
+  --text-soft: #5A6B7E;
+  --white: #FFFFFF;
+  --border: #E2E6EC;
+  --r: 14px;
+  --rs: 9px;
+  --shadow: 0 1px 4px rgba(13,27,46,.08), 0 4px 16px rgba(13,27,46,.04);
+}
 
-/* ── SCREEN 0: РОЛЬ ── */
-#s0{background:var(--navy);color:#fff;padding:0 20px 48px;max-width:480px;margin:0 auto;width:100%}
-#s0::before{content:"";position:fixed;inset:0;background:radial-gradient(ellipse 80% 50% at 20% 0%,rgba(37,99,235,.15) 0%,transparent 60%);pointer-events:none;z-index:0}
-.s0i{position:relative;z-index:1;padding-top:40px}
-.backlink{display:flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:rgba(255,255,255,.45);text-decoration:none;margin-bottom:28px}
-.backlink svg{width:14px;height:14px;flex-shrink:0}
-.s0tag{font-family:"JetBrains Mono",monospace;font-size:11px;color:var(--blue-light);margin-bottom:8px}
-.s0ttl{font-size:28px;font-weight:900;letter-spacing:-1px;line-height:1.1;margin-bottom:8px}
-.s0sub{font-size:13px;color:rgba(255,255,255,.5);line-height:1.5;margin-bottom:24px}
-.divider{width:40px;height:2px;background:linear-gradient(90deg,var(--blue),transparent);margin-bottom:20px;border-radius:2px}
-.rgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px}
-.rc{padding:14px 12px;border:1.5px solid var(--bdark);border-radius:var(--r);background:rgba(255,255,255,.04);cursor:pointer;transition:all .15s}
-.rc:active{transform:scale(.97)}.rc.sel{border-color:var(--blue);background:rgba(37,99,235,.15)}
-.rc .ri{font-size:20px;display:block;margin-bottom:6px}
-.rc .rn{font-size:11px;font-weight:700;color:#fff;display:block;line-height:1.3}
-.rc .rs{font-size:10px;color:rgba(255,255,255,.4);display:block;margin-top:2px}
-.rc.sel .rs{color:var(--blue-light)}
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html, body { height:100%; }
+body { font-family:'Golos Text',sans-serif; background:var(--bg); color:var(--text); overscroll-behavior:none; }
 
-/* Action buttons after role select */
-.action-btns{display:none;gap:10px;flex-direction:column}
-.action-btns.vis{display:flex}
-.actbtn{width:100%;padding:15px 16px;border:none;border-radius:var(--r);cursor:pointer;font-family:"Golos Text",sans-serif;font-size:15px;font-weight:700;display:flex;align-items:center;gap:10px;transition:opacity .15s}
-.actbtn:active{opacity:.8}
-.actbtn-pri{background:var(--blue);color:#fff}
-.actbtn-sec{background:rgba(255,255,255,.08);color:#fff;border:1.5px solid var(--bdark)}
-.actbtn .abico{font-size:20px}
+/* ─── ROLE PICKER ─── */
+.role-screen {
+  min-height:100vh; display:flex; flex-direction:column;
+  background:var(--navy);
+  padding:0 20px 40px;
+  max-width:480px; margin:0 auto;
+}
+.role-screen::before {
+  content:''; position:fixed; inset:0; pointer-events:none; z-index:0;
+  background:
+    radial-gradient(ellipse 70% 40% at 10% 5%, rgba(34,97,211,.2) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 30% at 90% 90%, rgba(34,97,211,.1) 0%, transparent 60%);
+}
+.rsi { position:relative; z-index:1; padding-top:44px; }
+.rs-back { display:flex; align-items:center; gap:5px; font-size:12px; font-weight:600; color:rgba(255,255,255,.4); text-decoration:none; margin-bottom:28px; }
+.rs-back svg { width:14px; height:14px; }
+.rs-eyebrow { font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:700; color:var(--blue); letter-spacing:1.5px; text-transform:uppercase; margin-bottom:10px; }
+.rs-title { font-size:30px; font-weight:900; color:#fff; letter-spacing:-1px; line-height:1.1; margin-bottom:8px; }
+.rs-sub { font-size:13px; color:rgba(255,255,255,.45); line-height:1.55; margin-bottom:28px; }
 
-/* ── SCREEN 1: СОСТАВИТЬ НА НЕДЕЛЮ ── */
-#s1{background:#EEF2F7;padding-bottom:90px}
+.role-list { display:flex; flex-direction:column; gap:8px; margin-bottom:24px; }
+.rc {
+  display:flex; align-items:center; gap:12px;
+  padding:13px 14px; border:1.5px solid rgba(255,255,255,.08);
+  border-radius:var(--r); background:rgba(255,255,255,.04);
+  cursor:pointer; transition:all .15s;
+}
+.rc:active { transform:scale(.98); }
+.rc.sel { border-color:var(--blue); background:rgba(34,97,211,.15); }
+.rc-ico { width:36px; height:36px; border-radius:10px; background:rgba(255,255,255,.07); display:flex; align-items:center; justify-content:center; font-size:17px; flex-shrink:0; }
+.rc.sel .rc-ico { background:rgba(34,97,211,.25); }
+.rc-info { flex:1; min-width:0; }
+.rc-name { font-size:13px; font-weight:700; color:#fff; display:block; }
+.rc-person { font-size:11px; color:rgba(255,255,255,.4); display:block; margin-top:1px; }
+.rc.sel .rc-person { color:rgba(100,181,246,.8); }
+.rc-arrow { color:rgba(255,255,255,.2); flex-shrink:0; transition:all .15s; }
+.rc.sel .rc-arrow { color:var(--blue); }
 
-/* ── SCREEN 2: ПРОСМОТР ── */
-#s2{background:#EEF2F7;padding-bottom:90px}
+.rs-cta {
+  width:100%; padding:15px; background:var(--blue); color:#fff;
+  font-family:'Golos Text',sans-serif; font-size:15px; font-weight:700;
+  border:none; border-radius:var(--r); cursor:pointer; display:none;
+  letter-spacing:-.2px; transition:opacity .15s;
+}
+.rs-cta.vis { display:block; }
+.rs-cta:active { opacity:.85; }
 
-/* TOPBAR */
-.topbar{background:var(--navy);padding:14px 16px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.2)}
-.tb-back{display:flex;align-items:center;gap:4px;font-size:12px;font-weight:600;color:rgba(255,255,255,.45);cursor:pointer;flex-shrink:0}
-.tb-back svg{width:14px;height:14px}
-.tb-title{flex:1;text-align:center;font-size:15px;font-weight:700;color:#fff}
-.tb-badge{font-family:"JetBrains Mono",monospace;font-size:10px;font-weight:700;color:var(--navy);background:var(--blue-light);padding:3px 8px;border-radius:20px;flex-shrink:0}
+/* ─── MAIN SCHEDULE ─── */
+.main { display:none; flex-direction:column; height:100vh; max-width:480px; margin:0 auto; }
+.main.on { display:flex; }
 
-/* WEEK STRIP */
-.wstrip{background:var(--navy2);padding:12px 16px;overflow-x:auto;display:flex;gap:8px;scrollbar-width:none;border-bottom:1px solid rgba(255,255,255,.07)}
-.wstrip::-webkit-scrollbar{display:none}
-.wd{flex-shrink:0;width:46px;text-align:center;cursor:pointer;border-radius:10px;padding:7px 4px;transition:background .15s}
-.wd.today{background:var(--blue)}.wd.sel:not(.today){background:rgba(255,255,255,.12)}
-.wd .wdn{font-size:9px;font-weight:600;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.3px;display:block}
-.wd .wdnum{font-family:"JetBrains Mono",monospace;font-size:17px;font-weight:700;color:#fff;display:block;line-height:1.1;margin:2px 0}
-.wd .wddot{width:5px;height:5px;border-radius:50%;background:var(--blue-light);margin:0 auto;opacity:0;transition:opacity .2s}
-.wd.hasvs .wddot{opacity:1}.wd.today .wddot{background:rgba(255,255,255,.7)}
-
-/* CONTENT */
-.cnt{padding:10px 12px}
-
-/* VIEW TOGGLE */
-.vtog{display:flex;background:#fff;border-radius:var(--r);padding:3px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.vbtn{flex:1;padding:8px;font-size:12px;font-weight:600;border:none;background:none;cursor:pointer;border-radius:var(--rs);color:var(--grey);transition:all .15s;font-family:"Golos Text",sans-serif}
-.vbtn.on{background:var(--navy);color:#fff}
-
-/* PLAN WEEK — day columns */
-.plan-week{display:flex;flex-direction:column;gap:8px}
-.plan-day{background:#fff;border-radius:var(--r);overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.plan-day-hdr{padding:10px 14px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
-.plan-day-name{font-size:12px;font-weight:700;color:var(--navy)}
-.plan-day-date{font-family:"JetBrains Mono",monospace;font-size:10px;color:var(--grey)}
-.plan-day-body{padding:6px 8px}
-.plan-store-row{display:flex;align-items:center;gap:8px;padding:6px;border-radius:var(--rs);cursor:pointer;transition:background .15s}
-.plan-store-row:active{background:var(--grey-bg)}
-.plan-store-name{font-size:13px;color:var(--text);flex:1}
-.plan-store-check{width:18px;height:18px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
-.plan-store-check.on{background:var(--blue);border-color:var(--blue)}
-.plan-store-check svg{width:9px;height:9px;stroke:#fff;stroke-width:2.5;opacity:0}
-.plan-store-check.on svg{opacity:1}
-.plan-add-btn{width:100%;padding:8px;background:none;border:1.5px dashed var(--border);border-radius:var(--rs);font-size:12px;color:var(--grey);cursor:pointer;font-family:"Golos Text",sans-serif;margin-top:4px}
-.plan-add-btn:active{background:var(--grey-bg)}
-
-/* DAY LABEL */
-.daylbl{font-size:11px;font-weight:700;color:var(--grey);text-transform:uppercase;letter-spacing:.5px;padding:8px 2px 6px;font-family:"JetBrains Mono",monospace}
-
-/* VISIT ITEM */
-.vi{background:#fff;border-radius:var(--r);padding:12px 14px;margin-bottom:8px;box-shadow:0 1px 3px rgba(0,0,0,.06);display:flex;align-items:flex-start;gap:10px;border-left:3px solid transparent}
-.vi.done .vstore{text-decoration:line-through;opacity:.5}
-/* event type */
-.vi.event{border-left-color:var(--red);background:#FFF5F5}
-/* role colors */
-.vi[data-role=div]{border-left-color:#8B5CF6}.vi[data-role=ops]{border-left-color:var(--blue)}
-.vi[data-role=hr]{border-left-color:var(--green)}.vi[data-role=rkr_w1]{border-left-color:#EC4899}
-.vi[data-role=rkr_w2]{border-left-color:#F97316}.vi[data-role=rkr_m]{border-left-color:var(--amber)}
-.vi[data-role=rkr_k]{border-left-color:#14B8A6}
-.vchk{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;margin-top:1px;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center}
-.vchk.on{background:var(--green);border-color:var(--green)}
-.vchk svg{width:10px;height:10px;stroke:#fff;stroke-width:2.5;opacity:0;transition:opacity .15s}
-.vchk.on svg{opacity:1}
-.vinfo{flex:1;min-width:0}
-.vstore{font-size:14px;font-weight:700;color:var(--text);display:block;margin-bottom:3px}
-.vi.event .vstore{color:var(--red)}
-.vmeta{font-size:11px;color:var(--grey);display:flex;flex-wrap:wrap;align-items:center;gap:5px}
-.vbadge{font-size:9px;font-weight:700;color:var(--navy);background:var(--grey-bg);padding:2px 6px;border-radius:20px;font-family:"JetBrains Mono",monospace}
-.vstatus{font-size:9px;font-weight:700;padding:2px 6px;border-radius:20px;font-family:"JetBrains Mono",monospace}
-.vstatus.plan{background:#EFF6FF;color:var(--blue)}.vstatus.done{background:var(--green-bg);color:var(--green)}
-.vstatus.event{background:#FEE2E2;color:var(--red)}
-.vacts{display:flex;gap:5px;flex-shrink:0;margin-top:1px}
-.abtn{width:28px;height:28px;border-radius:8px;background:var(--grey-bg);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:13px}
-.abtn:active{opacity:.7}
-
-/* SAVE BAR */
-.savebar{position:fixed;bottom:0;left:0;right:0;padding:12px 16px;background:#fff;border-top:1px solid var(--border);z-index:200}
-.savebar-btn{width:100%;padding:14px;background:var(--navy);color:#fff;font-family:"Golos Text",sans-serif;font-size:15px;font-weight:700;border:none;border-radius:var(--r);cursor:pointer}
-
-/* FAB area */
-.fabarea{position:fixed;bottom:24px;right:16px;display:flex;flex-direction:column;align-items:flex-end;gap:8px;z-index:200}
-.fab{width:52px;height:52px;border-radius:50%;background:var(--blue);color:#fff;font-size:22px;border:none;cursor:pointer;box-shadow:0 4px 16px rgba(37,99,235,.4);display:flex;align-items:center;justify-content:center;transition:transform .15s}
-.fab:active{transform:scale(.92)}
-.fab-event{background:var(--red);box-shadow:0 4px 16px rgba(220,38,38,.35);font-size:14px;font-weight:700;width:auto;padding:0 14px;border-radius:24px;height:40px;white-space:nowrap}
-.fab-label{font-size:10px;color:var(--grey);text-align:right;font-weight:600}
-.rfab{width:40px;height:40px;border-radius:50%;background:#fff;border:1px solid var(--border);cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(0,0,0,.1);font-size:16px}
-.rfab.spin{animation:spin .8s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-
-/* EMPTY */
-.empty{text-align:center;padding:28px 20px;color:var(--grey)}
-.empty .eico{font-size:32px;margin-bottom:8px}
-.empty .etxt{font-size:13px;line-height:1.5}
-.loading{text-align:center;padding:32px;color:var(--grey);font-size:13px}
-.spinner{width:24px;height:24px;border:2px solid var(--border);border-top-color:var(--blue);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 10px}
+/* TOP BAR */
+.topbar {
+  background:var(--navy); padding:0 16px;
+  display:flex; align-items:center; height:52px; gap:10px;
+  position:sticky; top:0; z-index:100; flex-shrink:0;
+  box-shadow:0 1px 0 rgba(255,255,255,.06), 0 4px 16px rgba(0,0,0,.2);
+}
+.tb-back { display:flex; align-items:center; gap:3px; font-size:12px; font-weight:600; color:rgba(255,255,255,.4); cursor:pointer; flex-shrink:0; }
+.tb-back svg { width:14px; height:14px; }
+.tb-name { flex:1; text-align:center; font-size:13px; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.tb-badge {
+  font-family:'JetBrains Mono',monospace; font-size:9px; font-weight:700;
+  color:var(--navy); background:rgba(100,181,246,.9); padding:3px 7px; border-radius:20px; flex-shrink:0;
+}
 
 /* WEEK NAV */
-.wstrip-wrap{background:var(--navy2);border-bottom:1px solid rgba(255,255,255,.07)}
-.week-nav{display:flex;align-items:center;justify-content:space-between;padding:8px 16px 4px}
-.wnav-btn{background:rgba(255,255,255,.1);border:none;color:#fff;width:32px;height:32px;border-radius:50%;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s}
-.wnav-btn:active{background:rgba(255,255,255,.25)}
-.wnav-label{font-family:"JetBrains Mono",monospace;font-size:11px;font-weight:700;color:rgba(255,255,255,.7);letter-spacing:.3px}
-.wstrip{padding:4px 16px 10px;border-bottom:none}
-/* BLOCK TYPE */
-.vi.block{border-left-color:#7C3AED;background:#F5F3FF}
-.vi.block .vstore{color:#7C3AED}
-.vstatus.block-s{background:#EDE9FE;color:#7C3AED}
+.week-nav {
+  background:var(--navy2); padding:8px 16px 0; flex-shrink:0;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.wn-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:8px; }
+.wn-btn {
+  width:28px; height:28px; border-radius:50%; background:rgba(255,255,255,.08);
+  border:none; color:rgba(255,255,255,.6); font-size:16px; cursor:pointer;
+  display:flex; align-items:center; justify-content:center; transition:background .15s;
+}
+.wn-btn:active { background:rgba(255,255,255,.18); }
+.wn-label { font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:700; color:rgba(255,255,255,.5); letter-spacing:.5px; }
+.wn-label.current { color:rgba(100,181,246,.9); }
+
+/* DAY STRIP */
+.day-strip { display:flex; gap:4px; padding-bottom:10px; }
+.ds-day {
+  flex:1; text-align:center; padding:6px 2px;
+  border-radius:10px; cursor:pointer; transition:background .12s; position:relative;
+}
+.ds-day:active { background:rgba(255,255,255,.1); }
+.ds-day.today { background:var(--blue); }
+.ds-day.sel:not(.today) { background:rgba(255,255,255,.1); }
+.ds-dn { font-size:9px; font-weight:700; color:rgba(255,255,255,.35); text-transform:uppercase; display:block; letter-spacing:.3px; }
+.ds-num { font-family:'JetBrains Mono',monospace; font-size:17px; font-weight:700; color:#fff; display:block; line-height:1; margin:3px 0 4px; }
+.ds-dot { width:4px; height:4px; border-radius:50%; background:rgba(100,181,246,.7); margin:0 auto; opacity:0; transition:opacity .2s; }
+.ds-day.has-v .ds-dot { opacity:1; }
+.ds-day.today .ds-dn { color:rgba(255,255,255,.7); }
+.ds-day.today .ds-dot { background:rgba(255,255,255,.6); }
+
+/* TOGGLE */
+.toggle-wrap { padding:8px 12px; flex-shrink:0; }
+.toggle {
+  display:flex; background:var(--white); border-radius:var(--rs);
+  padding:3px; box-shadow:var(--shadow);
+}
+.tg-btn {
+  flex:1; padding:7px; font-size:12px; font-weight:600; border:none;
+  background:none; cursor:pointer; border-radius:7px; color:var(--grey);
+  transition:all .15s; font-family:'Golos Text',sans-serif;
+}
+.tg-btn.on { background:var(--navy); color:#fff; }
+
+/* CONTENT */
+.content { flex:1; overflow-y:auto; padding:8px 12px 100px; -webkit-overflow-scrolling:touch; }
+
+.day-lbl {
+  font-family:'JetBrains Mono',monospace; font-size:10px; font-weight:700;
+  color:var(--grey); text-transform:uppercase; letter-spacing:.6px;
+  padding:6px 2px 8px;
+}
+
+/* VISIT CARD */
+.vc {
+  background:var(--white); border-radius:var(--r); margin-bottom:8px;
+  box-shadow:var(--shadow); display:flex; align-items:stretch; overflow:hidden;
+  transition:opacity .15s;
+}
+.vc.done { opacity:.55; }
+.vc-bar { width:3px; flex-shrink:0; }
+.vc-body { flex:1; padding:11px 12px; min-width:0; }
+.vc-title { font-size:14px; font-weight:700; color:var(--text); display:block; margin-bottom:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.vc.done .vc-title { text-decoration:line-through; }
+.vc-meta { display:flex; flex-wrap:wrap; align-items:center; gap:5px; }
+.vc-time { font-size:11px; color:var(--grey); display:flex; align-items:center; gap:3px; }
+.pill {
+  font-size:9px; font-weight:700; padding:2px 6px; border-radius:20px;
+  font-family:'JetBrains Mono',monospace; letter-spacing:.3px;
+}
+.pill-plan  { background:var(--blue-dim); color:var(--blue); }
+.pill-done  { background:var(--green-dim); color:var(--green); }
+.pill-block { background:var(--purple-dim); color:var(--purple); }
+.pill-event { background:var(--red-dim); color:var(--red); }
+.pill-role  { background:var(--grey-dim); color:var(--text-soft); }
+.vc-actions { display:flex; align-items:center; padding:0 8px; gap:2px; flex-shrink:0; }
+.va-btn {
+  width:30px; height:30px; border-radius:8px; border:none; background:none;
+  cursor:pointer; display:flex; align-items:center; justify-content:center;
+  font-size:14px; transition:background .12s; color:var(--grey);
+}
+.va-btn:active { background:var(--grey-dim); }
+.va-check {
+  width:22px; height:22px; border-radius:50%; border:2px solid var(--border);
+  flex-shrink:0; cursor:pointer; display:flex; align-items:center; justify-content:center;
+  margin:auto 0 auto 10px; transition:all .15s;
+}
+.va-check.on { background:var(--green); border-color:var(--green); }
+.va-check svg { width:10px; height:10px; stroke:#fff; stroke-width:2.5; opacity:0; }
+.va-check.on svg { opacity:1; }
+
+/* Role bar colors */
+.bar-div    { background:#8B5CF6; }
+.bar-ops    { background:var(--blue); }
+.bar-hr     { background:var(--green); }
+.bar-rkr_w1 { background:#E8408A; }
+.bar-rkr_w2 { background:#F97316; }
+.bar-rkr_m  { background:var(--amber); }
+.bar-rkr_k  { background:#0CAABD; }
+.bar-block  { background:var(--purple); }
+.bar-event  { background:var(--red); }
+
+/* EMPTY */
+.empty { text-align:center; padding:40px 20px; }
+.empty-ico { font-size:36px; margin-bottom:10px; }
+.empty-txt { font-size:13px; color:var(--grey); line-height:1.6; }
+
+/* LOADING */
+.loading { text-align:center; padding:40px; color:var(--grey); font-size:13px; }
+.spinner {
+  width:22px; height:22px; border:2px solid var(--border);
+  border-top-color:var(--blue); border-radius:50%;
+  animation:spin .7s linear infinite; margin:0 auto 10px;
+}
+@keyframes spin { to { transform:rotate(360deg); } }
+
+/* FAB */
+.fab-wrap { position:fixed; bottom:24px; right:16px; z-index:200; display:flex; flex-direction:column; align-items:flex-end; gap:8px; }
+.fab-menu { display:none; flex-direction:column; align-items:flex-end; gap:6px; }
+.fab-menu.open { display:flex; }
+.fab-item {
+  display:flex; align-items:center; gap:8px; cursor:pointer;
+  animation:fadeInUp .15s ease both;
+}
+@keyframes fadeInUp { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+.fab-item:nth-child(1) { animation-delay:.05s; }
+.fab-item:nth-child(2) { animation-delay:.1s; }
+.fab-item:nth-child(3) { animation-delay:.15s; }
+.fab-item-lbl { font-size:12px; font-weight:700; color:var(--text); background:var(--white); padding:5px 10px; border-radius:20px; box-shadow:var(--shadow); white-space:nowrap; }
+.fab-item-btn { width:40px; height:40px; border-radius:50%; border:none; cursor:pointer; font-size:16px; display:flex; align-items:center; justify-content:center; box-shadow:0 3px 12px rgba(0,0,0,.2); flex-shrink:0; }
+.fab-main {
+  width:52px; height:52px; border-radius:50%; background:var(--navy); border:none;
+  color:#fff; font-size:22px; cursor:pointer; display:flex; align-items:center;
+  justify-content:center; box-shadow:0 4px 16px rgba(13,27,46,.35); transition:transform .2s, background .15s;
+}
+.fab-main.open { transform:rotate(45deg); background:var(--red); }
+
+/* REFRESH */
+.rfab {
+  position:fixed; bottom:24px; left:16px; width:40px; height:40px;
+  border-radius:50%; background:var(--white); border:1px solid var(--border);
+  cursor:pointer; display:flex; align-items:center; justify-content:center;
+  z-index:200; box-shadow:var(--shadow); font-size:15px; color:var(--grey);
+}
+.rfab.spin { animation:spin .7s linear infinite; }
 
 /* MODAL */
-.mov{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:300;display:none;align-items:flex-end;justify-content:center}
-.mov.open{display:flex}
-.modal{background:#fff;border-radius:20px 20px 0 0;padding:0 0 40px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto}
-.mhandle{width:40px;height:4px;background:var(--border);border-radius:2px;margin:12px auto 0}
-.mtitle{font-size:17px;font-weight:800;color:var(--navy);padding:16px 20px 12px;border-bottom:1px solid var(--border)}
-.mbody{padding:14px 20px}
-.fld{margin-bottom:12px}
-.fld label{display:block;font-size:10px;font-weight:700;color:var(--grey);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
-.fld select,.fld input{width:100%;padding:10px 12px;border:1.5px solid var(--border);border-radius:var(--rs);font-size:15px;font-family:"Golos Text",sans-serif;color:var(--text);background:var(--grey-bg);appearance:none;-webkit-appearance:none}
-.fld select:focus,.fld input:focus{outline:none;border-color:var(--blue);background:#fff}
-.frow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.macts{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:4px 20px 0}
-.mbtn{padding:13px;font-family:"Golos Text",sans-serif;font-size:14px;font-weight:700;border:none;border-radius:var(--r);cursor:pointer}
-.mbtn-c{background:var(--grey-bg);color:var(--navy)}
-.mbtn-s{background:var(--navy);color:#fff}
-.mbtn-event{background:var(--red);color:#fff}
-.mbtn-s.saving{opacity:.6;pointer-events:none}
+.overlay { position:fixed; inset:0; background:rgba(0,0,0,.4); z-index:300; display:none; align-items:flex-end; justify-content:center; backdrop-filter:blur(2px); }
+.overlay.open { display:flex; }
+.sheet {
+  background:var(--white); border-radius:20px 20px 0 0; padding:0 0 44px;
+  width:100%; max-width:480px; max-height:88vh; overflow-y:auto;
+  animation:slideUp .25s cubic-bezier(.32,1,.6,1);
+}
+@keyframes slideUp { from { transform:translateY(100%); } to { transform:translateY(0); } }
+.sheet-handle { width:36px; height:4px; background:var(--border); border-radius:2px; margin:12px auto 0; }
+.sheet-title { font-size:16px; font-weight:800; color:var(--navy); padding:14px 20px 12px; letter-spacing:-.3px; }
+.sheet-body { padding:0 20px; }
+.field { margin-bottom:12px; }
+.field label { display:block; font-size:10px; font-weight:700; color:var(--grey); text-transform:uppercase; letter-spacing:.6px; margin-bottom:5px; }
+.field select, .field input {
+  width:100%; padding:11px 12px; border:1.5px solid var(--border);
+  border-radius:var(--rs); font-size:15px; font-family:'Golos Text',sans-serif;
+  color:var(--text); background:#FAFBFC; appearance:none; -webkit-appearance:none;
+  transition:border-color .15s;
+}
+.field select:focus, .field input:focus { outline:none; border-color:var(--blue); background:var(--white); }
+.field-row { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+.sheet-actions { display:grid; grid-template-columns:1fr 1fr; gap:10px; padding:16px 20px 0; }
+.sheet-btn { padding:13px; font-family:'Golos Text',sans-serif; font-size:14px; font-weight:700; border:none; border-radius:var(--r); cursor:pointer; transition:opacity .15s; }
+.sheet-btn:active { opacity:.8; }
+.sheet-btn-cancel { background:var(--grey-dim); color:var(--text); }
+.sheet-btn-save { background:var(--navy); color:#fff; }
+.sheet-btn-save.saving { opacity:.6; pointer-events:none; }
 </style>
 </head>
 <body>
 
-<!-- ── SCREEN 0: РОЛЬ ── -->
-<div class="scr on" id="s0">
-<div class="s0i">
-  <a href="index.html" class="backlink">
-    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 8H3M7 4l-4 4 4 4"/></svg>Главная
+<!-- ─── ROLE PICKER ─── -->
+<div class="role-screen" id="rolePicker">
+<div class="rsi">
+  <a href="index.html" class="rs-back">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 8H3M7 4l-4 4 4 4"/></svg>
+    Главная
   </a>
-  <div class="s0tag">// Расписание визитов</div>
-  <h1 class="s0ttl">Кто ты<br>в команде?</h1>
-  <p class="s0sub">Выбери роль — увидишь расписание команды и сможешь составить своё.</p>
-  <div class="divider"></div>
-  <div class="rgrid">
-    <div class="rc" data-role="div" onclick="selRole(this)"><span class="ri">📊</span><span class="rn">Директор Дивизиона</span><span class="rs">Николай Седов</span></div>
-    <div class="rc" data-role="ops" onclick="selRole(this)"><span class="ri">🔍</span><span class="rn">Операционный Директор</span><span class="rs">Ольга Щуренкова</span></div>
-    <div class="rc" data-role="hr"  onclick="selRole(this)"><span class="ri">👥</span><span class="rn">HRBP</span><span class="rs">Карина Авдышева</span></div>
-    <div class="rc" data-role="rkr_w1" onclick="selRole(this)"><span class="ri">👗</span><span class="rn">РКР Женского · Москва 1</span><span class="rs">Светлана Чечура</span></div>
-    <div class="rc" data-role="rkr_w2" onclick="selRole(this)"><span class="ri">👗</span><span class="rn">РКР Женского · Москва 2</span><span class="rs">Евгения Урсул</span></div>
-    <div class="rc" data-role="rkr_m" onclick="selRole(this)"><span class="ri">👔</span><span class="rn">РКР Мужского</span><span class="rs">Дарья Домот</span></div>
-    <div class="rc" data-role="rkr_k" onclick="selRole(this)"><span class="ri">🧒</span><span class="rn">РКР Детского</span><span class="rs">Олеся Привалова</span></div>
-  </div>
-  <div class="action-btns" id="actBtns">
-    <button class="actbtn actbtn-pri" onclick="goScreen('s1')">
-      <span class="abico">📅</span>Составить расписание на неделю
-    </button>
-    <button class="actbtn actbtn-sec" onclick="goScreen('s2')">
-      <span class="abico">👁</span>Открыть расписание
-    </button>
-  </div>
-</div>
-</div>
+  <div class="rs-eyebrow">Расписание визитов</div>
+  <h1 class="rs-title">Выбери<br>свою роль</h1>
+  <p class="rs-sub">Один раз — и форма запомнит тебя. Сменить можно в любой момент.</p>
 
-<!-- ── SCREEN 1: СОСТАВИТЬ НА НЕДЕЛЮ ── -->
-<div class="scr" id="s1">
-  <div class="topbar">
-    <div class="tb-back" onclick="goScreen('s0')"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 8H3M7 4l-4 4 4 4"/></svg>Назад</div>
-    <div class="tb-title">Моя неделя</div>
-    <div class="tb-badge" id="tb1badge">—</div>
-  </div>
-  <div class="cnt" id="planWeekCnt"></div>
-  <div class="savebar">
-    <button class="savebar-btn" onclick="savePlan()">Сохранить расписание →</button>
-  </div>
-</div>
-
-<!-- ── SCREEN 2: ПРОСМОТР ── -->
-<div class="scr" id="s2">
-  <div class="topbar">
-    <div class="tb-back" onclick="goScreen('s0')"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 8H3M7 4l-4 4 4 4"/></svg>Назад</div>
-    <div class="tb-title">Расписание</div>
-    <div class="tb-badge" id="tb2badge">—</div>
-  </div>
-  <div class="wstrip-wrap">
-  <div class="week-nav" id="weekNav">
-    <button class="wnav-btn" onclick="changeWeek(-1)">‹</button>
-    <span class="wnav-label" id="wnavLabel">Эта неделя</span>
-    <button class="wnav-btn" onclick="changeWeek(1)">›</button>
-  </div>
-  <div class="wstrip" id="wstrip"></div>
-</div>
-  <div class="cnt">
-    <div class="vtog" id="vtog" style="display:none">
-      <button class="vbtn on" id="bmy"   onclick="setView('my')">Мои</button>
-      <button class="vbtn"    id="bteam" onclick="setView('team')">Вся команда</button>
+  <div class="role-list" id="roleList">
+    <div class="rc" data-role="div" onclick="pickRole(this)">
+      <div class="rc-ico">📊</div>
+      <div class="rc-info"><span class="rc-name">Директор Дивизиона</span><span class="rc-person">Николай Седов</span></div>
+      <svg class="rc-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4l4 4-4 4"/></svg>
     </div>
-    <div id="vlist"></div>
+    <div class="rc" data-role="ops" onclick="pickRole(this)">
+      <div class="rc-ico">🔍</div>
+      <div class="rc-info"><span class="rc-name">Операционный Директор</span><span class="rc-person">Ольга Щуренкова</span></div>
+      <svg class="rc-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4l4 4-4 4"/></svg>
+    </div>
+    <div class="rc" data-role="hr" onclick="pickRole(this)">
+      <div class="rc-ico">👥</div>
+      <div class="rc-info"><span class="rc-name">HRBP</span><span class="rc-person">Карина Авдышева</span></div>
+      <svg class="rc-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4l4 4-4 4"/></svg>
+    </div>
+    <div class="rc" data-role="rkr_w1" onclick="pickRole(this)">
+      <div class="rc-ico">👗</div>
+      <div class="rc-info"><span class="rc-name">РКР Женского · Москва 1</span><span class="rc-person">Светлана Чечура</span></div>
+      <svg class="rc-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4l4 4-4 4"/></svg>
+    </div>
+    <div class="rc" data-role="rkr_w2" onclick="pickRole(this)">
+      <div class="rc-ico">👗</div>
+      <div class="rc-info"><span class="rc-name">РКР Женского · Москва 2</span><span class="rc-person">Евгения Урсул</span></div>
+      <svg class="rc-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4l4 4-4 4"/></svg>
+    </div>
+    <div class="rc" data-role="rkr_m" onclick="pickRole(this)">
+      <div class="rc-ico">👔</div>
+      <div class="rc-info"><span class="rc-name">РКР Мужского</span><span class="rc-person">Дарья Домот</span></div>
+      <svg class="rc-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4l4 4-4 4"/></svg>
+    </div>
+    <div class="rc" data-role="rkr_k" onclick="pickRole(this)">
+      <div class="rc-ico">🧒</div>
+      <div class="rc-info"><span class="rc-name">РКР Детского</span><span class="rc-person">Олеся Привалова</span></div>
+      <svg class="rc-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4l4 4-4 4"/></svg>
+    </div>
   </div>
-  <div class="fabarea">
-    <div class="fab-label">Добавить событие</div>
-    <button class="fab fab-event" onclick="openEvt()">🔴 Событие</button>
-    <div class="fab-label">Блок (отгул / отпуск)</div>
-    <button class="fab" style="background:#7C3AED;box-shadow:0 4px 16px rgba(124,58,237,.4);font-size:13px;font-weight:700;width:auto;padding:0 14px;border-radius:24px;height:40px;white-space:nowrap" onclick="openBlock()">🟣 Блок</button>
-    <div class="fab-label">Добавить визит</div>
-    <button class="fab" onclick="openVisit()">＋</button>
-    <button class="rfab" id="rfab" onclick="load()">🔄</button>
-  </div>
+  <button class="rs-cta" id="rsCta" onclick="enterMain()">Открыть расписание →</button>
+</div>
 </div>
 
-<!-- ── MODAL: ДОБАВИТЬ ВИЗИТ ── -->
-<div class="mov" id="movVisit" onclick="closeOut(event,'movVisit')"><div class="modal">
-  <div class="mhandle"></div>
-  <div class="mtitle" id="mvTitle">Добавить визит</div>
-  <div class="mbody">
-    <div class="fld"><label>Магазин</label><select id="mvSt"><option value="">— выбрать</option></select></div>
-    <div class="frow">
-      <div class="fld"><label>Дата</label><input type="date" id="mvDt"></div>
-      <div class="fld"><label>Время</label><input type="time" id="mvTm" value="10:00"></div>
+<!-- ─── MAIN ─── -->
+<div class="main" id="mainView">
+
+  <div class="topbar">
+    <div class="tb-back" onclick="switchRole()">
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 8H3M7 4l-4 4 4 4"/></svg>
+      Сменить
     </div>
-    <div class="fld"><label>Комментарий</label><input type="text" id="mvCm" placeholder="Цель визита..."></div>
+    <div class="tb-name" id="tbName">—</div>
+    <div class="tb-badge" id="tbBadge">—</div>
   </div>
-  <div class="macts">
-    <button class="mbtn mbtn-c" onclick="closeM('movVisit')">Отмена</button>
-    <button class="mbtn mbtn-s" id="mvSave" onclick="saveVisit()">Сохранить</button>
+
+  <div class="week-nav">
+    <div class="wn-header">
+      <button class="wn-btn" onclick="shiftWeek(-1)">‹</button>
+      <span class="wn-label" id="wnLabel">Эта неделя</span>
+      <button class="wn-btn" onclick="shiftWeek(1)">›</button>
+    </div>
+    <div class="day-strip" id="dayStrip"></div>
+  </div>
+
+  <div class="toggle-wrap" id="toggleWrap" style="display:none">
+    <div class="toggle">
+      <button class="tg-btn on" id="tgMy"   onclick="setView('my')">Мои</button>
+      <button class="tg-btn"    id="tgTeam" onclick="setView('team')">Вся команда</button>
+    </div>
+  </div>
+
+  <div class="content" id="content"></div>
+
+  <div class="fab-wrap">
+    <div class="fab-menu" id="fabMenu">
+      <div class="fab-item" onclick="openSheet('visit')">
+        <span class="fab-item-lbl">Добавить визит</span>
+        <button class="fab-item-btn" style="background:var(--blue);color:#fff">＋</button>
+      </div>
+      <div class="fab-item" onclick="openSheet('event')">
+        <span class="fab-item-lbl">Событие</span>
+        <button class="fab-item-btn" style="background:var(--red);color:#fff">🔴</button>
+      </div>
+      <div class="fab-item" onclick="openSheet('block')">
+        <span class="fab-item-lbl">Блок (отгул / отпуск)</span>
+        <button class="fab-item-btn" style="background:var(--purple);color:#fff">🟣</button>
+      </div>
+    </div>
+    <button class="fab-main" id="fabMain" onclick="toggleFab()">＋</button>
+  </div>
+
+  <button class="rfab" id="rfab" onclick="loadVisits()">↻</button>
+</div>
+
+<!-- ─── SHEET: ВИЗИТ ─── -->
+<div class="overlay" id="ovVisit" onclick="closeOverlay(event,'ovVisit')"><div class="sheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-title" id="shVisitTitle">Добавить визит</div>
+  <div class="sheet-body">
+    <div class="field"><label>Магазин</label><select id="shSt"><option value="">— выбрать</option></select></div>
+    <div class="field-row">
+      <div class="field"><label>Дата</label><input type="date" id="shDt"></div>
+      <div class="field"><label>Время</label><input type="time" id="shTm" value="10:00"></div>
+    </div>
+    <div class="field"><label>Комментарий</label><input type="text" id="shCm" placeholder="Цель визита..."></div>
+  </div>
+  <div class="sheet-actions">
+    <button class="sheet-btn sheet-btn-cancel" onclick="closeSheet('ovVisit')">Отмена</button>
+    <button class="sheet-btn sheet-btn-save" id="shSaveV" onclick="saveVisit()">Сохранить</button>
   </div>
 </div></div>
 
-<!-- ── MODAL: ДОБАВИТЬ СОБЫТИЕ ── -->
-<div class="mov" id="movEvt" onclick="closeOut(event,'movEvt')"><div class="modal">
-  <div class="mhandle"></div>
-  <div class="mtitle">🔴 Добавить событие</div>
-  <div class="mbody">
-    <div class="fld"><label>Название события</label><input type="text" id="evTitle" placeholder="Визит из офиса, аудит, обучение..."></div>
-    <div class="frow">
-      <div class="fld"><label>Дата</label><input type="date" id="evDt"></div>
-      <div class="fld"><label>Время</label><input type="time" id="evTm" value="10:00"></div>
+<!-- ─── SHEET: СОБЫТИЕ ─── -->
+<div class="overlay" id="ovEvent" onclick="closeOverlay(event,'ovEvent')"><div class="sheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-title">🔴 Добавить событие</div>
+  <div class="sheet-body">
+    <div class="field"><label>Название</label><input type="text" id="evTitle" placeholder="Визит из офиса, аудит..."></div>
+    <div class="field-row">
+      <div class="field"><label>Дата</label><input type="date" id="evDt"></div>
+      <div class="field"><label>Время</label><input type="time" id="evTm" value="10:00"></div>
     </div>
-    <div class="fld"><label>Комментарий</label><input type="text" id="evCm" placeholder="Подробности..."></div>
+    <div class="field"><label>Комментарий</label><input type="text" id="evCm" placeholder="Подробности..."></div>
   </div>
-  <div class="macts">
-    <button class="mbtn mbtn-c" onclick="closeM('movEvt')">Отмена</button>
-    <button class="mbtn mbtn-event" id="evSave" onclick="saveEvent()">Добавить</button>
+  <div class="sheet-actions">
+    <button class="sheet-btn sheet-btn-cancel" onclick="closeSheet('ovEvent')">Отмена</button>
+    <button class="sheet-btn sheet-btn-save" style="background:var(--red)" id="shSaveE" onclick="saveEvent()">Добавить</button>
   </div>
 </div></div>
 
-<!-- MODAL: БЛОК -->
-<div class="mov" id="movBlock" onclick="closeOut(event,'movBlock')"><div class="modal">
-  <div class="mhandle"></div>
-  <div class="mtitle">🟣 Блок периода</div>
-  <div class="mbody">
-    <div class="fld"><label>Тип блока</label>
+<!-- ─── SHEET: БЛОК ─── -->
+<div class="overlay" id="ovBlock" onclick="closeOverlay(event,'ovBlock')"><div class="sheet">
+  <div class="sheet-handle"></div>
+  <div class="sheet-title">🟣 Блок периода</div>
+  <div class="sheet-body">
+    <div class="field"><label>Тип</label>
       <select id="blType">
-        <option value="Отгул">🌴 Отгул</option>
+        <option value="Отгул">🌴 Отгул (1 день)</option>
         <option value="Отпуск">🏖 Отпуск</option>
         <option value="Больничный">🤒 Больничный</option>
         <option value="Обучение">📚 Обучение</option>
         <option value="Другое">📌 Другое</option>
       </select>
     </div>
-    <div class="frow">
-      <div class="fld"><label>Дата начала</label><input type="date" id="blFrom"></div>
-      <div class="fld"><label>Дата конца</label><input type="date" id="blTo"></div>
+    <div class="field-row">
+      <div class="field"><label>С</label><input type="date" id="blFrom"></div>
+      <div class="field"><label>По</label><input type="date" id="blTo"></div>
     </div>
-    <div class="fld"><label>Комментарий</label><input type="text" id="blCm" placeholder="Подробности..."></div>
+    <div class="field"><label>Комментарий</label><input type="text" id="blCm" placeholder="Подробности..."></div>
   </div>
-  <div class="macts">
-    <button class="mbtn mbtn-c" onclick="closeM('movBlock')">Отмена</button>
-    <button class="mbtn" style="background:#7C3AED;color:#fff;padding:13px;font-family:'Golos Text',sans-serif;font-size:14px;font-weight:700;border:none;border-radius:var(--r);cursor:pointer" id="blSave" onclick="saveBlock()">Добавить блок</button>
+  <div class="sheet-actions">
+    <button class="sheet-btn sheet-btn-cancel" onclick="closeSheet('ovBlock')">Отмена</button>
+    <button class="sheet-btn sheet-btn-save" style="background:var(--purple)" id="shSaveB" onclick="saveBlock()">Добавить</button>
   </div>
 </div></div>
 
 <script>
+// ─── CONSTANTS ───────────────────────────────────────────
 const WR = "https://sedovnn.app.n8n.cloud/webhook/sela-schedule-write";
 const RD = "https://sedovnn.app.n8n.cloud/webhook/sela-schedule-read";
 
@@ -319,8 +454,7 @@ const DNS = ["Вс","Пн","Вт","Ср","Чт","Пт","Сб"];
 const DNF = ["Воскресенье","Понедельник","Вторник","Среда","Четверг","Пятница","Суббота"];
 const MNS = ["янв","фев","мар","апр","май","июн","июл","авг","сен","окт","ноя","дек"];
 
-// Alphabetically sorted stores with metadata
-const STORES_ALL = [
+const STORES = [
   {n:"Зеленоград Зеленопарк",m:true,k:true,w:"rkr_w2"},
   {n:"Красногорск РигаМолл",m:true,k:true,w:"rkr_w2"},
   {n:"Москва BOTANICA",m:true,k:true,w:"rkr_w2"},
@@ -362,410 +496,414 @@ const STORES_ALL = [
 ];
 
 function storesFor(r) {
-  if (["div","ops","hr"].includes(r)) return STORES_ALL;
-  if (r==="rkr_w1") return STORES_ALL.filter(s=>s.w==="rkr_w1");
-  if (r==="rkr_w2") return STORES_ALL.filter(s=>s.w==="rkr_w2");
-  if (r==="rkr_m")  return STORES_ALL.filter(s=>s.m);
-  if (r==="rkr_k")  return STORES_ALL.filter(s=>s.k);
-  return STORES_ALL;
+  if (["div","ops","hr"].includes(r)) return STORES;
+  if (r==="rkr_w1") return STORES.filter(s=>s.w==="rkr_w1");
+  if (r==="rkr_w2") return STORES.filter(s=>s.w==="rkr_w2");
+  if (r==="rkr_m")  return STORES.filter(s=>s.m);
+  if (r==="rkr_k")  return STORES.filter(s=>s.k);
+  return STORES;
 }
 
-// ── STATE ──
-let role=null, view="my", selDay=iso(new Date()), visits=[], eid=null, weekOffset=0;
+// ─── STATE ────────────────────────────────────────────────
+let role = localStorage.getItem("sela_role") || null;
+let view = "my";
+let selDay = isoToday();
+let weekOffset = 0;
+let visits = [];
+let editId = null;
+let fabOpen = false;
 
-function iso(d) {
-  const y = d.getFullYear();
-  const m = String(d.getMonth()+1).padStart(2,"0");
-  const day = String(d.getDate()).padStart(2,"0");
-  return y+"-"+m+"-"+day;
+// ─── DATE UTILS ───────────────────────────────────────────
+function isoToday() {
+  const d = new Date();
+  return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
 }
-function fmtDate(s) {
-  const parts = s.split("-");
-  const d = new Date(parseInt(parts[0]), parseInt(parts[1])-1, parseInt(parts[2]));
-  return DNF[d.getDay()]+", "+d.getDate()+" "+MNS[d.getMonth()];
-}
-
-// ── NAVIGATION ──
-function goScreen(id) {
-  document.querySelectorAll(".scr").forEach(s=>s.classList.remove("on"));
-  document.getElementById(id).classList.add("on");
-  window.scrollTo(0,0);
-  if (id==="s1") buildPlanWeek();
-  if (id==="s2") { buildStrip(); load(); }
-  // selDay stays as-is
-}
-function showScr(id) { goScreen(id); }
-
-// ── SCREEN 0 ──
-function selRole(c) {
-  document.querySelectorAll(".rc").forEach(x=>x.classList.remove("sel"));
-  c.classList.add("sel"); role=c.dataset.role;
-  document.getElementById("actBtns").classList.add("vis");
-
-  // Populate store selects
-  const stores = storesFor(role);
-  ["mvSt"].forEach(id => {
-    const sel=document.getElementById(id);
-    sel.innerHTML="<option value=''>— выбрать</option>";
-    stores.forEach(s=>sel.appendChild(new Option("SELA "+s.n, s.n)));
-  });
-  document.getElementById("tb1badge").textContent=BADGES[role];
-  document.getElementById("tb2badge").textContent=BADGES[role];
-  document.getElementById("vtog").style.display="flex";
+function pad(n) { return String(n).padStart(2,"0"); }
+function toIso(d) { return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`; }
+function parseIso(s) { const p=s.split("-"); return new Date(+p[0],+p[1]-1,+p[2]); }
+function fmtDate(s) { const d=parseIso(s); return `${DNF[d.getDay()]}, ${d.getDate()} ${MNS[d.getMonth()]}`; }
+function getWeekMonday(offset) {
+  const today = new Date(); today.setHours(0,0,0,0);
+  const mon = new Date(today); mon.setDate(today.getDate()-((today.getDay()+6)%7)+(offset*7));
+  return mon;
 }
 
-// ── SCREEN 1: PLAN WEEK ──
-function getWeekDays() {
-  const today=new Date(); today.setHours(0,0,0,0);
-  const baseMonday=new Date(today); baseMonday.setDate(today.getDate()-((today.getDay()+6)%7));
-  const mon=new Date(baseMonday); mon.setDate(baseMonday.getDate()+(weekOffset*7));
-  const days=[];
-  for(let i=0;i<7;i++){const d=new Date(mon);d.setDate(mon.getDate()+i);days.push(d);}
-  return days;
-}
-
-function buildPlanWeek() {
-  const cnt=document.getElementById("planWeekCnt");
-  cnt.innerHTML="";
-  const days=getWeekDays();
-  const stores=storesFor(role);
-
-  days.forEach(d => {
-    const s=iso(d);
-    const dayEl=document.createElement("div");
-    dayEl.className="plan-day";
-    dayEl.dataset.iso=s;
-
-    const isToday=iso(new Date())===s;
-    dayEl.innerHTML=`<div class="plan-day-hdr">
-      <span class="plan-day-name">${DNF[d.getDay()]}${isToday?" · сегодня":""}</span>
-      <span class="plan-day-date">${d.getDate()} ${MNS[d.getMonth()]}</span>
-    </div>
-    <div class="plan-day-body" id="pdb_${s}"></div>`;
-    cnt.appendChild(dayEl);
-
-    // Already planned visits for this role+day
-    const existing=visits.filter(v=>v.date===s&&v.role===role&&v.type!=="event");
-
-    const body=dayEl.querySelector(".plan-day-body");
-    if(existing.length) {
-      existing.forEach(v=>{
-        const row=document.createElement("div");
-        row.className="plan-store-row";
-        row.innerHTML=`<div class="plan-store-check on"><svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-          <span class="plan-store-name">SELA ${v.store}</span>`;
-        row.onclick=()=>{ if(confirm("Убрать визит в SELA "+v.store+"?")) del(v.id); buildPlanWeek(); };
-        body.appendChild(row);
-      });
-    }
-
-    const addBtn=document.createElement("button");
-    addBtn.className="plan-add-btn";
-    addBtn.textContent="+ Добавить магазин";
-    addBtn.onclick=()=>{ openVisitForDay(s); };
-    body.appendChild(addBtn);
-  });
-}
-
-function openVisitForDay(dateIso) {
-  eid=null;
-  document.getElementById("mvTitle").textContent="Добавить визит";
-  document.getElementById("mvSt").value="";
-  document.getElementById("mvDt").value=dateIso;
-  document.getElementById("mvTm").value="10:00";
-  document.getElementById("mvCm").value="";
-  document.getElementById("movVisit").classList.add("open");
-}
-
-async function savePlan() {
-  // Just close and go to view
-  goScreen("s2");
-}
-
-// ── SCREEN 2: VIEW ──
-async function load() {
-  const btn=document.getElementById("rfab"); btn.classList.add("spin");
-  document.getElementById("vlist").innerHTML="<div class='loading'><div class='spinner'></div>Загружаем...</div>";
-  try {
-    const r=await fetch(RD); const d=await r.json();
-    visits=(d.visits||[]).map(v=>({
-      id:v.ID||v.id, role:v["Роль"]||v.role, name:v["Визитёр"]||v.name,
-      store:v["Магазин"]||v.store, date:v["Дата"]||v.date,
-      time:v["Время"]||v.time, comment:v["Комментарий"]||v.comment||"",
-      status:v["Статус"]||v.status||"план",
-      type:v["Тип"]||v.type||"visit",
-    }));
-    buildStrip();
-    render();
-  } catch(e) {
-    document.getElementById("vlist").innerHTML="<div class='empty'><div class='eico'>⚠️</div><div class='etxt'>Не удалось загрузить.<br>Нажми 🔄</div></div>";
-  }
-  btn.classList.remove("spin");
-}
-
-function buildStrip() {
-  const st=document.getElementById("wstrip"); st.innerHTML="";
-  const today=new Date(); today.setHours(0,0,0,0);
-  const baseMonday=new Date(today); baseMonday.setDate(today.getDate()-((today.getDay()+6)%7));
-  const mon=new Date(baseMonday); mon.setDate(baseMonday.getDate()+(weekOffset*7));
-  const todayIso = iso(today);
-  for(let i=0;i<7;i++){
-    const d=new Date(mon); d.setDate(mon.getDate()+i);
-    const s=iso(d);
-    const isT = s === todayIso;
-    const isSel = s === selDay;
-    const hasV=visits.some(v=>v.date===s&&(view==="team"||v.role===role));
-    const div=document.createElement("div");
-    const classes=["wd"];
-    if(isT) classes.push("today");
-    if(isSel) classes.push("sel");
-    if(hasV) classes.push("hasvs");
-    div.className=classes.join(" ");
-    div.dataset.iso=s;
-    div.innerHTML="<span class='wdn'>"+DNS[d.getDay()]+"</span><span class='wdnum'>"+d.getDate()+"</span><span class='wddot'></span>";
-    div.onclick=()=>selD(s);
-    st.appendChild(div);
+// ─── INIT ─────────────────────────────────────────────────
+function init() {
+  if (role) {
+    showMain();
+  } else {
+    document.getElementById("rolePicker").style.display = "flex";
   }
 }
 
-function changeWeek(delta) {
+// ─── ROLE PICKER ──────────────────────────────────────────
+function pickRole(card) {
+  document.querySelectorAll(".rc").forEach(c=>c.classList.remove("sel"));
+  card.classList.add("sel");
+  role = card.dataset.role;
+  document.getElementById("rsCta").classList.add("vis");
+}
+
+function enterMain() {
+  if (!role) return;
+  localStorage.setItem("sela_role", role);
+  showMain();
+}
+
+function switchRole() {
+  role = null;
+  localStorage.removeItem("sela_role");
+  document.getElementById("mainView").classList.remove("on");
+  document.getElementById("rolePicker").style.display = "flex";
+  document.querySelectorAll(".rc").forEach(c=>c.classList.remove("sel"));
+  document.getElementById("rsCta").classList.remove("vis");
+}
+
+function showMain() {
+  document.getElementById("rolePicker").style.display = "none";
+  document.getElementById("mainView").classList.add("on");
+
+  // Top bar
+  document.getElementById("tbName").textContent = NAMES[role];
+  document.getElementById("tbBadge").textContent = BADGES[role];
+
+  // Toggle visibility
+  document.getElementById("toggleWrap").style.display = role === "div" ? "block" : "block";
+
+  // Store select
+  const sel = document.getElementById("shSt");
+  sel.innerHTML = "<option value=''>— выбрать</option>";
+  storesFor(role).forEach(s => sel.appendChild(new Option("SELA "+s.n, s.n)));
+
+  selDay = isoToday();
+  weekOffset = 0;
+  buildStrip();
+  loadVisits();
+}
+
+// ─── WEEK / STRIP ─────────────────────────────────────────
+function shiftWeek(delta) {
   weekOffset += delta;
-  // Update label
-  const lbl = document.getElementById("wnavLabel");
-  if (weekOffset === 0) lbl.textContent = "Эта неделя";
-  else if (weekOffset === 1) lbl.textContent = "Следующая";
-  else if (weekOffset === -1) lbl.textContent = "Прошлая";
-  else if (weekOffset > 0) lbl.textContent = "+" + weekOffset + " нед.";
-  else lbl.textContent = weekOffset + " нед.";
-  // Set selDay to monday of new week
-  const today=new Date(); today.setHours(0,0,0,0);
-  const baseMonday=new Date(today); baseMonday.setDate(today.getDate()-((today.getDay()+6)%7));
-  const newMonday=new Date(baseMonday); newMonday.setDate(baseMonday.getDate()+(weekOffset*7));
-  selDay = iso(newMonday);
+  const lbl = document.getElementById("wnLabel");
+  if (weekOffset === 0) { lbl.textContent = "Эта неделя"; lbl.className = "wn-label current"; }
+  else if (weekOffset === 1) { lbl.textContent = "Следующая"; lbl.className = "wn-label"; }
+  else if (weekOffset === -1) { lbl.textContent = "Прошлая"; lbl.className = "wn-label"; }
+  else if (weekOffset > 0) { lbl.textContent = "+"+weekOffset+" нед."; lbl.className = "wn-label"; }
+  else { lbl.textContent = weekOffset+" нед."; lbl.className = "wn-label"; }
+
+  // Move selDay to monday of new week
+  const mon = getWeekMonday(weekOffset);
+  selDay = toIso(mon);
   buildStrip();
   render();
 }
 
-function selD(s) {
+function buildStrip() {
+  const strip = document.getElementById("dayStrip");
+  strip.innerHTML = "";
+  const todayIso = isoToday();
+  const mon = getWeekMonday(weekOffset);
+
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(mon); d.setDate(mon.getDate()+i);
+    const s = toIso(d);
+    const isToday = s === todayIso;
+    const isSel = s === selDay;
+    const hasV = visits.some(v => v.date===s && (view==="team" || v.role===role || v.type==="event" || v.type==="block"));
+
+    const el = document.createElement("div");
+    const cls = ["ds-day"];
+    if (isToday) cls.push("today");
+    if (isSel) cls.push("sel");
+    if (hasV) cls.push("has-v");
+    el.className = cls.join(" ");
+    el.dataset.iso = s;
+    el.innerHTML = `<span class="ds-dn">${DNS[d.getDay()]}</span><span class="ds-num">${d.getDate()}</span><span class="ds-dot"></span>`;
+    el.onclick = () => selectDay(s);
+    strip.appendChild(el);
+  }
+}
+
+function selectDay(s) {
   selDay = s;
-  document.getElementById("mvDt").value = s;
+  document.getElementById("shDt").value = s;
   document.getElementById("evDt").value = s;
-  const todayIso = iso(new Date());
-  document.querySelectorAll(".wd").forEach(d => {
+  document.getElementById("blFrom").value = s;
+  document.getElementById("blTo").value = s;
+  document.querySelectorAll(".ds-day").forEach(d => {
     d.classList.remove("sel");
     if (d.dataset.iso === s) d.classList.add("sel");
   });
   render();
 }
 
+// ─── LOAD ─────────────────────────────────────────────────
+async function loadVisits() {
+  const rfab = document.getElementById("rfab");
+  rfab.classList.add("spin");
+  document.getElementById("content").innerHTML = '<div class="loading"><div class="spinner"></div>Загружаем...</div>';
+  try {
+    const res = await fetch(RD);
+    const data = await res.json();
+    visits = (data.visits||[]).map(v=>({
+      id:    v.ID||v.id,
+      role:  v["Роль"]||v.role||"",
+      name:  v["Визитёр"]||v.name||"",
+      store: v["Магазин"]||v.store||"",
+      date:  v["Дата"]||v.date||"",
+      time:  v["Время"]||v.time||"",
+      comment: v["Комментарий"]||v.comment||"",
+      status: v["Статус"]||v.status||"план",
+      type:  v["Тип"]||v.type||"visit",
+    })).filter(v=>v.date);
+    buildStrip();
+    render();
+  } catch(e) {
+    document.getElementById("content").innerHTML = '<div class="empty"><div class="empty-ico">⚠️</div><div class="empty-txt">Не удалось загрузить.<br>Нажми ↻ чтобы повторить.</div></div>';
+  }
+  rfab.classList.remove("spin");
+}
+
+// ─── RENDER ───────────────────────────────────────────────
 function setView(v) {
-  view=v;
-  document.getElementById("bmy").classList.toggle("on",v==="my");
-  document.getElementById("bteam").classList.toggle("on",v==="team");
+  view = v;
+  document.getElementById("tgMy").classList.toggle("on", v==="my");
+  document.getElementById("tgTeam").classList.toggle("on", v==="team");
   buildStrip(); render();
 }
 
 function render() {
-  const list=document.getElementById("vlist");
-  const f=visits
-    .filter(v=>v.date===selDay&&(view==="team"||v.role===role||v.type==="event"))
-    .sort((a,b)=>{
-      if(a.type==="event"&&b.type!=="event") return -1;
-      if(b.type==="event"&&a.type!=="event") return 1;
+  const content = document.getElementById("content");
+  const list = visits
+    .filter(v => v.date===selDay && (view==="team" || v.role===role || v.type==="event" || v.type==="block"))
+    .sort((a,b) => {
+      if (a.type==="event" && b.type!=="event") return -1;
+      if (b.type==="event" && a.type!=="event") return 1;
+      if (a.type==="block" && b.type!=="block") return -1;
+      if (b.type==="block" && a.type!=="block") return 1;
       return (a.time||"").localeCompare(b.time||"");
     });
 
-  list.innerHTML="<div class='daylbl'>"+fmtDate(selDay)+"</div>";
-  if(!f.length){
-    list.innerHTML+="<div class='empty'><div class='eico'>📅</div><div class='etxt'>Нет записей на этот день<br><span style='font-size:11px;opacity:.6'>Нажми + чтобы добавить</span></div></div>";
+  content.innerHTML = `<div class="day-lbl">${fmtDate(selDay)}</div>`;
+
+  if (!list.length) {
+    content.innerHTML += `<div class="empty"><div class="empty-ico">📅</div><div class="empty-txt">Нет записей на этот день</div></div>`;
     return;
   }
 
-  f.forEach(v=>{
-    const isEvent=v.type==="event"; const isBlock=v.type==="block";
-    const own=v.role===role||isEvent;
-    const done=v.status==="выполнен";
-    const el=document.createElement("div");
-    el.className="vi"+(done?" done":"")+(isEvent?" event":"")+(isBlock?" block":"");
-    if(!isEvent) el.dataset.role=v.role;
+  list.forEach(v => {
+    const own = v.role===role || v.type==="event" || v.type==="block";
+    const done = v.status==="выполнен";
+    const isBlock = v.type==="block";
+    const isEvent = v.type==="event";
 
-    el.innerHTML=`
-      <div class="vchk${done?" on":""}" onclick="tgD('${v.id}','${v.status}')">
-        <svg viewBox="0 0 10 10" fill="none"><path d="M1.5 5l2.5 2.5 4.5-4" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    // Bar color
+    const barCls = isBlock ? "bar-block" : isEvent ? "bar-event" : `bar-${v.role}`;
+
+    // Title
+    const title = isEvent ? "🔴 "+v.store : isBlock ? "🟣 "+v.store : "SELA "+v.store;
+
+    // Pills
+    let pills = "";
+    if (isBlock)      pills = `<span class="pill pill-block">${v.comment||"блок"}</span>`;
+    else if (isEvent) pills = `<span class="pill pill-event">событие</span>`;
+    else              pills = `<span class="pill ${done?"pill-done":"pill-plan"}">${done?"✓ выполнен":"план"}</span>`;
+
+    if (view==="team" && !isBlock && !isEvent) pills += ` <span class="pill pill-role">${BADGES[v.role]||v.role}</span>`;
+    if (v.comment && !isBlock) pills += ` <span style="font-size:11px;color:var(--grey)">· ${v.comment}</span>`;
+
+    const el = document.createElement("div");
+    el.className = "vc" + (done?" done":"");
+    el.innerHTML = `
+      <div class="vc-bar ${barCls}"></div>
+      <div class="va-check ${done?"on":""}" onclick="toggleDone('${v.id}','${v.status}')">
+        <svg viewBox="0 0 10 10" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 5l2.5 2.5 4.5-4"/></svg>
       </div>
-      <div class="vinfo">
-        <span class="vstore">${isEvent?"🔴 "+v.store:isBlock?"🟣 "+v.store:"SELA "+v.store}</span>
-        <div class="vmeta">
-          ${v.time?`<span>🕐 ${v.time}</span>`:""}
-          ${isBlock?`<span class="vstatus block-s">${v.comment||"блок"}</span>`:isEvent?`<span class="vstatus event">событие</span>`:
-            (view==="team"?`<span class="vbadge">${BADGES[v.role]||v.role}</span>`:"")+
-            `<span class="vstatus ${done?"done":"plan"}">${done?"✓ выполнен":"план"}</span>`}
-          ${v.comment?`<span>· ${v.comment}</span>`:""}
+      <div class="vc-body">
+        <span class="vc-title">${title}</span>
+        <div class="vc-meta">
+          ${v.time ? `<span class="vc-time">🕐 ${v.time}</span>` : ""}
+          ${pills}
         </div>
       </div>
-      ${own?`<div class="vacts">
-        <button class="abtn" onclick="openEdit('${v.id}')">✏️</button>
-        <button class="abtn" onclick="del('${v.id}')">✕</button>
-      </div>`:""}`;
-    list.appendChild(el);
+      ${own ? `<div class="vc-actions">
+        <button class="va-btn" onclick="editEntry('${v.id}')">✏️</button>
+        <button class="va-btn" onclick="deleteEntry('${v.id}')">✕</button>
+      </div>` : ""}`;
+    content.appendChild(el);
   });
 }
 
-// ── ACTIONS ──
-async function tgD(id,cur) {
-  const ns=cur==="выполнен"?"план":"выполнен";
-  const v=visits.find(x=>x.id===id); if(!v) return;
-  v.status=ns; render();
-  try{await fetch(WR,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"update",id,status:ns,store:v.store,date:v.date,time:v.time,comment:v.comment})})}catch(e){}
+// ─── ACTIONS ──────────────────────────────────────────────
+async function toggleDone(id, cur) {
+  const ns = cur==="выполнен" ? "план" : "выполнен";
+  const v = visits.find(x=>x.id===id); if(!v) return;
+  v.status = ns; render();
+  try { await fetch(WR,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"update",id,status:ns,store:v.store,date:v.date,time:v.time,comment:v.comment})}); } catch(e){}
 }
 
-async function del(id) {
-  visits=visits.filter(x=>x.id!==id); buildStrip(); render();
-  try{await fetch(WR,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"delete",id})})}catch(e){}
+async function deleteEntry(id) {
+  visits = visits.filter(x=>x.id!==id);
+  buildStrip(); render();
+  try { await fetch(WR,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"delete",id})}); } catch(e){}
 }
 
-function openEdit(id) {
-  const v=visits.find(x=>x.id===id); if(!v) return;
-  eid=id;
-  if(v.type==="event") {
-    document.getElementById("evTitle").value=v.store;
-    document.getElementById("evDt").value=v.date;
-    document.getElementById("evTm").value=v.time||"10:00";
-    document.getElementById("evCm").value=v.comment||"";
-    document.getElementById("movEvt").classList.add("open");
+function editEntry(id) {
+  const v = visits.find(x=>x.id===id); if(!v) return;
+  editId = id;
+  if (v.type==="event") {
+    document.getElementById("evTitle").value = v.store;
+    document.getElementById("evDt").value = v.date;
+    document.getElementById("evTm").value = v.time||"10:00";
+    document.getElementById("evCm").value = v.comment||"";
+    openSheet("event");
+  } else if (v.type==="block") {
+    document.getElementById("blType").value = v.store;
+    document.getElementById("blFrom").value = v.date;
+    document.getElementById("blTo").value = v.date;
+    document.getElementById("blCm").value = v.comment||"";
+    openSheet("block");
   } else {
-    document.getElementById("mvTitle").textContent="Изменить визит";
-    document.getElementById("mvSt").value=v.store;
-    document.getElementById("mvDt").value=v.date;
-    document.getElementById("mvTm").value=v.time||"10:00";
-    document.getElementById("mvCm").value=v.comment||"";
-    document.getElementById("movVisit").classList.add("open");
+    document.getElementById("shVisitTitle").textContent = "Изменить визит";
+    document.getElementById("shSt").value = v.store;
+    document.getElementById("shDt").value = v.date;
+    document.getElementById("shTm").value = v.time||"10:00";
+    document.getElementById("shCm").value = v.comment||"";
+    openSheet("visit");
   }
 }
 
-// ── MODALS ──
-function openVisit() {
-  eid=null;
-  document.getElementById("mvTitle").textContent="Добавить визит";
-  document.getElementById("mvSt").value="";
-  document.getElementById("mvDt").value=selDay;
-  document.getElementById("mvTm").value="10:00";
-  document.getElementById("mvCm").value="";
-  console.log("openVisit selDay=", selDay);
-  document.getElementById("movVisit").classList.add("open");
+// ─── FAB ──────────────────────────────────────────────────
+function toggleFab() {
+  fabOpen = !fabOpen;
+  document.getElementById("fabMenu").classList.toggle("open", fabOpen);
+  document.getElementById("fabMain").classList.toggle("open", fabOpen);
 }
 
-function openEvt() {
-  eid=null;
-  document.getElementById("evTitle").value="";
-  document.getElementById("evDt").value=selDay;
-  document.getElementById("evTm").value="10:00";
-  document.getElementById("evCm").value="";
-  console.log("openEvt selDay=", selDay);
-  document.getElementById("movEvt").classList.add("open");
+function closeFab() {
+  fabOpen = false;
+  document.getElementById("fabMenu").classList.remove("open");
+  document.getElementById("fabMain").classList.remove("open");
 }
 
-function closeM(id) { document.getElementById(id).classList.remove("open"); eid=null; }
-function closeOut(e,id) { if(e.target===document.getElementById(id)) closeM(id); }
+// ─── SHEETS ───────────────────────────────────────────────
+function openSheet(type) {
+  closeFab();
+  const ids = {visit:"ovVisit", event:"ovEvent", block:"ovBlock"};
+  if (type==="visit" && !editId) {
+    document.getElementById("shVisitTitle").textContent = "Добавить визит";
+    document.getElementById("shSt").value = "";
+    document.getElementById("shDt").value = selDay;
+    document.getElementById("shTm").value = "10:00";
+    document.getElementById("shCm").value = "";
+  }
+  if (type==="event" && !editId) {
+    document.getElementById("evTitle").value = "";
+    document.getElementById("evDt").value = selDay;
+    document.getElementById("evTm").value = "10:00";
+    document.getElementById("evCm").value = "";
+  }
+  if (type==="block" && !editId) {
+    document.getElementById("blFrom").value = selDay;
+    document.getElementById("blTo").value = selDay;
+    document.getElementById("blCm").value = "";
+  }
+  document.getElementById(ids[type]).classList.add("open");
+}
+
+function closeSheet(id) {
+  document.getElementById(id).classList.remove("open");
+  editId = null;
+}
+
+function closeOverlay(e, id) {
+  if (e.target === document.getElementById(id)) closeSheet(id);
+}
 
 async function saveVisit() {
-  const store=document.getElementById("mvSt").value;
-  const date=document.getElementById("mvDt").value;
-  const time=document.getElementById("mvTm").value;
-  const comment=document.getElementById("mvCm").value.trim();
-  if(!store||!date){alert("Выбери магазин и дату");return}
+  const store = document.getElementById("shSt").value;
+  const date  = document.getElementById("shDt").value;
+  const time  = document.getElementById("shTm").value;
+  const comment = document.getElementById("shCm").value.trim();
+  if (!store||!date) { alert("Выбери магазин и дату"); return; }
 
-  const btn=document.getElementById("mvSave");
-  btn.classList.add("saving"); btn.textContent="Сохраняем...";
+  const btn = document.getElementById("shSaveV");
+  btn.classList.add("saving"); btn.textContent = "Сохраняем...";
 
-  if(eid) {
-    const v=visits.find(x=>x.id===eid);
-    if(v){v.store=store;v.date=date;v.time=time;v.comment=comment;}
-    try{await fetch(WR,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"update",id:eid,store,date,time,comment,status:v?.status||"план"})})}catch(e){}
+  if (editId) {
+    const v = visits.find(x=>x.id===editId);
+    if (v) { v.store=store; v.date=date; v.time=time; v.comment=comment; }
+    try { await fetch(WR,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"update",id:editId,store,date,time,comment,status:v?.status||"план"})}); } catch(e){}
   } else {
-    const id=Date.now().toString();
-    const nv={id,role,name:NAMES[role],store,date,time,comment,status:"план",type:"visit"};
+    const id = Date.now().toString();
+    const nv = {id, role, name:NAMES[role], store, date, time, comment, status:"план", type:"visit"};
     visits.push(nv);
-    try{await fetch(WR,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"create",...nv})})}catch(e){}
+    try { await fetch(WR,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"create",...nv})}); } catch(e){}
   }
 
-  btn.classList.remove("saving"); btn.textContent="Сохранить";
-  closeM("movVisit");
-  selDay = date;
-  buildStrip();
-  render();
-  // Rebuild plan week if on s1
-  if(document.getElementById("s1").classList.contains("on")) buildPlanWeek();
+  btn.classList.remove("saving"); btn.textContent = "Сохранить";
+  closeSheet("ovVisit");
+  selDay = date; buildStrip(); render();
+  document.querySelectorAll(".ds-day").forEach(d=>d.classList.toggle("sel",d.dataset.iso===date));
 }
 
 async function saveEvent() {
-  const title=document.getElementById("evTitle").value.trim();
-  const date=document.getElementById("evDt").value;
-  const time=document.getElementById("evTm").value;
-  const comment=document.getElementById("evCm").value.trim();
-  if(!title||!date){alert("Укажи название и дату");return}
+  const title   = document.getElementById("evTitle").value.trim();
+  const date    = document.getElementById("evDt").value;
+  const time    = document.getElementById("evTm").value;
+  const comment = document.getElementById("evCm").value.trim();
+  if (!title||!date) { alert("Укажи название и дату"); return; }
 
-  const btn=document.getElementById("evSave");
-  btn.classList.add("saving"); btn.textContent="Добавляем...";
+  const btn = document.getElementById("shSaveE");
+  btn.classList.add("saving"); btn.textContent = "Добавляем...";
 
-  if(eid) {
-    const v=visits.find(x=>x.id===eid);
-    if(v){v.store=title;v.date=date;v.time=time;v.comment=comment;}
-    try{await fetch(WR,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"update",id:eid,store:title,date,time,comment,status:"событие"})})}catch(e){}
+  if (editId) {
+    const v = visits.find(x=>x.id===editId);
+    if (v) { v.store=title; v.date=date; v.time=time; v.comment=comment; }
+    try { await fetch(WR,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"update",id:editId,store:title,date,time,comment,status:"событие"})}); } catch(e){}
   } else {
-    const id=Date.now().toString();
-    const nv={id,role,name:NAMES[role],store:title,date,time,comment,status:"событие",type:"event"};
+    const id = Date.now().toString();
+    const nv = {id, role, name:NAMES[role], store:title, date, time, comment, status:"событие", type:"event"};
     visits.push(nv);
-    try{await fetch(WR,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"create",...nv})})}catch(e){}
+    try { await fetch(WR,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"create",...nv})}); } catch(e){}
   }
 
-  btn.classList.remove("saving"); btn.textContent="Добавить";
-  closeM("movEvt");
-  selDay=date; buildStrip(); render();
-  document.querySelectorAll(".wd").forEach(d=>d.classList.toggle("sel",d.dataset.iso===date));
-}
-function openBlock() {
-  const today = iso(new Date());
-  document.getElementById("blType").value = "Отгул";
-  document.getElementById("blFrom").value = selDay || today;
-  document.getElementById("blTo").value = selDay || today;
-  document.getElementById("blCm").value = "";
-  document.getElementById("movBlock").classList.add("open");
+  btn.classList.remove("saving"); btn.textContent = "Добавить";
+  closeSheet("ovEvent");
+  selDay = date; buildStrip(); render();
+  document.querySelectorAll(".ds-day").forEach(d=>d.classList.toggle("sel",d.dataset.iso===date));
 }
 
 async function saveBlock() {
-  const type  = document.getElementById("blType").value;
-  const from  = document.getElementById("blFrom").value;
-  const to    = document.getElementById("blTo").value;
+  const type    = document.getElementById("blType").value;
+  const from    = document.getElementById("blFrom").value;
+  const to      = document.getElementById("blTo").value;
   const comment = document.getElementById("blCm").value.trim();
-  if (!from || !to) { alert("Укажи даты"); return; }
+  if (!from||!to) { alert("Укажи даты"); return; }
 
-  const btn = document.getElementById("blSave");
-  btn.textContent = "Сохраняем...";
+  const btn = document.getElementById("shSaveB");
+  btn.classList.add("saving"); btn.textContent = "Сохраняем...";
 
-  // Create one entry per day in the range
-  const start = new Date(from + "T00:00:00");
-  const end   = new Date(to   + "T00:00:00");
-  const promises = [];
-
-  for (let d = new Date(start); d <= end; d.setDate(d.getDate()+1)) {
-    const dateIso = iso(new Date(d));
-    const id = Date.now().toString() + "_" + dateIso;
-    const nv = { id, role, name: NAMES[role], store: type, date: dateIso,
-                 time: "", comment, status: "блок", type: "block" };
+  const start = parseIso(from), end = parseIso(to);
+  const ps = [];
+  for (let d=new Date(start); d<=end; d.setDate(d.getDate()+1)) {
+    const dateIso = toIso(new Date(d));
+    const id = Date.now().toString()+"_"+dateIso;
+    const nv = {id, role, name:NAMES[role], store:type, date:dateIso, time:"", comment, status:"блок", type:"block"};
     visits.push(nv);
-    promises.push(
-      fetch(WR, { method:"POST", headers:{"Content-Type":"application/json"},
-        body: JSON.stringify({ action:"create", ...nv }) }).catch(()=>{})
-    );
+    ps.push(fetch(WR,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"create",...nv})}).catch(()=>{}));
   }
-  await Promise.all(promises);
+  await Promise.all(ps);
 
-  btn.textContent = "Добавить блок";
-  closeM("movBlock");
-  buildStrip(); render();
+  btn.classList.remove("saving"); btn.textContent = "Добавить";
+  closeSheet("ovBlock");
+  selDay = from; buildStrip(); render();
+  document.querySelectorAll(".ds-day").forEach(d=>d.classList.toggle("sel",d.dataset.iso===from));
 }
 
+// ─── START ────────────────────────────────────────────────
+init();
 </script>
 </body>
 </html>
