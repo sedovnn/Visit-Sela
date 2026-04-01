@@ -152,8 +152,24 @@ body{font-family:'Golos Text',sans-serif;background:#EEF2F7;color:var(--text);mi
       <div class="tab hidden" data-p="5" onclick="go(5)">Персонал<span class="dot"></span></div>
       <div class="tab hidden" data-p="6" onclick="go(6)">Мерма<span class="dot"></span></div>
       <div class="tab hidden" data-p="7" onclick="go(7)">Чек-лист<span class="dot"></span></div>
+      <div class="tab hidden" data-p="10" onclick="go(10)">Cost Control<span class="dot"></span></div>
+      <div class="tab hidden" data-p="11" onclick="go(11)">Команда<span class="dot"></span></div>
+      <div class="tab hidden" data-p="12" onclick="go(12)">Стандарты<span class="dot"></span></div>
+      <div class="tab hidden" data-p="13" onclick="go(13)">Найм<span class="dot"></span></div>
+      <div class="tab hidden" data-p="14" onclick="go(14)">HR Адм.<span class="dot"></span></div>
+      <div class="tab hidden" data-p="15" onclick="go(15)">Условия<span class="dot"></span></div>
+      <div class="tab hidden" data-p="16" onclick="go(16)">Особенности<span class="dot"></span></div>
+      <div class="tab hidden" data-p="17" onclick="go(17)">Финал<span class="dot"></span></div>
       <div class="tab hidden" data-p="8" onclick="go(8)">Задачи</div>
       <div class="tab hidden" data-p="9" onclick="go(9)">Итог</div>
+      <div class="tab hidden" data-p="10" onclick="go(10)">Cost Control<span class="dot"></span></div>
+      <div class="tab hidden" data-p="11" onclick="go(11)">Команда<span class="dot"></span></div>
+      <div class="tab hidden" data-p="12" onclick="go(12)">Стандарты<span class="dot"></span></div>
+      <div class="tab hidden" data-p="13" onclick="go(13)">Найм<span class="dot"></span></div>
+      <div class="tab hidden" data-p="14" onclick="go(14)">HR Адм.<span class="dot"></span></div>
+      <div class="tab hidden" data-p="15" onclick="go(15)">Условия<span class="dot"></span></div>
+      <div class="tab hidden" data-p="16" onclick="go(16)">Особенности<span class="dot"></span></div>
+      <div class="tab hidden" data-p="17" onclick="go(17)">Финал<span class="dot"></span></div>
     </div>
   </div>
 
@@ -243,6 +259,53 @@ body{font-family:'Golos Text',sans-serif;background:#EEF2F7;color:var(--text);mi
       <div id="items7"></div>
       <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="go(0)">← Назад</button><button class="btn btn-pri" onclick="go(8)">Задачи →</button></div></div>
     </div>
+    
+    <!-- HR 10: Cost Control -->
+    <div class="page" id="p10">
+      <div class="sec"><div class="sec-hdr"><span class="sec-ico"></span><span class="sec-name">Cost Control</span><span class="sec-score" id="sh1">0/—</span></div><div id="itemsh1"></div></div>
+      <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="goPrev(10)">← Назад</button><button class="btn btn-pri" onclick="goNext(10)">Дальше →</button></div></div>
+    </div>
+    <!-- HR 11: Команда -->
+    <div class="page" id="p11">
+      <div class="sec"><div class="sec-hdr"><span class="sec-ico"></span><span class="sec-name">Команда</span><span class="sec-score" id="sh2">0/—</span></div><div id="itemsh2"></div></div>
+      <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="goPrev(11)">← Назад</button><button class="btn btn-pri" onclick="goNext(11)">Дальше →</button></div></div>
+    </div>
+    <!-- HR 12: Знание стандартов -->
+    <div class="page" id="p12">
+      <div class="sec"><div class="sec-hdr"><span class="sec-ico"></span><span class="sec-name">Знание стандартов</span><span class="sec-score" id="sh3">0/—</span></div><div id="itemsh3"></div></div>
+      <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="goPrev(12)">← Назад</button><button class="btn btn-pri" onclick="goNext(12)">Дальше →</button></div></div>
+    </div>
+    <!-- HR 13: Найм -->
+    <div class="page" id="p13">
+      <div class="sec"><div class="sec-hdr"><span class="sec-ico"></span><span class="sec-name">Найм</span><span class="sec-score" id="sh4">0/—</span></div><div id="itemsh4"></div></div>
+      <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="goPrev(13)">← Назад</button><button class="btn btn-pri" onclick="goNext(13)">Дальше →</button></div></div>
+    </div>
+    <!-- HR 14: HR Адм. -->
+    <div class="page" id="p14">
+      <div class="sec"><div class="sec-hdr"><span class="sec-ico"></span><span class="sec-name">HR Адм.</span><span class="sec-score" id="sh5">0/—</span></div><div id="itemsh5"></div></div>
+      <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="goPrev(14)">← Назад</button><button class="btn btn-pri" onclick="goNext(14)">Дальше →</button></div></div>
+    </div>
+    <!-- HR 15: Условия -->
+    <div class="page" id="p15">
+      <div class="sec"><div class="sec-hdr"><span class="sec-ico"></span><span class="sec-name">Условия</span><span class="sec-score" id="sh6">0/—</span></div><div id="itemsh6"></div></div>
+      <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="goPrev(15)">← Назад</button><button class="btn btn-pri" onclick="goNext(15)">Дальше →</button></div></div>
+    </div>
+    <!-- HR 16: Особенности -->
+    <div class="page" id="p16">
+      <div class="sec"><div class="sec-hdr"><span class="sec-ico"></span><span class="sec-name">Особенности</span><span class="sec-score" id="sh7">0/—</span></div><div id="itemsh7"></div></div>
+      <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="goPrev(16)">← Назад</button><button class="btn btn-pri" onclick="goNext(16)">Дальше →</button></div></div>
+    </div>
+    <!-- HR 17: Финал -->
+    <div class="page" id="p17">
+      <div class="sec">
+        <div class="sec-hdr"><span class="sec-ico">✅</span><span class="sec-name">Финал</span></div>
+        <div style="padding:12px 13px">
+          <div style="font-size:11px;color:var(--grey);margin-bottom:7px;line-height:1.6">Вопросы и проблемы магазина · Дедлайны по задачам · Дата следующего визита</div>
+          <textarea id="ff_h8" placeholder="Запиши итоги визита, открытые вопросы, дату следующего визита..." style="width:100%;padding:9px 10px;border:1.5px solid var(--border);border-radius:var(--rs);font-size:13px;font-family:'Golos Text',sans-serif;resize:none;min-height:120px;background:var(--grey-bg);color:var(--text)"></textarea>
+        </div>
+      </div>
+      <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="go(16)">← Назад</button><button class="btn btn-pri" onclick="go(8)">Задачи →</button></div></div>
+    </div>
     <!-- 8: ЗАДАЧИ -->
     <div class="page" id="p8">
       <div class="task-hint">⚠️ Максимум 3 задачи. Каждая с ответственным и дедлайном.</div>
@@ -297,6 +360,52 @@ body{font-family:'Golos Text',sans-serif;background:#EEF2F7;color:var(--text);mi
         <textarea class="overall" id="overall" placeholder="Ключевые наблюдения, что изменилось с прошлого визита..."></textarea>
       </div>
       <div class="bar"><button class="btn-full" onclick="submitVisit()">✓ Завершить и отправить</button></div>
+    </div>
+
+    <!-- HR PAGES: p10..p17 -->
+    <div class="page" id="p10">
+      <div class="sec"><div class="sec-hdr"><span class="sec-ico">💰</span><span class="sec-name">Cost Control</span><span class="sec-score" id="sh1">0/—</span></div><div id="itemsh1"></div></div>
+      <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="go(0)">← Назад</button><button class="btn btn-pri" onclick="go(11)">Дальше →</button></div></div>
+    </div>
+    <div class="page" id="p11">
+      <div class="sec"><div class="sec-hdr"><span class="sec-ico">👥</span><span class="sec-name">Команда & Dev talks</span><span class="sec-score" id="sh2">0/—</span></div><div id="itemsh2"></div></div>
+      <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="go(10)">← Назад</button><button class="btn btn-pri" onclick="go(12)">Дальше →</button></div></div>
+    </div>
+    <div class="page" id="p12">
+      <div class="sec"><div class="sec-hdr"><span class="sec-ico">📋</span><span class="sec-name">Знание стандартов</span><span class="sec-score" id="sh3">0/—</span></div><div id="itemsh3"></div></div>
+      <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="go(11)">← Назад</button><button class="btn btn-pri" onclick="go(13)">Дальше →</button></div></div>
+    </div>
+    <div class="page" id="p13">
+      <div class="sec"><div class="sec-hdr"><span class="sec-ico">🔍</span><span class="sec-name">Найм & Удержание</span><span class="sec-score" id="sh4">0/—</span></div><div id="itemsh4"></div></div>
+      <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="go(12)">← Назад</button><button class="btn btn-pri" onclick="go(14)">Дальше →</button></div></div>
+    </div>
+    <div class="page" id="p14">
+      <div class="sec"><div class="sec-hdr"><span class="sec-ico">📁</span><span class="sec-name">HR Администрирование</span><span class="sec-score" id="sh5">0/—</span></div><div id="itemsh5"></div></div>
+      <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="go(13)">← Назад</button><button class="btn btn-pri" onclick="go(15)">Дальше →</button></div></div>
+    </div>
+    <div class="page" id="p15">
+      <div class="sec"><div class="sec-hdr"><span class="sec-ico">🏠</span><span class="sec-name">Условия</span><span class="sec-score" id="sh6">0/—</span></div><div id="itemsh6"></div></div>
+      <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="go(14)">← Назад</button><button class="btn btn-pri" onclick="go(16)">Дальше →</button></div></div>
+    </div>
+    <div class="page" id="p16">
+      <div class="sec">
+        <div class="sec-hdr"><span class="sec-ico">📍</span><span class="sec-name">Особенности магазина</span></div>
+        <div style="padding:12px 13px">
+          <div style="font-size:11px;color:var(--grey);margin-bottom:7px;line-height:1.5">Специфика ТЦ/района: откуда едут люди, конкуренты за персонал, тип покупателя, транспортная доступность, особенности команды.</div>
+          <textarea id="ff_h7" placeholder="Запиши особенности этого магазина..." style="width:100%;padding:9px 10px;border:1.5px solid var(--border);border-radius:var(--rs);font-size:13px;font-family:'Golos Text',sans-serif;resize:none;min-height:100px;background:var(--grey-bg);color:var(--text)"></textarea>
+        </div>
+      </div>
+      <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="go(15)">← Назад</button><button class="btn btn-pri" onclick="go(17)">Дальше →</button></div></div>
+    </div>
+    <div class="page" id="p17">
+      <div class="sec">
+        <div class="sec-hdr"><span class="sec-ico">✅</span><span class="sec-name">Финал</span></div>
+        <div style="padding:12px 13px">
+          <div style="font-size:11px;color:var(--grey);margin-bottom:7px;line-height:1.6">Вопросы и проблемы магазина · Дедлайны по задачам · Дата следующего визита</div>
+          <textarea id="ff_h8" placeholder="Запиши итоги визита, открытые вопросы, дату следующего визита..." style="width:100%;padding:9px 10px;border:1.5px solid var(--border);border-radius:var(--rs);font-size:13px;font-family:'Golos Text',sans-serif;resize:none;min-height:120px;background:var(--grey-bg);color:var(--text)"></textarea>
+        </div>
+      </div>
+      <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="go(16)">← Назад</button><button class="btn btn-pri" onclick="go(8)">Задачи →</button></div></div>
     </div>
   </div>
 </div>
@@ -381,8 +490,8 @@ const VISITOR_CONFIG = {
   hr: {
     label: "HRBP",
     badge: "HR",
-    pages: [7], // единый чек-лист
-    mode: "single",
+    pages: [10,11,12,13,14,15,16,17],
+    mode: "hr",
     storeFilter: () => true,
   },
   rkr_w1: {
@@ -514,11 +623,11 @@ const CHECKLIST_HR = [
     "ПРОД/ч — динамика за последние 4 недели",
     "Корпоративное такси — доступы актуальны, лимиты соблюдаются?",
   ]},
-  { id:"h2", label:"Команда & Development talks", ico:"👥", items:[
-    "Структура команды — менеджеры, заместители, закрыты ли ключевые позиции?",
+  { id:"h2", label:"Команда & Dev talks", ico:"👥", items:[
+    "Структура команды — менеджеры, заместители, ключевые позиции закрыты?",
     "Development talks — проводятся регулярно? Последний когда был?",
-    "Статистика прохождения курсов на платформе — кто отстаёт?",
-    "Есть ли потенциальные сотрудники на рост? Запросы на тренинги?",
+    "Статистика курсов на платформе — кто отстаёт?",
+    "Потенциальные сотрудники на рост? Запросы на тренинги?",
     "Моральный климат — как директор оценивает команду сейчас?",
   ]},
   { id:"h3", label:"Знание стандартов", ico:"📋", type:"direct", items:[
@@ -526,14 +635,14 @@ const CHECKLIST_HR = [
     "6 принципов обслуживания — продавец называет все шесть?",
     "Стандарт работы на примерочной — знает и применяет?",
     "Этапы карьерного роста в компании — знает?",
-    "Есть вопросы или проблемы которые хочет донести до HR напрямую?",
+    "Есть вопросы или проблемы, которые хочет донести до HR напрямую?",
   ]},
   { id:"h4", label:"Найм & Удержание", ico:"🔍", items:[
-    "Численность на данный момент vs потребность по ШР",
+    "Численность сейчас vs потребность по ШР",
     "Открытые вакансии — сколько, как давно висят?",
-    "Адаптация новых сотрудников — опросник заполнен, есть ли проблемы?",
-    "Увольнения за последние 30 дней — причины, опросник уволившихся заполнен?",
-    "Ротация и способы удержания увольняющихся — что сделано?",
+    "Адаптация новых — опросник заполнен, есть проблемы?",
+    "Увольнения за 30 дней — причины, опросник уволившихся заполнен?",
+    "Ротация и удержание — что сделано?",
   ]},
   { id:"h5", label:"HR Администрирование", ico:"📁", items:[
     "Переработки — есть ли систематические? Причины?",
@@ -542,32 +651,20 @@ const CHECKLIST_HR = [
     "Контроль РЧ/ПЧ — актуально и корректно?",
     "Договоры МО у кассиров подписаны, отпуска запланированы по ТК?",
   ]},
-  { id:"h6", label:"Customer Service", ico:"⭐", items:[
-    "CS опросник — последний результат, динамика?",
-    "Отзывы Яндекс Карты / 2ГИС — последние комментарии, рейтинг?",
-    "Обратная связь от покупателей — есть жалобы без ответа?",
-    "CS actions — какие действия запланированы по результатам?",
-  ]},
-  { id:"h7", label:"Условия", ico:"🏠", items:[
+  { id:"h6", label:"Условия", ico:"🏠", items:[
     "Комната персонала — чистота, вода, запросы",
     "Шкафчики — в порядке, у всех есть?",
     "Доска персонала — актуальная информация размещена?",
-    "Есть ли нерешённые запросы от команды по условиям труда?",
+    "Нерешённые запросы от команды по условиям труда?",
   ]},
-  { id:"h8", label:"Особенности магазина", ico:"📍", type:"freeform",
-    hint:"Специфика ТЦ/района для найма и удержания. Откуда едут люди, конкуренты за персонал, особенности аудитории.",
+  { id:"h7", label:"Особенности", ico:"📍", type:"freeform",
+    hint:"Специфика ТЦ/района: откуда едут люди, конкуренты за персонал, тип покупателя, транспортная доступность, особенности команды.",
     items:[]
   },
-  { id:"h9", label:"Если первый визит", ico:"🆕", type:"first_visit", items:[
-    "Специфика ТЦ — трафик, тип покупателя, часы пик",
-    "Локация — транспортная доступность для сотрудников",
-    "Особенности команды — история магазина, ключевые люди",
-  ]},
-  { id:"h10", label:"Финал", ico:"✅", items:[
-    "Вопросы и проблемы магазина — что директор хочет донести?",
-    "Дедлайны по задачам расставлены и согласованы?",
-    "Следующий визит — дата и фокус?",
-  ]},
+  { id:"h8", label:"Финал", ico:"✅", type:"freeform",
+    hint:"Вопросы и проблемы магазина · Дедлайны согласованы · Дата следующего визита",
+    items:[]
+  },
 ];
 const CHECKLIST_RKR_W = null;   // → пришли чек-лист
 const CHECKLIST_RKR_M = null;   // → пришли чек-лист
@@ -765,8 +862,19 @@ function startVisit() {
 
   // Определяем активные страницы
   if (cfg.mode === 'multi' && currentChecklist) {
-    activePages = cfg.pages; // [1..6]
+    activePages = cfg.pages;
     buildMultiChecklist(currentChecklist);
+    // Переименовать вкладки — используем activePages[i] как data-p
+    currentChecklist.forEach((sec, i) => {
+      const pageNum = activePages[i];
+      const tabEl = document.querySelector('.tab[data-p="' + pageNum + '"]');
+      if (tabEl) {
+        const dot = tabEl.querySelector('.dot');
+        tabEl.textContent = sec.label;
+        if (dot) tabEl.appendChild(dot);
+        tabEl.classList.remove('hidden');
+      }
+    });
   } else if (cfg.mode === 'single') {
     activePages = [7];
     buildSingleChecklist(currentRole);
@@ -798,23 +906,104 @@ function buildMultiChecklist(checklist) {
   });
 }
 
+
+function buildHRChecklist(checklist) {
+  if (!checklist) return;
+  // Страницы p10..p17 соответствуют секциям h1..h8
+  const pageMap = { h1:10, h2:11, h3:12, h4:13, h5:14, h6:15, h7:16, h8:17 };
+  checklist.forEach(sec => {
+    const pageNum = pageMap[sec.id];
+    if (!pageNum) return;
+    if (sec.type === 'freeform') return; // textarea уже в HTML
+    const cont = document.getElementById('items' + sec.id);
+    if (!cont) return;
+    cont.innerHTML = '';
+    if (sec.type === 'direct') {
+      const hint = document.createElement('div');
+      hint.style.cssText = 'padding:8px 13px;font-size:11px;color:#7C3AED;background:#F5F3FF;border-bottom:1px solid var(--border);font-weight:600';
+      hint.textContent = '💬 Прямой разговор с продавцом — спросить и выслушать';
+      cont.appendChild(hint);
+    }
+    if (sec.type === 'freeform') return; // textarea уже в HTML
+    if (sec.items && sec.items.length > 0) {
+      const scoreEl = document.getElementById('sh' + sec.id.replace('h',''));
+      if (scoreEl) scoreEl.textContent = '0/' + sec.items.length;
+      sec.items.forEach((text, i) => {
+        cont.appendChild(makeItem(sec.id + '_' + i, text));
+      });
+    }
+  });
+  updateProgress();
+}
+
 function buildSingleChecklist(role) {
   const cont = document.getElementById('items7');
   cont.innerHTML = '';
+  const checklist = getChecklist(role);
 
-  // Заглушка для ролей без чек-листа
-  const placeholderRoles = { hr:'HRBP', rkr_w1:'РКР Женского', rkr_w2:'РКР Женского', rkr_m:'РКР Мужского', rkr_k:'РКР Детского' };
-  if (placeholderRoles[role]) {
+  // Нет чек-листа — заглушка для РКР (пока не получены файлы)
+  if (!checklist) {
+    const roleNames = { rkr_w1:'РКР Женского', rkr_w2:'РКР Женского', rkr_m:'РКР Мужского', rkr_k:'РКР Детского' };
     cont.innerHTML = `
       <div class="placeholder">
         <div class="placeholder-ico">📋</div>
         <div class="placeholder-txt">
-          Чек-лист <b>${placeholderRoles[role]}</b> будет добавлен после получения файла.<br><br>
-          Сейчас можно перейти к разделу <b>Задачи</b> и зафиксировать наблюдения вручную.
+          Чек-лист <b>${roleNames[role] || role}</b> будет добавлен позже.<br><br>
+          Перейди к <b>Задачам</b> и зафиксируй наблюдения вручную.
         </div>
       </div>`;
     return;
   }
+
+  currentChecklist = checklist;
+
+  checklist.forEach(sec => {
+    const secDiv = document.createElement('div');
+    secDiv.className = 'sec';
+
+    // Заголовок секции
+    const hdr = document.createElement('div');
+    hdr.className = 'sec-hdr';
+    hdr.innerHTML = `
+      <span class="sec-ico">${sec.ico || '📋'}</span>
+      <span class="sec-name">${sec.label}</span>
+      ${sec.items && sec.items.length > 0 ? `<span class="sec-score" id="ss_${sec.id}">0/${sec.items.length}</span>` : ''}
+    `;
+    secDiv.appendChild(hdr);
+
+    // Тип "direct" — подсказка про прямой разговор
+    if (sec.type === 'direct') {
+      const hint = document.createElement('div');
+      hint.style.cssText = 'padding:8px 13px;font-size:11px;color:#7C3AED;background:#F5F3FF;border-bottom:1px solid var(--border);font-weight:600';
+      hint.textContent = '💬 Прямой разговор с продавцом — спросить и выслушать';
+      secDiv.appendChild(hint);
+    }
+
+    // Тип "freeform" — свободное поле
+    if (sec.type === 'freeform') {
+      const ff = document.createElement('div');
+      ff.style.cssText = 'padding:12px 13px';
+      ff.innerHTML = `
+        <div style="font-size:11px;color:var(--grey);margin-bottom:7px;line-height:1.5">${sec.hint || 'Свободные наблюдения'}</div>
+        <textarea id="ff_${sec.id}" placeholder="Запиши наблюдения..." style="width:100%;padding:9px 10px;border:1.5px solid var(--border);border-radius:var(--rs);font-size:13px;font-family:'Golos Text',sans-serif;resize:none;min-height:80px;background:var(--grey-bg);color:var(--text)"></textarea>
+      `;
+      secDiv.appendChild(ff);
+      cont.appendChild(secDiv);
+      return;
+    }
+
+    // Обычные пункты
+    if (sec.items && sec.items.length > 0) {
+      sec.items.forEach((text, i) => {
+        const key = `${sec.id}_${i}`;
+        secDiv.appendChild(makeItem(key, text));
+      });
+    }
+
+    cont.appendChild(secDiv);
+  });
+
+  updateProgress();
 }
 
 function makeItem(key, text) {
