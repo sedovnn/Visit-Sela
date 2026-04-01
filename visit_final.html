@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
@@ -15,19 +16,19 @@
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{font-family:'Golos Text',sans-serif;background:#EEF2F7;color:var(--text);min-height:100vh;padding-bottom:80px}
 
-.hdr{background:var(--navy);position:sticky;top:0;z-index:200;box-shadow:0 2px 16px rgba(0,0,0,.25)}
+.hdr{background:var(–navy);position:sticky;top:0;z-index:200;box-shadow:0 2px 16px rgba(0,0,0,.25)}
 .hdr-top{display:flex;align-items:center;justify-content:space-between;padding:14px 14px 0}
 .hdr-title{font-size:16px;font-weight:700;color:#fff;letter-spacing:-.3px}
-.hdr-badge{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:var(--navy);background:#3CB24B;padding:3px 9px;border-radius:20px;transition:background .2s}
+.hdr-badge{font-family:‘JetBrains Mono’,monospace;font-size:10px;font-weight:700;color:var(–navy);background:#3CB24B;padding:3px 9px;border-radius:20px;transition:background .2s}
 .prog-wrap{padding:8px 14px 0}
 .prog-bar{height:3px;background:rgba(255,255,255,.15);border-radius:2px;overflow:hidden}
 .prog-fill{height:100%;background:linear-gradient(90deg,#3CB24B,#3CB24B);border-radius:2px;width:0%;transition:width .35s ease}
-.prog-lbl{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,.45);margin-top:3px;padding-bottom:2px}
-.tabs{display:flex;overflow-x:auto;scrollbar-width:none;background:var(--navy2);border-top:1px solid rgba(255,255,255,.07)}
+.prog-lbl{font-family:‘JetBrains Mono’,monospace;font-size:10px;color:rgba(255,255,255,.45);margin-top:3px;padding-bottom:2px}
+.tabs{display:flex;overflow-x:auto;scrollbar-width:none;background:var(–navy2);border-top:1px solid rgba(255,255,255,.07)}
 .tabs::-webkit-scrollbar{display:none}
 .tab{flex-shrink:0;padding:9px 12px;font-size:11px;font-weight:600;color:rgba(255,255,255,.4);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .2s;position:relative}
 .tab.active{color:#3CB24B;border-bottom-color:#3CB24B}
-.tab .dot{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--green);margin-left:3px;vertical-align:middle;opacity:0;transition:opacity .2s}
+.tab .dot{display:inline-block;width:5px;height:5px;border-radius:50%;background:var(–green);margin-left:3px;vertical-align:middle;opacity:0;transition:opacity .2s}
 .tab.done .dot{opacity:1}
 .tab.hidden{display:none}
 
@@ -36,101 +37,102 @@ body{font-family:'Golos Text',sans-serif;background:#EEF2F7;color:var(--text);mi
 .page.active{display:block}
 
 /* META */
-.meta{background:var(--white);border-radius:var(--r);padding:14px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.meta label{display:block;font-size:10px;font-weight:700;color:var(--grey);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
-.meta input,.meta select{width:100%;padding:10px 11px;border:1.5px solid var(--border);border-radius:var(--rs);font-size:15px;font-family:'Golos Text',sans-serif;color:var(--text);background:var(--grey-bg);appearance:none;-webkit-appearance:none;transition:border-color .2s}
-.meta input:focus,.meta select:focus{outline:none;border-color:var(--green);background:var(--white)}
+.meta{background:var(–white);border-radius:var(–r);padding:14px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.meta label{display:block;font-size:10px;font-weight:700;color:var(–grey);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.meta input,.meta select{width:100%;padding:10px 11px;border:1.5px solid var(–border);border-radius:var(–rs);font-size:15px;font-family:‘Golos Text’,sans-serif;color:var(–text);background:var(–grey-bg);appearance:none;-webkit-appearance:none;transition:border-color .2s}
+.meta input:focus,.meta select:focus{outline:none;border-color:var(–green);background:var(–white)}
 .meta-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.email-hint{font-size:11px;color:var(--grey);margin-top:5px;padding:6px 8px;background:var(--grey-bg);border-radius:var(--rs);font-family:'JetBrains Mono',monospace;word-break:break-all;min-height:26px;transition:all .2s}
-.email-hint.found{color:var(--green);background:var(--green-bg)}
+.email-hint{font-size:11px;color:var(–grey);margin-top:5px;padding:6px 8px;background:var(–grey-bg);border-radius:var(–rs);font-family:‘JetBrains Mono’,monospace;word-break:break-all;min-height:26px;transition:all .2s}
+.email-hint.found{color:var(–green);background:var(–green-bg)}
 
 /* VISITOR CARDS */
 .visitor-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.vcard{padding:10px 8px;border:2px solid var(--border);border-radius:var(--r);background:var(--white);text-align:center;cursor:pointer;transition:all .15s}
-.vcard.sel{border-color:var(--green);background:var(--blue-bg)}
+.vcard{padding:10px 8px;border:2px solid var(–border);border-radius:var(–r);background:var(–white);text-align:center;cursor:pointer;transition:all .15s}
+.vcard.sel{border-color:var(–green);background:var(–blue-bg)}
 .vcard .vi{font-size:18px;display:block;margin-bottom:3px}
-.vcard .vn{font-size:11px;font-weight:700;color:var(--text);display:block;line-height:1.3}
-.vcard .vs{font-size:10px;color:var(--grey);display:block;margin-top:2px}
-.vcard.sel .vn{color:var(--green)}
+.vcard .vn{font-size:11px;font-weight:700;color:var(–text);display:block;line-height:1.3}
+.vcard .vs{font-size:10px;color:var(–grey);display:block;margin-top:2px}
+.vcard.sel .vn{color:var(–green)}
 
 /* SECTION */
-.sec{background:var(--white);border-radius:var(--r);margin-bottom:10px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.sec-hdr{padding:11px 13px;display:flex;align-items:center;gap:7px;background:var(--grey-bg);border-bottom:1px solid var(--border)}
+.sec{background:var(–white);border-radius:var(–r);margin-bottom:10px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.sec-hdr{padding:11px 13px;display:flex;align-items:center;gap:7px;background:var(–grey-bg);border-bottom:1px solid var(–border)}
 .sec-ico{font-size:15px}
-.sec-name{font-size:13px;font-weight:700;color:var(--navy);flex:1}
-.sec-score{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:var(--grey);background:var(--white);padding:2px 8px;border-radius:20px;border:1px solid var(--border)}
+.sec-name{font-size:13px;font-weight:700;color:var(–navy);flex:1}
+.sec-score{font-family:‘JetBrains Mono’,monospace;font-size:11px;font-weight:700;color:var(–grey);background:var(–white);padding:2px 8px;border-radius:20px;border:1px solid var(–border)}
 
 /* CHECK ITEM */
-.ci{padding:11px 13px;border-bottom:1px solid var(--border)}
+.ci{padding:11px 13px;border-bottom:1px solid var(–border)}
 .ci:last-child{border-bottom:none}
-.ci-text{font-size:13px;line-height:1.4;color:var(--text);margin-bottom:7px}
+.ci-text{font-size:13px;line-height:1.4;color:var(–text);margin-bottom:7px}
 .btns{display:flex;gap:5px}
-.rb{flex:1;padding:7px 2px;border:1.5px solid var(--border);border-radius:var(--rs);font-size:10px;font-weight:700;cursor:pointer;text-align:center;color:var(--grey);background:var(--grey-bg);transition:all .12s;font-family:'Golos Text',sans-serif}
-.rb[data-v="ok"]{border-color:#BBF7D0}.rb[data-v="ok"].on{background:var(--green);color:#fff;border-color:var(--green)}
-.rb[data-v="pt"]{border-color:#FDE68A}.rb[data-v="pt"].on{background:var(--amber);color:#fff;border-color:var(--amber)}
-.rb[data-v="no"]{border-color:#FECACA}.rb[data-v="no"].on{background:var(--red);color:#fff;border-color:var(--red)}
-.rb[data-v="na"]{border-color:var(--border)}.rb[data-v="na"].on{background:var(--grey);color:#fff;border-color:var(--grey)}
-.note-tog{display:inline-flex;align-items:center;gap:3px;font-size:11px;color:var(--green);margin-top:6px;cursor:pointer;font-weight:600}
+.rb{flex:1;padding:7px 2px;border:1.5px solid var(–border);border-radius:var(–rs);font-size:10px;font-weight:700;cursor:pointer;text-align:center;color:var(–grey);background:var(–grey-bg);transition:all .12s;font-family:‘Golos Text’,sans-serif}
+.rb[data-v=“ok”]{border-color:#BBF7D0}.rb[data-v=“ok”].on{background:var(–green);color:#fff;border-color:var(–green)}
+.rb[data-v=“pt”]{border-color:#FDE68A}.rb[data-v=“pt”].on{background:var(–amber);color:#fff;border-color:var(–amber)}
+.rb[data-v=“no”]{border-color:#FECACA}.rb[data-v=“no”].on{background:var(–red);color:#fff;border-color:var(–red)}
+.rb[data-v=“na”]{border-color:var(–border)}.rb[data-v=“na”].on{background:var(–grey);color:#fff;border-color:var(–grey)}
+.note-tog{display:inline-flex;align-items:center;gap:3px;font-size:11px;color:var(–green);margin-top:6px;cursor:pointer;font-weight:600}
 .note-box{display:none;margin-top:7px}
 .note-box.open{display:block}
-.note-box textarea{width:100%;padding:8px 10px;border:1.5px solid var(--border);border-radius:var(--rs);font-size:13px;font-family:'Golos Text',sans-serif;resize:none;min-height:52px;background:var(--grey-bg);color:var(--text)}
-.note-box textarea:focus{outline:none;border-color:var(--green);background:var(--white)}
+.note-box textarea{width:100%;padding:8px 10px;border:1.5px solid var(–border);border-radius:var(–rs);font-size:13px;font-family:‘Golos Text’,sans-serif;resize:none;min-height:52px;background:var(–grey-bg);color:var(–text)}
+.note-box textarea:focus{outline:none;border-color:var(–green);background:var(–white)}
 
 /* PLACEHOLDER */
 .placeholder{padding:32px 20px;text-align:center}
 .placeholder-ico{font-size:36px;margin-bottom:10px}
-.placeholder-txt{font-size:13px;color:var(--grey);line-height:1.6}
-.placeholder-txt b{color:var(--navy)}
+.placeholder-txt{font-size:13px;color:var(–grey);line-height:1.6}
+.placeholder-txt b{color:var(–navy)}
 
 /* TASKS */
-.task-hint{background:#FFF7ED;border:1px solid #FED7AA;border-radius:var(--rs);padding:9px 12px;font-size:12px;color:#C2410C;font-weight:600;margin-bottom:10px}
-.task-card{background:var(--white);border-radius:var(--r);padding:13px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.task-card:nth-child(2){border-left:3px solid var(--red)}
-.task-card:nth-child(3){border-left:3px solid var(--amber)}
-.task-card:nth-child(4){border-left:3px solid var(--green)}
-.task-num{font-size:10px;font-weight:700;color:var(--grey);text-transform:uppercase;letter-spacing:.4px;margin-bottom:7px}
-.task-card textarea{width:100%;padding:9px 10px;border:1.5px solid var(--border);border-radius:var(--rs);font-size:14px;font-family:'Golos Text',sans-serif;resize:none;min-height:50px;background:var(--grey-bg);color:var(--text);margin-bottom:7px}
-.task-card textarea:focus{outline:none;border-color:var(--green);background:var(--white)}
+.task-hint{background:#FFF7ED;border:1px solid #FED7AA;border-radius:var(–rs);padding:9px 12px;font-size:12px;color:#C2410C;font-weight:600;margin-bottom:10px}
+.task-card{background:var(–white);border-radius:var(–r);padding:13px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.task-card:nth-child(2){border-left:3px solid var(–red)}
+.task-card:nth-child(3){border-left:3px solid var(–amber)}
+.task-card:nth-child(4){border-left:3px solid var(–green)}
+.task-num{font-size:10px;font-weight:700;color:var(–grey);text-transform:uppercase;letter-spacing:.4px;margin-bottom:7px}
+.task-card textarea{width:100%;padding:9px 10px;border:1.5px solid var(–border);border-radius:var(–rs);font-size:14px;font-family:‘Golos Text’,sans-serif;resize:none;min-height:50px;background:var(–grey-bg);color:var(–text);margin-bottom:7px}
+.task-card textarea:focus{outline:none;border-color:var(–green);background:var(–white)}
 .task-row{display:grid;grid-template-columns:1fr 1fr;gap:7px}
-.task-lbl{font-size:10px;font-weight:700;color:var(--grey);text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px}
-.task-card select,.task-card input{width:100%;padding:8px 10px;border:1.5px solid var(--border);border-radius:var(--rs);font-size:13px;font-family:'Golos Text',sans-serif;color:var(--text);background:var(--grey-bg);appearance:none;-webkit-appearance:none}
-.task-card select:focus,.task-card input:focus{outline:none;border-color:var(--green);background:var(--white)}
+.task-lbl{font-size:10px;font-weight:700;color:var(–grey);text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px}
+.task-card select,.task-card input{width:100%;padding:8px 10px;border:1.5px solid var(–border);border-radius:var(–rs);font-size:13px;font-family:‘Golos Text’,sans-serif;color:var(–text);background:var(–grey-bg);appearance:none;-webkit-appearance:none}
+.task-card select:focus,.task-card input:focus{outline:none;border-color:var(–green);background:var(–white)}
 
 /* SUMMARY */
-.sum-block{background:var(--white);border-radius:var(--r);padding:14px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.sum-ttl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--grey);margin-bottom:10px}
+.sum-block{background:var(–white);border-radius:var(–r);padding:14px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.sum-ttl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(–grey);margin-bottom:10px}
 .score-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
-.sc-item{background:var(--grey-bg);border-radius:var(--rs);padding:10px;text-align:center}
-.sc-val{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;color:var(--navy);display:block}
-.sc-lbl{font-size:9px;color:var(--grey);margin-top:2px;display:block;line-height:1.3}
+.sc-item{background:var(–grey-bg);border-radius:var(–rs);padding:10px;text-align:center}
+.sc-val{font-family:‘JetBrains Mono’,monospace;font-size:20px;font-weight:700;color:var(–navy);display:block}
+.sc-lbl{font-size:9px;color:var(–grey);margin-top:2px;display:block;line-height:1.3}
 .status-row{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
-.st-btn{padding:10px 4px;border:1.5px solid var(--border);border-radius:var(--rs);background:var(--grey-bg);font-size:11px;font-weight:700;cursor:pointer;text-align:center;color:var(--grey);transition:all .15s}
-.st-btn[data-s="g"].on{background:var(--green);color:#fff;border-color:var(--green)}
-.st-btn[data-s="y"].on{background:var(--amber);color:#fff;border-color:var(--amber)}
-.st-btn[data-s="r"].on{background:var(--red);color:#fff;border-color:var(--red)}
-.overall{width:100%;padding:10px 11px;border:1.5px solid var(--border);border-radius:var(--rs);font-size:14px;font-family:'Golos Text',sans-serif;resize:none;min-height:68px;background:var(--grey-bg);color:var(--text)}
-.overall:focus{outline:none;border-color:var(--green);background:var(--white)}
+.st-btn{padding:10px 4px;border:1.5px solid var(–border);border-radius:var(–rs);background:var(–grey-bg);font-size:11px;font-weight:700;cursor:pointer;text-align:center;color:var(–grey);transition:all .15s}
+.st-btn[data-s=“g”].on{background:var(–green);color:#fff;border-color:var(–green)}
+.st-btn[data-s=“y”].on{background:var(–amber);color:#fff;border-color:var(–amber)}
+.st-btn[data-s=“r”].on{background:var(–red);color:#fff;border-color:var(–red)}
+.overall{width:100%;padding:10px 11px;border:1.5px solid var(–border);border-radius:var(–rs);font-size:14px;font-family:‘Golos Text’,sans-serif;resize:none;min-height:68px;background:var(–grey-bg);color:var(–text)}
+.overall:focus{outline:none;border-color:var(–green);background:var(–white)}
 
 /* BAR */
-.bar{position:fixed;bottom:0;left:0;right:0;padding:10px 12px;background:var(--white);border-top:1px solid var(--border);z-index:200}
+.bar{position:fixed;bottom:0;left:0;right:0;padding:10px 12px;background:var(–white);border-top:1px solid var(–border);z-index:200}
 .bar-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.btn{width:100%;padding:13px;font-family:'Golos Text',sans-serif;font-size:14px;font-weight:700;border:none;border-radius:var(--r);cursor:pointer;transition:opacity .15s}
+.btn{width:100%;padding:13px;font-family:‘Golos Text’,sans-serif;font-size:14px;font-weight:700;border:none;border-radius:var(–r);cursor:pointer;transition:opacity .15s}
 .btn:active{opacity:.75}
-.btn-sec{background:var(--grey-bg);color:var(--navy)}
-.btn-pri{background:var(--navy);color:#fff}
-.btn-full{width:100%;padding:14px;font-family:'Golos Text',sans-serif;font-size:15px;font-weight:700;border:none;border-radius:var(--r);cursor:pointer;background:var(--navy);color:#fff}
-.btn-full:active{background:var(--green)}
+.btn-sec{background:var(–grey-bg);color:var(–navy)}
+.btn-pri{background:var(–navy);color:#fff}
+.btn-full{width:100%;padding:14px;font-family:‘Golos Text’,sans-serif;font-size:15px;font-weight:700;border:none;border-radius:var(–r);cursor:pointer;background:var(–navy);color:#fff}
+.btn-full:active{background:var(–green)}
 
 /* SUCCESS */
 .success{display:none;padding:48px 16px;text-align:center}
 .success-ico{font-size:52px;margin-bottom:12px}
-.success-ttl{font-size:22px;font-weight:700;color:var(--navy);margin-bottom:6px}
-.success-sub{font-size:13px;color:var(--grey);margin-bottom:16px;line-height:1.6}
-.success-card{background:var(--white);border-radius:var(--r);padding:14px;text-align:left;font-size:13px;line-height:1.9;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.success-card b{color:var(--navy)}
-.send-info{background:var(--green-bg);border:1px solid #BBF7D0;border-radius:var(--rs);padding:10px 12px;font-size:12px;color:var(--green);font-weight:600;margin-bottom:14px;text-align:left}
-.btn-restart{padding:11px 22px;background:var(--grey-bg);color:var(--navy);font-family:'Golos Text',sans-serif;font-size:14px;font-weight:700;border:none;border-radius:var(--r);cursor:pointer}
+.success-ttl{font-size:22px;font-weight:700;color:var(–navy);margin-bottom:6px}
+.success-sub{font-size:13px;color:var(–grey);margin-bottom:16px;line-height:1.6}
+.success-card{background:var(–white);border-radius:var(–r);padding:14px;text-align:left;font-size:13px;line-height:1.9;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.success-card b{color:var(–navy)}
+.send-info{background:var(–green-bg);border:1px solid #BBF7D0;border-radius:var(–rs);padding:10px 12px;font-size:12px;color:var(–green);font-weight:600;margin-bottom:14px;text-align:left}
+.btn-restart{padding:11px 22px;background:var(–grey-bg);color:var(–navy);font-family:‘Golos Text’,sans-serif;font-size:14px;font-weight:700;border:none;border-radius:var(–r);cursor:pointer}
 </style>
+
 </head>
 <body>
 <div id="app">
@@ -166,149 +168,153 @@ body{font-family:'Golos Text',sans-serif;background:#EEF2F7;color:var(--text);mi
 
   <div class="content">
 
-    <!-- 0: ИНФО -->
-    <div class="page active" id="p0">
-      <div class="meta">
-        <label>Визитёр</label>
-        <div class="visitor-grid" id="visitorGrid">
-          <div class="vcard" data-role="div" onclick="selectVisitor(this)">
-            <span class="vi">📊</span><span class="vn">Директор Дивизиона</span><span class="vs">Николай Седов</span>
-          </div>
-          <div class="vcard" data-role="ops" onclick="selectVisitor(this)">
-            <span class="vi">🔍</span><span class="vn">Операционный Директор</span><span class="vs">Ольга Щуренкова</span>
-          </div>
-          <div class="vcard" data-role="hr" onclick="selectVisitor(this)">
-            <span class="vi">👥</span><span class="vn">HRBP</span><span class="vs">Карина Авдышева</span>
-          </div>
-          <div class="vcard" data-role="rkr_w1" onclick="selectVisitor(this)">
-            <span class="vi">👗</span><span class="vn">РКР Женского · Москва 1</span><span class="vs">Светлана Чечура</span>
-          </div>
-          <div class="vcard" data-role="rkr_w2" onclick="selectVisitor(this)">
-            <span class="vi">👗</span><span class="vn">РКР Женского · Москва 2</span><span class="vs">Евгения Урсул</span>
-          </div>
-          <div class="vcard" data-role="rkr_m" onclick="selectVisitor(this)">
-            <span class="vi">👔</span><span class="vn">РКР Мужского</span><span class="vs">Дарья Домот</span>
-          </div>
-          <div class="vcard" data-role="rkr_k" onclick="selectVisitor(this)">
-            <span class="vi">🧒</span><span class="vn">РКР Детского</span><span class="vs">Олеся Привалова</span>
-          </div>
-        </div>
+```
+<!-- 0: ИНФО -->
+<div class="page active" id="p0">
+  <div class="meta">
+    <label>Визитёр</label>
+    <div class="visitor-grid" id="visitorGrid">
+      <div class="vcard" data-role="div" onclick="selectVisitor(this)">
+        <span class="vi">📊</span><span class="vn">Директор Дивизиона</span><span class="vs">Николай Седов</span>
       </div>
-      <div class="meta" id="storeBlock" style="display:none">
-        <label>Магазин</label>
-        <select id="store" onchange="onStoreSelect()">
-          <option value="">— выбрать магазин</option>
-        </select>
-        <div class="email-hint" id="emailHint">Email подставится автоматически</div>
+      <div class="vcard" data-role="ops" onclick="selectVisitor(this)">
+        <span class="vi">🔍</span><span class="vn">Операционный Директор</span><span class="vs">Ольга Щуренкова</span>
       </div>
-      <div class="meta" style="display:none" id="dateBlock">
-        <label>Дата</label>
-        <input type="date" id="vdate" style="margin-bottom:10px">
-        <label>Ответственный от магазина</label>
-        <select id="storeManager" onchange="onManagerSelect()">
-          <option value="">— выбрать</option>
-        </select>
-        <div style="margin-top:6px;font-size:11px;color:var(--grey)" id="managerRole"></div>
+      <div class="vcard" data-role="hr" onclick="selectVisitor(this)">
+        <span class="vi">👥</span><span class="vn">HRBP</span><span class="vs">Карина Авдышева</span>
       </div>
-      <div class="bar" id="startBar" style="display:none">
-        <button class="btn-full" onclick="startVisit()">Начать визит →</button>
+      <div class="vcard" data-role="rkr_w1" onclick="selectVisitor(this)">
+        <span class="vi">👗</span><span class="vn">РКР Женского · Москва 1</span><span class="vs">Светлана Чечура</span>
+      </div>
+      <div class="vcard" data-role="rkr_w2" onclick="selectVisitor(this)">
+        <span class="vi">👗</span><span class="vn">РКР Женского · Москва 2</span><span class="vs">Евгения Урсул</span>
+      </div>
+      <div class="vcard" data-role="rkr_m" onclick="selectVisitor(this)">
+        <span class="vi">👔</span><span class="vn">РКР Мужского</span><span class="vs">Дарья Домот</span>
+      </div>
+      <div class="vcard" data-role="rkr_k" onclick="selectVisitor(this)">
+        <span class="vi">🧒</span><span class="vn">РКР Детского</span><span class="vs">Олеся Привалова</span>
       </div>
     </div>
+  </div>
+  <div class="meta" id="storeBlock" style="display:none">
+    <label>Магазин</label>
+    <select id="store" onchange="onStoreSelect()">
+      <option value="">— выбрать магазин</option>
+    </select>
+    <div class="email-hint" id="emailHint">Email подставится автоматически</div>
+  </div>
+  <div class="meta" style="display:none" id="dateBlock">
+    <label>Дата</label>
+    <input type="date" id="vdate" style="margin-bottom:10px">
+    <label>Ответственный от магазина</label>
+    <select id="storeManager" onchange="onManagerSelect()">
+      <option value="">— выбрать</option>
+    </select>
+    <div style="margin-top:6px;font-size:11px;color:var(--grey)" id="managerRole"></div>
+  </div>
+  <div class="bar" id="startBar" style="display:none">
+    <button class="btn-full" onclick="startVisit()">Начать визит →</button>
+  </div>
+</div>
 
-    <!-- 1: СОСТОЯНИЕ -->
-    <div class="page" id="p1">
-      <div class="sec"><div class="sec-hdr"><span class="sec-ico">🏪</span><span class="sec-name">Состояние магазина</span><span class="sec-score" id="s1">0/—</span></div><div id="items1"></div></div>
-      <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="go(0)">← Назад</button><button class="btn btn-pri" id="next1" onclick="goNext(1)">Дальше →</button></div></div>
+<!-- 1: СОСТОЯНИЕ -->
+<div class="page" id="p1">
+  <div class="sec"><div class="sec-hdr"><span class="sec-ico">🏪</span><span class="sec-name">Состояние магазина</span><span class="sec-score" id="s1">0/—</span></div><div id="items1"></div></div>
+  <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="go(0)">← Назад</button><button class="btn btn-pri" id="next1" onclick="goNext(1)">Дальше →</button></div></div>
+</div>
+<!-- 2: ТОРГ.ЗАЛ -->
+<div class="page" id="p2">
+  <div class="sec"><div class="sec-hdr"><span class="sec-ico">👗</span><span class="sec-name">Торговый зал</span><span class="sec-score" id="s2">0/—</span></div><div id="items2"></div></div>
+  <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="goPrev(2)">← Назад</button><button class="btn btn-pri" onclick="goNext(2)">Дальше →</button></div></div>
+</div>
+<!-- 3: КАССА -->
+<div class="page" id="p3">
+  <div class="sec"><div class="sec-hdr"><span class="sec-ico">💳</span><span class="sec-name">Кассовая зона</span><span class="sec-score" id="s3">0/—</span></div><div id="items3"></div></div>
+  <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="goPrev(3)">← Назад</button><button class="btn btn-pri" onclick="goNext(3)">Дальше →</button></div></div>
+</div>
+<!-- 4: СКЛАД -->
+<div class="page" id="p4">
+  <div class="sec"><div class="sec-hdr"><span class="sec-ico">📦</span><span class="sec-name">Склад</span><span class="sec-score" id="s4">0/—</span></div><div id="items4"></div></div>
+  <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="goPrev(4)">← Назад</button><button class="btn btn-pri" onclick="goNext(4)">Дальше →</button></div></div>
+</div>
+<!-- 5: ПЕРСОНАЛ -->
+<div class="page" id="p5">
+  <div class="sec"><div class="sec-hdr"><span class="sec-ico">👥</span><span class="sec-name">Персонал</span><span class="sec-score" id="s5">0/—</span></div><div id="items5"></div></div>
+  <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="goPrev(5)">← Назад</button><button class="btn btn-pri" onclick="goNext(5)">Дальше →</button></div></div>
+</div>
+<!-- 6: МЕРМА -->
+<div class="page" id="p6">
+  <div class="sec"><div class="sec-hdr"><span class="sec-ico">🔒</span><span class="sec-name">Мерма / Потери</span><span class="sec-score" id="s6">0/—</span></div><div id="items6"></div></div>
+  <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="goPrev(6)">← Назад</button><button class="btn btn-pri" onclick="goNext(6)">Дальше →</button></div></div>
+</div>
+<!-- 7: ЕДИНЫЙ ЧЕК-ЛИСТ (для HR, РКР) -->
+<div class="page" id="p7">
+  <div id="items7"></div>
+  <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="go(0)">← Назад</button><button class="btn btn-pri" onclick="go(8)">Задачи →</button></div></div>
+</div>
+<!-- 8: ЗАДАЧИ -->
+<div class="page" id="p8">
+  <div class="task-hint">⚠️ Максимум 3 задачи. Каждая с ответственным и дедлайном.</div>
+  <div class="task-card">
+    <div class="task-num">Задача 1 — приоритетная</div>
+    <textarea id="t1" placeholder="Что нужно сделать..."></textarea>
+    <div class="task-row">
+      <div><div class="task-lbl">Ответственный</div>
+        <select id="to1"><option value="">— выбрать</option><option>Директор магазина</option><option>Менеджер смены</option><option>Операционный директор</option><option>HRBP</option><option>РКР Женского</option><option>РКР Мужского</option><option>РКР Детского</option></select></div>
+      <div><div class="task-lbl">Дедлайн</div><input type="date" id="td1"></div>
     </div>
-    <!-- 2: ТОРГ.ЗАЛ -->
-    <div class="page" id="p2">
-      <div class="sec"><div class="sec-hdr"><span class="sec-ico">👗</span><span class="sec-name">Торговый зал</span><span class="sec-score" id="s2">0/—</span></div><div id="items2"></div></div>
-      <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="goPrev(2)">← Назад</button><button class="btn btn-pri" onclick="goNext(2)">Дальше →</button></div></div>
+  </div>
+  <div class="task-card">
+    <div class="task-num">Задача 2</div>
+    <textarea id="t2" placeholder="Что нужно сделать..."></textarea>
+    <div class="task-row">
+      <div><div class="task-lbl">Ответственный</div>
+        <select id="to2"><option value="">— выбрать</option><option>Директор магазина</option><option>Менеджер смены</option><option>Операционный директор</option><option>HRBP</option><option>РКР Женского</option><option>РКР Мужского</option><option>РКР Детского</option></select></div>
+      <div><div class="task-lbl">Дедлайн</div><input type="date" id="td2"></div>
     </div>
-    <!-- 3: КАССА -->
-    <div class="page" id="p3">
-      <div class="sec"><div class="sec-hdr"><span class="sec-ico">💳</span><span class="sec-name">Кассовая зона</span><span class="sec-score" id="s3">0/—</span></div><div id="items3"></div></div>
-      <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="goPrev(3)">← Назад</button><button class="btn btn-pri" onclick="goNext(3)">Дальше →</button></div></div>
+  </div>
+  <div class="task-card">
+    <div class="task-num">Задача 3</div>
+    <textarea id="t3" placeholder="Что нужно сделать..."></textarea>
+    <div class="task-row">
+      <div><div class="task-lbl">Ответственный</div>
+        <select id="to3"><option value="">— выбрать</option><option>Директор магазина</option><option>Менеджер смены</option><option>Операционный директор</option><option>HRBP</option><option>РКР Женского</option><option>РКР Мужского</option><option>РКР Детского</option></select></div>
+      <div><div class="task-lbl">Дедлайн</div><input type="date" id="td3"></div>
     </div>
-    <!-- 4: СКЛАД -->
-    <div class="page" id="p4">
-      <div class="sec"><div class="sec-hdr"><span class="sec-ico">📦</span><span class="sec-name">Склад</span><span class="sec-score" id="s4">0/—</span></div><div id="items4"></div></div>
-      <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="goPrev(4)">← Назад</button><button class="btn btn-pri" onclick="goNext(4)">Дальше →</button></div></div>
+  </div>
+  <div class="bar"><div class="bar-btns">
+    <button class="btn btn-sec" onclick="goPrev(8)">← Назад</button>
+    <button class="btn btn-pri" onclick="go(9)">Итог →</button>
+  </div></div>
+</div>
+<!-- 9: ИТОГ -->
+<div class="page" id="p9">
+  <div class="sum-block">
+    <div class="sum-ttl">Результат по разделам</div>
+    <div class="score-grid" id="scoreGrid"></div>
+  </div>
+  <div class="sum-block">
+    <div class="sum-ttl">Статус магазина</div>
+    <div class="status-row">
+      <div class="st-btn" data-s="g" onclick="selStatus(this)">🟢 Норма</div>
+      <div class="st-btn" data-s="y" onclick="selStatus(this)">🟡 Внимание</div>
+      <div class="st-btn" data-s="r" onclick="selStatus(this)">🔴 Риск</div>
     </div>
-    <!-- 5: ПЕРСОНАЛ -->
-    <div class="page" id="p5">
-      <div class="sec"><div class="sec-hdr"><span class="sec-ico">👥</span><span class="sec-name">Персонал</span><span class="sec-score" id="s5">0/—</span></div><div id="items5"></div></div>
-      <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="goPrev(5)">← Назад</button><button class="btn btn-pri" onclick="goNext(5)">Дальше →</button></div></div>
-    </div>
-    <!-- 6: МЕРМА -->
-    <div class="page" id="p6">
-      <div class="sec"><div class="sec-hdr"><span class="sec-ico">🔒</span><span class="sec-name">Мерма / Потери</span><span class="sec-score" id="s6">0/—</span></div><div id="items6"></div></div>
-      <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="goPrev(6)">← Назад</button><button class="btn btn-pri" onclick="goNext(6)">Дальше →</button></div></div>
-    </div>
-    <!-- 7: ЕДИНЫЙ ЧЕК-ЛИСТ (для HR, РКР) -->
-    <div class="page" id="p7">
-      <div id="items7"></div>
-      <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="go(0)">← Назад</button><button class="btn btn-pri" onclick="go(8)">Задачи →</button></div></div>
-    </div>
-    <!-- 8: ЗАДАЧИ -->
-    <div class="page" id="p8">
-      <div class="task-hint">⚠️ Максимум 3 задачи. Каждая с ответственным и дедлайном.</div>
-      <div class="task-card">
-        <div class="task-num">Задача 1 — приоритетная</div>
-        <textarea id="t1" placeholder="Что нужно сделать..."></textarea>
-        <div class="task-row">
-          <div><div class="task-lbl">Ответственный</div>
-            <select id="to1"><option value="">— выбрать</option><option>Директор магазина</option><option>Менеджер смены</option><option>Операционный директор</option><option>HRBP</option><option>РКР Женского</option><option>РКР Мужского</option><option>РКР Детского</option></select></div>
-          <div><div class="task-lbl">Дедлайн</div><input type="date" id="td1"></div>
-        </div>
-      </div>
-      <div class="task-card">
-        <div class="task-num">Задача 2</div>
-        <textarea id="t2" placeholder="Что нужно сделать..."></textarea>
-        <div class="task-row">
-          <div><div class="task-lbl">Ответственный</div>
-            <select id="to2"><option value="">— выбрать</option><option>Директор магазина</option><option>Менеджер смены</option><option>Операционный директор</option><option>HRBP</option><option>РКР Женского</option><option>РКР Мужского</option><option>РКР Детского</option></select></div>
-          <div><div class="task-lbl">Дедлайн</div><input type="date" id="td2"></div>
-        </div>
-      </div>
-      <div class="task-card">
-        <div class="task-num">Задача 3</div>
-        <textarea id="t3" placeholder="Что нужно сделать..."></textarea>
-        <div class="task-row">
-          <div><div class="task-lbl">Ответственный</div>
-            <select id="to3"><option value="">— выбрать</option><option>Директор магазина</option><option>Менеджер смены</option><option>Операционный директор</option><option>HRBP</option><option>РКР Женского</option><option>РКР Мужского</option><option>РКР Детского</option></select></div>
-          <div><div class="task-lbl">Дедлайн</div><input type="date" id="td3"></div>
-        </div>
-      </div>
-      <div class="bar"><div class="bar-btns">
-        <button class="btn btn-sec" onclick="goPrev(8)">← Назад</button>
-        <button class="btn btn-pri" onclick="go(9)">Итог →</button>
-      </div></div>
-    </div>
-    <!-- 9: ИТОГ -->
-    <div class="page" id="p9">
-      <div class="sum-block">
-        <div class="sum-ttl">Результат по разделам</div>
-        <div class="score-grid" id="scoreGrid"></div>
-      </div>
-      <div class="sum-block">
-        <div class="sum-ttl">Статус магазина</div>
-        <div class="status-row">
-          <div class="st-btn" data-s="g" onclick="selStatus(this)">🟢 Норма</div>
-          <div class="st-btn" data-s="y" onclick="selStatus(this)">🟡 Внимание</div>
-          <div class="st-btn" data-s="r" onclick="selStatus(this)">🔴 Риск</div>
-        </div>
-      </div>
-      <div class="sum-block">
-        <div class="sum-ttl">Общее впечатление</div>
-        <textarea class="overall" id="overall" placeholder="Ключевые наблюдения, что изменилось с прошлого визита..."></textarea>
-      </div>
-      <div class="bar"><button class="btn-full" onclick="submitVisit()">✓ Завершить и отправить</button></div>
-    </div>
+  </div>
+  <div class="sum-block">
+    <div class="sum-ttl">Общее впечатление</div>
+    <textarea class="overall" id="overall" placeholder="Ключевые наблюдения, что изменилось с прошлого визита..."></textarea>
+  </div>
+  <div class="bar"><button class="btn-full" onclick="submitVisit()">✓ Завершить и отправить</button></div>
+</div>
+```
+
   </div>
 </div>
 
 <!-- SUCCESS -->
+
 <div class="success" id="succ">
   <div class="success-ico">✅</div>
   <div class="success-ttl">Визит зафиксирован</div>
@@ -513,54 +519,67 @@ const CHECKLIST_DIV = [
 
 // Заглушки — будут заменены при получении файлов
 const CHECKLIST_HR = [
-  {
-    id: 1,
-    label: "Команда",
-    title: "Команда",
-    items: [
-      "Укомплектованность по ШР — все позиции закрыты, нет вакансий дольше 14 дней?",
-      "График активности составлен корректно — все зоны перекрыты, нет пустых слотов?",
-      "Соблюдаются ли нормы ТК РФ в графике — часы, выходные, переработки?",
-      "Есть ли новые сотрудники (до 3 мес.)? На каком этапе адаптации каждый?",
-      "Проводились ли exit-интервью с уволившимися за последние 30 дней? Какие причины?",
-      "Есть ли конфликты или напряжение внутри команды?",
-      "Как директор оценивает моральный климат в команде — по шкале 1–10?"
-    ]
+  { id:"h1", label:"Cost Control", ico:"💰", items:[
+    "Продажи — план/факт за месяц и год",
+    "Часы — фактические vs плановые",
+    "ФОТ% — соответствует норме дивизиона?",
+    "ПРОД/ч — динамика за последние 4 недели",
+    "Корпоративное такси — доступы актуальны, лимиты соблюдаются?",
+  ]},
+  { id:"h2", label:"Команда & Development talks", ico:"👥", items:[
+    "Структура команды — менеджеры, заместители, закрыты ли ключевые позиции?",
+    "Development talks — проводятся регулярно? Последний когда был?",
+    "Статистика прохождения курсов на платформе — кто отстаёт?",
+    "Есть ли потенциальные сотрудники на рост? Запросы на тренинги?",
+    "Моральный климат — как директор оценивает команду сейчас?",
+  ]},
+  { id:"h3", label:"Знание стандартов", ico:"📋", type:"direct", items:[
+    "4 правила торгового зала — продавец называет все четыре?",
+    "6 принципов обслуживания — продавец называет все шесть?",
+    "Стандарт работы на примерочной — знает и применяет?",
+    "Этапы карьерного роста в компании — знает?",
+    "Есть вопросы или проблемы которые хочет донести до HR напрямую?",
+  ]},
+  { id:"h4", label:"Найм & Удержание", ico:"🔍", items:[
+    "Численность на данный момент vs потребность по ШР",
+    "Открытые вакансии — сколько, как давно висят?",
+    "Адаптация новых сотрудников — опросник заполнен, есть ли проблемы?",
+    "Увольнения за последние 30 дней — причины, опросник уволившихся заполнен?",
+    "Ротация и способы удержания увольняющихся — что сделано?",
+  ]},
+  { id:"h5", label:"HR Администрирование", ico:"📁", items:[
+    "Переработки — есть ли систематические? Причины?",
+    "Средняя выработка персонала — норма или отклонение?",
+    "Работа по фикс расписанию — соблюдается?",
+    "Контроль РЧ/ПЧ — актуально и корректно?",
+    "Договоры МО у кассиров подписаны, отпуска запланированы по ТК?",
+  ]},
+  { id:"h6", label:"Customer Service", ico:"⭐", items:[
+    "CS опросник — последний результат, динамика?",
+    "Отзывы Яндекс Карты / 2ГИС — последние комментарии, рейтинг?",
+    "Обратная связь от покупателей — есть жалобы без ответа?",
+    "CS actions — какие действия запланированы по результатам?",
+  ]},
+  { id:"h7", label:"Условия", ico:"🏠", items:[
+    "Комната персонала — чистота, вода, запросы",
+    "Шкафчики — в порядке, у всех есть?",
+    "Доска персонала — актуальная информация размещена?",
+    "Есть ли нерешённые запросы от команды по условиям труда?",
+  ]},
+  { id:"h8", label:"Особенности магазина", ico:"📍", type:"freeform",
+    hint:"Специфика ТЦ/района для найма и удержания. Откуда едут люди, конкуренты за персонал, особенности аудитории.",
+    items:[]
   },
-  {
-    id: 2,
-    label: "Документы",
-    title: "Документы",
-    items: [
-      "Договоры о материальной ответственности у кассиров подписаны в КЭДО?",
-      "Журнал вводного инструктажа актуален — новые сотрудники подписаны?",
-      "Отпуска запланированы согласно ТК, нет «горящих» дней?",
-      "Нет сотрудников с истекающими договорами в ближайшие 30 дней?"
-    ]
-  },
-  {
-    id: 3,
-    label: "Сотрудники",
-    title: "Сотрудники",
-    items: [
-      "Знает ли сотрудник 4 правила торгового зала? (Покупатель / Порядок / Подсортировка / Потери)",
-      "Знает ли стандарты обслуживания? (приветствие, доступность, влияние на продажи, благодарность)",
-      "Проходил ли обучение в iSpring Learn за последние 30 дней? Какой курс?",
-      "Знает ли этапы карьерного роста в компании (6 шагов)?",
-      "Есть ли вопросы или проблемы которые хочет донести до HR напрямую?"
-    ]
-  },
-  {
-    id: 4,
-    label: "Метрики",
-    title: "Метрики",
-    items: [
-      "Текучесть за последние 30 дней по магазину — выше или ниже нормы?",
-      "Количество незакрытых вакансий на момент визита",
-      "Средний стаж команды — есть ли признаки нестабильности?",
-      "ФОТ% магазина — соответствует ли норме дивизиона?"
-    ]
-  }
+  { id:"h9", label:"Если первый визит", ico:"🆕", type:"first_visit", items:[
+    "Специфика ТЦ — трафик, тип покупателя, часы пик",
+    "Локация — транспортная доступность для сотрудников",
+    "Особенности команды — история магазина, ключевые люди",
+  ]},
+  { id:"h10", label:"Финал", ico:"✅", items:[
+    "Вопросы и проблемы магазина — что директор хочет донести?",
+    "Дедлайны по задачам расставлены и согласованы?",
+    "Следующий визит — дата и фокус?",
+  ]},
 ];
 const CHECKLIST_RKR_W = null;   // → пришли чек-лист
 const CHECKLIST_RKR_M = null;   // → пришли чек-лист
@@ -801,10 +820,8 @@ function buildSingleChecklist(role) {
   const cont = document.getElementById('items7');
   cont.innerHTML = '';
 
-  // Получаем чек-лист для роли
   const checklist = getChecklist(role);
 
-  // Заглушка если чек-лист ещё не готов
   if (!checklist) {
     const roleNames = { rkr_w1:'РКР Женского', rkr_w2:'РКР Женского', rkr_m:'РКР Мужского', rkr_k:'РКР Детского' };
     cont.innerHTML = `
@@ -812,235 +829,258 @@ function buildSingleChecklist(role) {
         <div class="placeholder-ico">📋</div>
         <div class="placeholder-txt">
           Чек-лист <b>${roleNames[role] || role}</b> будет добавлен после получения файла.<br><br>
-          Сейчас можно перейти к разделу <b>Задачи</b> и зафиксировать наблюдения вручную.
+          Сейчас можно перейти к <b>Задачам</b> и зафиксировать наблюдения вручную.
         </div>
       </div>`;
     return;
   }
 
-  // Рендерим разделы чек-листа
   currentChecklist = checklist;
+
   checklist.forEach(sec => {
     const secDiv = document.createElement('div');
     secDiv.className = 'sec';
-    secDiv.innerHTML = `<div class="sec-title">${sec.title}</div>`;
-    sec.items.forEach((text, i) => {
-      const key = `${sec.id}_${i}`;
-      secDiv.appendChild(makeItem(key, text));
-    });
-    cont.appendChild(secDiv);
-  });
 
-  // Обновляем счётчик
-  updateProgress();
+    // Заголовок секции
+    const hdr = document.createElement('div');
+    hdr.className = 'sec-hdr';
+    hdr.innerHTML = `
+      <span class="sec-ico">${sec.ico || '📋'}</span>
+      <span class="sec-name">${sec.label}</span>
+      ${sec.items.length > 0 ? `<span class="sec-score" id="ss_${sec.id}">0/${sec.items.length}</span>` : ''}
+    `;
+    secDiv.appendChild(hdr);
+
+    // Подсказка для типа "direct" (прямой разговор с продавцом)
+    if (sec.type === 'direct') {
+      const hint = document.createElement('div');
+      hint.style.cssText = 'padding:8px 13px;font-size:11px;color:#7C3AED;background:#F5F3FF;border-bottom:1px solid #E5E7EB;font-weight:600';
+      hint.textContent = '💬 Прямой разговор с продавцом — спросить и выслушать';
+      secDiv.appendChild(hint);
+    }
+
+    // Свободное поле для типа "freeform"
+    if (sec.type === 'freeform') {
+      const ff = document.createElement('div');
+      ff.style.cssText = 'padding:12px 13px';
+      ff.innerHTML = `
+        <div style="font-size:11px;color:var(--grey);margin-bottom:7px;line-height:1.5">${sec.hint || 'Свободные наблюдения'}</div>
+        <textarea id="ff_${sec.id}" placeholder="Запиши особенности этого магазина..." style="width:100%;padding:9px 10px;border:1.5px solid var(--border);border-radius:var(--rs);font-size:13px;font-family:'Golos Text',sans-serif;resize:none;min-height:80px;background:var(--grey-bg);color:var(--text)"></textarea>
+
+```
+  `;
+  secDiv.appendChild(ff);
+  cont.appendChild(secDiv);
+  return; // без чек-боксов
+}
+
+// Обычные пункты
+sec.items.forEach((text, i) => {
+  const key = `${sec.id}_${i}`;
+  secDiv.appendChild(makeItem(key, text));
+});
+
+cont.appendChild(secDiv);
+```
+
+});
+
+updateProgress();
 }
 
 function makeItem(key, text) {
-  const div = document.createElement('div');
-  div.className = 'ci';
-  div.innerHTML = `
-    <div class="ci-text">${text}</div>
-    <div class="btns">
-      <button class="rb" data-v="ok" onclick="rate('${key}','ok',this)">✓ Да</button>
-      <button class="rb" data-v="pt" onclick="rate('${key}','pt',this)">⚠ Частично</button>
-      <button class="rb" data-v="no" onclick="rate('${key}','no',this)">✗ Нет</button>
-      <button class="rb" data-v="na" onclick="rate('${key}','na',this)">— Н/П</button>
-    </div>
-    <span class="note-tog" onclick="togNote('n_${key}')">+ заметка</span>
-    <div class="note-box" id="n_${key}"><textarea placeholder="Комментарий..."></textarea></div>`;
-  return div;
+const div = document.createElement(‘div’);
+div.className = ‘ci’;
+div.innerHTML = ` <div class="ci-text">${text}</div> <div class="btns"> <button class="rb" data-v="ok" onclick="rate('${key}','ok',this)">✓ Да</button> <button class="rb" data-v="pt" onclick="rate('${key}','pt',this)">⚠ Частично</button> <button class="rb" data-v="no" onclick="rate('${key}','no',this)">✗ Нет</button> <button class="rb" data-v="na" onclick="rate('${key}','na',this)">— Н/П</button> </div> <span class="note-tog" onclick="togNote('n_${key}')">+ заметка</span> <div class="note-box" id="n_${key}"><textarea placeholder="Комментарий..."></textarea></div>`;
+return div;
 }
 
 // ═══════════════════════════════════════════════════════
 // ОЦЕНКА
 // ═══════════════════════════════════════════════════════
 function rate(key, val, btn) {
-  ratings[key] = val;
-  btn.closest('.btns').querySelectorAll('.rb').forEach(b => b.classList.remove('on'));
-  btn.classList.add('on');
-  const sec = parseInt(key.split('_')[0]);
-  if (document.getElementById('s' + sec)) updateSecScore(sec);
-  updateProgress();
-  markDone(sec);
+ratings[key] = val;
+btn.closest(’.btns’).querySelectorAll(’.rb’).forEach(b => b.classList.remove(‘on’));
+btn.classList.add(‘on’);
+const sec = key.split(’_’)[0]; // may be string like ‘h1’ or number
+if (document.getElementById(‘s’ + sec)) updateSecScore(sec);
+updateProgress();
+markDone(sec);
 }
 
-function togNote(id) { document.getElementById(id).classList.toggle('open'); }
+function togNote(id) { document.getElementById(id).classList.toggle(‘open’); }
 
 function updateProgress() {
-  if (!currentChecklist) {
-    document.getElementById('pl').textContent = 'Заполни наблюдения';
-    return;
-  }
-  const total = currentChecklist.reduce((a, s) => a + s.items.length, 0);
-  const done = Object.keys(ratings).length;
-  const pct = total > 0 ? Math.round(done / total * 100) : 0;
-  document.getElementById('pf').style.width = pct + '%';
-  document.getElementById('pl').textContent = `${done} / ${total} пунктов`;
+if (!currentChecklist) {
+document.getElementById(‘pl’).textContent = ‘Заполни наблюдения’;
+return;
+}
+const total = currentChecklist.reduce((a, s) => a + s.items.length, 0);
+const done = Object.keys(ratings).length;
+const pct = total > 0 ? Math.round(done / total * 100) : 0;
+document.getElementById(‘pf’).style.width = pct + ‘%’;
+document.getElementById(‘pl’).textContent = `${done} / ${total} пунктов`;
 }
 
 function updateSecScore(sec) {
-  if (!currentChecklist) return;
-  const section = currentChecklist.find(s => s.id === sec);
-  if (!section) return;
-  let ok = 0;
-  section.items.forEach((_, i) => { if (ratings[`${sec}_${i}`] === 'ok') ok++; });
-  const el = document.getElementById('s' + sec);
-  if (el) el.textContent = `${ok}/${section.items.length}`;
+if (!currentChecklist) return;
+const section = currentChecklist.find(s => String(s.id) === String(sec));
+if (!section || !section.items.length) return;
+let ok = 0;
+section.items.forEach((*, i) => { if (ratings[`${sec}_${i}`] === ‘ok’) ok++; });
+// Multi-section mode
+const el = document.getElementById(‘s’ + sec);
+if (el) el.textContent = `${ok}/${section.items.length}`;
+// Single-section mode (HR, RKR)
+const el2 = document.getElementById(’ss*’ + sec);
+if (el2) el2.textContent = `${ok}/${section.items.length}`;
 }
 
 function markDone(sec) {
-  if (!currentChecklist) return;
-  const section = currentChecklist.find(s => s.id === sec);
-  if (!section) return;
-  const done = section.items.filter((_, i) => ratings[`${sec}_${i}`]).length;
-  const tab = document.querySelector(`.tab[data-p="${sec}"]`);
-  if (tab) tab.classList.toggle('done', done === section.items.length);
+if (!currentChecklist) return;
+const section = currentChecklist.find(s => String(s.id) === String(sec));
+if (!section || !section.items.length) return;
+const done = section.items.filter((_, i) => ratings[`${sec}_${i}`]).length;
+const tab = document.querySelector(`.tab[data-p="${sec}"]`);
+if (tab) tab.classList.toggle(‘done’, done === section.items.length);
 }
 
 // ═══════════════════════════════════════════════════════
 // НАВИГАЦИЯ
 // ═══════════════════════════════════════════════════════
 function go(p) {
-  document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
-  document.getElementById('p' + p).classList.add('active');
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  const activeTab = document.querySelector(`.tab[data-p="${p}"]`);
-  if (activeTab) { activeTab.classList.add('active'); activeTab.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'}); }
-  if (p === 9) buildSummary();
-  window.scrollTo(0, 0);
+document.querySelectorAll(’.page’).forEach(el => el.classList.remove(‘active’));
+document.getElementById(‘p’ + p).classList.add(‘active’);
+document.querySelectorAll(’.tab’).forEach(t => t.classList.remove(‘active’));
+const activeTab = document.querySelector(`.tab[data-p="${p}"]`);
+if (activeTab) { activeTab.classList.add(‘active’); activeTab.scrollIntoView({behavior:‘smooth’,block:‘nearest’,inline:‘center’}); }
+if (p === 9) buildSummary();
+window.scrollTo(0, 0);
 }
 
 function goNext(current) {
-  const idx = activePages.indexOf(current);
-  if (idx < activePages.length - 1) go(activePages[idx + 1]);
+const idx = activePages.indexOf(current);
+if (idx < activePages.length - 1) go(activePages[idx + 1]);
 }
 function goPrev(current) {
-  const idx = activePages.indexOf(current);
-  if (idx > 0) go(activePages[idx - 1]);
-  else go(0);
+const idx = activePages.indexOf(current);
+if (idx > 0) go(activePages[idx - 1]);
+else go(0);
 }
 
 function selStatus(btn) {
-  document.querySelectorAll('.st-btn').forEach(b => b.classList.remove('on'));
-  btn.classList.add('on'); visitStatus = btn.dataset.s;
+document.querySelectorAll(’.st-btn’).forEach(b => b.classList.remove(‘on’));
+btn.classList.add(‘on’); visitStatus = btn.dataset.s;
 }
 
 // ═══════════════════════════════════════════════════════
 // ИТОГ
 // ═══════════════════════════════════════════════════════
 function buildSummary() {
-  const grid = document.getElementById('scoreGrid');
-  grid.innerHTML = '';
-  if (!currentChecklist) {
-    grid.innerHTML = '<div class="sc-item" style="grid-column:1/-1"><span class="sc-val">—</span><span class="sc-lbl">Чек-лист будет добавлен</span></div>';
-    return;
-  }
-  currentChecklist.forEach(sec => {
-    let ok = 0;
-    sec.items.forEach((_, i) => { if (ratings[`${sec.id}_${i}`] === 'ok') ok++; });
-    const pct = Math.round(ok / sec.items.length * 100);
-    const col = pct >= 80 ? 'var(--green)' : pct >= 50 ? 'var(--amber)' : 'var(--red)';
-    grid.innerHTML += `<div class="sc-item"><span class="sc-val" style="color:${col}">${pct}%</span><span class="sc-lbl">${sec.label}</span></div>`;
-  });
+const grid = document.getElementById(‘scoreGrid’);
+grid.innerHTML = ‘’;
+if (!currentChecklist) {
+grid.innerHTML = ‘<div class="sc-item" style="grid-column:1/-1"><span class="sc-val">—</span><span class="sc-lbl">Чек-лист будет добавлен</span></div>’;
+return;
+}
+currentChecklist.forEach(sec => {
+let ok = 0;
+sec.items.forEach((_, i) => { if (ratings[`${sec.id}_${i}`] === ‘ok’) ok++; });
+const pct = Math.round(ok / sec.items.length * 100);
+const col = pct >= 80 ? ‘var(–green)’ : pct >= 50 ? ‘var(–amber)’ : ‘var(–red)’;
+grid.innerHTML += `<div class="sc-item"><span class="sc-val" style="color:${col}">${pct}%</span><span class="sc-lbl">${sec.label}</span></div>`;
+});
 }
 
 function submitVisit() {
-  const storeName = document.getElementById('store').value || 'Не указан';
-  const storeInfo = STORES[storeName];
-  const email = storeInfo ? storeInfo.email : '—';
-  const vname = VISITOR_NAMES[currentRole] || '—';
-  const rawManager = document.getElementById('storeManager').value || '';
-  const storeManager = rawManager ? rawManager.split('||')[0] : '—';
-  const managerRoleRaw = rawManager.split('||')[1] || '';
-  const mgRoleMap = { dm:'Директор/Управляющий', adm:'Администратор', vm:'VM' };
-  const managerRoleLabel = mgRoleMap[managerRoleRaw] || '';
-  const date = document.getElementById('vdate').value || 'Сегодня';
-  const badge = document.getElementById('badge').textContent;
-  const comment = document.getElementById('overall').value;
-  const statusMap = {g:'🟢 Норма', y:'🟡 Внимание', r:'🔴 Риск', '':'Не указан'};
-  const statusLabel = statusMap[visitStatus] || 'Не указан';
+const storeName = document.getElementById(‘store’).value || ‘Не указан’;
+const storeInfo = STORES[storeName];
+const email = storeInfo ? storeInfo.email : ‘—’;
+const vname = VISITOR_NAMES[currentRole] || ‘—’;
+const rawManager = document.getElementById(‘storeManager’).value || ‘’;
+const storeManager = rawManager ? rawManager.split(’||’)[0] : ‘—’;
+const managerRoleRaw = rawManager.split(’||’)[1] || ‘’;
+const mgRoleMap = { dm:‘Директор/Управляющий’, adm:‘Администратор’, vm:‘VM’ };
+const managerRoleLabel = mgRoleMap[managerRoleRaw] || ‘’;
+const date = document.getElementById(‘vdate’).value || ‘Сегодня’;
+const badge = document.getElementById(‘badge’).textContent;
+const comment = document.getElementById(‘overall’).value;
+const statusMap = {g:‘🟢 Норма’, y:‘🟡 Внимание’, r:‘🔴 Риск’, ‘’:‘Не указан’};
+const statusLabel = statusMap[visitStatus] || ‘Не указан’;
 
-  // Считаем результаты по разделам
-  let totalOk = 0, totalItems = 0;
-  const secPcts = {};
-  if (currentChecklist) {
-    currentChecklist.forEach(sec => {
-      let ok = 0;
-      sec.items.forEach((_, i) => { if (ratings[`${sec.id}_${i}`] === 'ok') ok++; });
-      const pct = Math.round(ok / sec.items.length * 100);
-      secPcts[sec.id] = pct;
-      totalOk += ok;
-      totalItems += sec.items.length;
-    });
-  }
-  const totalPct = totalItems > 0 ? Math.round(totalOk / totalItems * 100) : 0;
+// Считаем результаты по разделам
+let totalOk = 0, totalItems = 0;
+const secPcts = {};
+if (currentChecklist) {
+currentChecklist.forEach(sec => {
+let ok = 0;
+sec.items.forEach((_, i) => { if (ratings[`${sec.id}_${i}`] === ‘ok’) ok++; });
+const pct = Math.round(ok / sec.items.length * 100);
+secPcts[sec.id] = pct;
+totalOk += ok;
+totalItems += sec.items.length;
+});
+}
+const totalPct = totalItems > 0 ? Math.round(totalOk / totalItems * 100) : 0;
 
-  const tasks = [1,2,3].map(i => {
-    const t = document.getElementById('t'+i).value.trim();
-    const o = document.getElementById('to'+i).value;
-    const d = document.getElementById('td'+i).value;
-    return t ? `${t}${o?' — '+o:''}${d?' · до '+d:''}` : '';
-  });
+const tasks = [1,2,3].map(i => {
+const t = document.getElementById(‘t’+i).value.trim();
+const o = document.getElementById(‘to’+i).value;
+const d = document.getElementById(‘td’+i).value;
+return t ? `${t}${o?' — '+o:''}${d?' · до '+d:''}` : ‘’;
+});
 
-  // Показываем экран успеха сразу
-  document.getElementById('app').style.display = 'none';
-  document.getElementById('succ').style.display = 'block';
-  window.scrollTo(0, 0);
+// Показываем экран успеха сразу
+document.getElementById(‘app’).style.display = ‘none’;
+document.getElementById(‘succ’).style.display = ‘block’;
+window.scrollTo(0, 0);
 
-  document.getElementById('succSub').textContent = 'Отправляем отчёт...';
-  document.getElementById('sendInfo').innerHTML = '📧 ' + email;
-  document.getElementById('succCard').innerHTML = `
-    <b>Магазин:</b> SELA ${storeName}<br>
-    <b>Дата:</b> ${date} · <b>Роль:</b> ${badge}<br>
-    <b>Визитёр:</b> ${vname}<br>
-    <b>Представитель:</b> ${storeManager}${managerRoleLabel ? ' · ' + managerRoleLabel : ''}<br>
-    <b>Результат:</b> ${totalPct}%<br>
-    <b>Статус:</b> ${statusLabel}
-    ${tasks.filter(Boolean).length ? '<br><br><b>Задачи:</b><br>' + tasks.filter(Boolean).map((t,i)=>`${i+1}. ${t}`).join('<br>') : ''}
-    ${comment ? `<br><br><b>Заметка:</b> ${comment.slice(0,120)}${comment.length>120?'…':''}` : ''}
-  `;
+document.getElementById(‘succSub’).textContent = ‘Отправляем отчёт…’;
+document.getElementById(‘sendInfo’).innerHTML = ‘📧 ’ + email;
+document.getElementById(‘succCard’).innerHTML = ` <b>Магазин:</b> SELA ${storeName}<br> <b>Дата:</b> ${date} · <b>Роль:</b> ${badge}<br> <b>Визитёр:</b> ${vname}<br> <b>Представитель:</b> ${storeManager}${managerRoleLabel ? ' · ' + managerRoleLabel : ''}<br> <b>Результат:</b> ${totalPct}%<br> <b>Статус:</b> ${statusLabel} ${tasks.filter(Boolean).length ? '<br><br><b>Задачи:</b><br>' + tasks.filter(Boolean).map((t,i)=>`${i+1}. ${t}`).join('<br>') : ''} ${comment ? `<br><br><b>Заметка:</b> ${comment.slice(0,120)}${comment.length>120?’…’:’’}`: ''}`;
 
-  // Отправка на webhook
-  const payload = {
-    store:       storeName,
-    visitor:     vname,
-    role:        badge,
-    visitDate:   date,
-    manager:     storeManager,
-    managerRole: managerRoleLabel,
-    storeEmail:  email,
-    totalPct:    totalPct,
-    status:      statusLabel,
-    sec1:        secPcts[1] || 0,
-    sec2:        secPcts[2] || 0,
-    sec3:        secPcts[3] || 0,
-    sec4:        secPcts[4] || 0,
-    sec5:        secPcts[5] || 0,
-    sec6:        secPcts[6] || 0,
-    task1:       tasks[0],
-    task2:       tasks[1],
-    task3:       tasks[2],
-    comment:     comment,
-  };
+// Отправка на webhook
+const payload = {
+store:       storeName,
+visitor:     vname,
+role:        badge,
+visitDate:   date,
+manager:     storeManager,
+managerRole: managerRoleLabel,
+storeEmail:  email,
+totalPct:    totalPct,
+status:      statusLabel,
+sec1:        secPcts[1] || 0,
+sec2:        secPcts[2] || 0,
+sec3:        secPcts[3] || 0,
+sec4:        secPcts[4] || 0,
+sec5:        secPcts[5] || 0,
+sec6:        secPcts[6] || 0,
+task1:       tasks[0],
+task2:       tasks[1],
+task3:       tasks[2],
+comment:     comment,
+};
 
-  fetch('https://sedovnn.app.n8n.cloud/webhook/50e2edb8-ac57-4aca-89b6-3f362bdc6737', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload),
-  })
-  .then(r => r.json())
-  .then(() => {
-    document.getElementById('succSub').textContent = 'Отчёт отправлен в Telegram и на почту магазина.';
-  })
-  .catch(() => {
-    document.getElementById('succSub').textContent = 'Визит сохранён. Проверь соединение — отчёт мог не уйти.';
-  });
+fetch(‘https://sedovnn.app.n8n.cloud/webhook/50e2edb8-ac57-4aca-89b6-3f362bdc6737’, {
+method: ‘POST’,
+headers: { ‘Content-Type’: ‘application/json’ },
+body: JSON.stringify(payload),
+})
+.then(r => r.json())
+.then(() => {
+document.getElementById(‘succSub’).textContent = ‘Отчёт отправлен в Telegram и на почту магазина.’;
+})
+.catch(() => {
+document.getElementById(‘succSub’).textContent = ‘Визит сохранён. Проверь соединение — отчёт мог не уйти.’;
+});
 }
 
 // ═══════════════════════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════════════════════
-document.getElementById('vdate').valueAsDate = new Date();
+document.getElementById(‘vdate’).valueAsDate = new Date();
 </script>
+
 </body>
 </html>
