@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
@@ -16,15 +15,15 @@
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{font-family:'Golos Text',sans-serif;background:#EEF2F7;color:var(--text);min-height:100vh;padding-bottom:80px}
 
-.hdr{background:var(–navy);position:sticky;top:0;z-index:200;box-shadow:0 2px 16px rgba(0,0,0,.25)}
+.hdr{background:var(--navy);position:sticky;top:0;z-index:200;box-shadow:0 2px 16px rgba(0,0,0,.25)}
 .hdr-top{display:flex;align-items:center;justify-content:space-between;padding:14px 14px 0}
 .hdr-title{font-size:16px;font-weight:700;color:#fff;letter-spacing:-.3px}
-.hdr-badge{font-family:‘JetBrains Mono’,monospace;font-size:10px;font-weight:700;color:#fff;background:#3CB24B;padding:3px 9px;border-radius:20px;transition:background .2s}
+.hdr-badge{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;color:#fff;background:#3CB24B;padding:3px 9px;border-radius:20px;transition:background .2s}
 .prog-wrap{padding:8px 14px 0}
 .prog-bar{height:3px;background:rgba(255,255,255,.15);border-radius:2px;overflow:hidden}
 .prog-fill{height:100%;background:linear-gradient(90deg,#3CB24B,#5cb85c);border-radius:2px;width:0%;transition:width .35s ease}
-.prog-lbl{font-family:‘JetBrains Mono’,monospace;font-size:10px;color:rgba(255,255,255,.45);margin-top:3px;padding-bottom:2px}
-.tabs{display:flex;overflow-x:auto;scrollbar-width:none;background:var(–navy2);border-top:1px solid rgba(255,255,255,.07)}
+.prog-lbl{font-family:'JetBrains Mono',monospace;font-size:10px;color:rgba(255,255,255,.45);margin-top:3px;padding-bottom:2px}
+.tabs{display:flex;overflow-x:auto;scrollbar-width:none;background:var(--navy2);border-top:1px solid rgba(255,255,255,.07)}
 .tabs::-webkit-scrollbar{display:none}
 .tab{flex-shrink:0;padding:9px 12px;font-size:11px;font-weight:600;color:rgba(255,255,255,.4);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .2s;position:relative}
 .tab.active{color:#3CB24B;border-bottom-color:#3CB24B}
@@ -37,102 +36,101 @@ body{font-family:'Golos Text',sans-serif;background:#EEF2F7;color:var(--text);mi
 .page.active{display:block}
 
 /* META */
-.meta{background:var(–white);border-radius:var(–r);padding:14px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.meta label{display:block;font-size:10px;font-weight:700;color:var(–grey);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
-.meta input,.meta select{width:100%;padding:10px 11px;border:1.5px solid var(–border);border-radius:var(–rs);font-size:15px;font-family:‘Golos Text’,sans-serif;color:var(–text);background:var(–grey-bg);appearance:none;-webkit-appearance:none;transition:border-color .2s}
-.meta input:focus,.meta select:focus{outline:none;border-color:var(–blue);background:var(–white)}
+.meta{background:var(--white);border-radius:var(--r);padding:14px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.meta label{display:block;font-size:10px;font-weight:700;color:var(--grey);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
+.meta input,.meta select{width:100%;padding:10px 11px;border:1.5px solid var(--border);border-radius:var(--rs);font-size:15px;font-family:'Golos Text',sans-serif;color:var(--text);background:var(--grey-bg);appearance:none;-webkit-appearance:none;transition:border-color .2s}
+.meta input:focus,.meta select:focus{outline:none;border-color:var(--blue);background:var(--white)}
 .meta-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.email-hint{font-size:11px;color:var(–grey);margin-top:5px;padding:6px 8px;background:var(–grey-bg);border-radius:var(–rs);font-family:‘JetBrains Mono’,monospace;word-break:break-all;min-height:26px;transition:all .2s}
-.email-hint.found{color:var(–green);background:var(–green-bg)}
+.email-hint{font-size:11px;color:var(--grey);margin-top:5px;padding:6px 8px;background:var(--grey-bg);border-radius:var(--rs);font-family:'JetBrains Mono',monospace;word-break:break-all;min-height:26px;transition:all .2s}
+.email-hint.found{color:var(--green);background:var(--green-bg)}
 
 /* VISITOR CARDS */
 .visitor-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.vcard{padding:10px 8px;border:2px solid var(–border);border-radius:var(–r);background:var(–white);text-align:center;cursor:pointer;transition:all .15s}
-.vcard.sel{border-color:var(–blue);background:var(–blue-bg)}
+.vcard{padding:10px 8px;border:2px solid var(--border);border-radius:var(--r);background:var(--white);text-align:center;cursor:pointer;transition:all .15s}
+.vcard.sel{border-color:var(--blue);background:var(--blue-bg)}
 .vcard .vi{font-size:18px;display:block;margin-bottom:3px}
-.vcard .vn{font-size:11px;font-weight:700;color:var(–text);display:block;line-height:1.3}
-.vcard .vs{font-size:10px;color:var(–grey);display:block;margin-top:2px}
-.vcard.sel .vn{color:var(–blue)}
+.vcard .vn{font-size:11px;font-weight:700;color:var(--text);display:block;line-height:1.3}
+.vcard .vs{font-size:10px;color:var(--grey);display:block;margin-top:2px}
+.vcard.sel .vn{color:var(--blue)}
 
 /* SECTION */
-.sec{background:var(–white);border-radius:var(–r);margin-bottom:10px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.sec-hdr{padding:11px 13px;display:flex;align-items:center;gap:7px;background:var(–grey-bg);border-bottom:1px solid var(–border)}
+.sec{background:var(--white);border-radius:var(--r);margin-bottom:10px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.sec-hdr{padding:11px 13px;display:flex;align-items:center;gap:7px;background:var(--grey-bg);border-bottom:1px solid var(--border)}
 .sec-ico{font-size:15px}
-.sec-name{font-size:13px;font-weight:700;color:var(–navy);flex:1}
-.sec-score{font-family:‘JetBrains Mono’,monospace;font-size:11px;font-weight:700;color:var(–grey);background:var(–white);padding:2px 8px;border-radius:20px;border:1px solid var(–border)}
+.sec-name{font-size:13px;font-weight:700;color:var(--navy);flex:1}
+.sec-score{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:var(--grey);background:var(--white);padding:2px 8px;border-radius:20px;border:1px solid var(--border)}
 
 /* CHECK ITEM */
-.ci{padding:11px 13px;border-bottom:1px solid var(–border)}
+.ci{padding:11px 13px;border-bottom:1px solid var(--border)}
 .ci:last-child{border-bottom:none}
-.ci-text{font-size:13px;line-height:1.4;color:var(–text);margin-bottom:7px}
+.ci-text{font-size:13px;line-height:1.4;color:var(--text);margin-bottom:7px}
 .btns{display:flex;gap:5px}
-.rb{flex:1;padding:7px 2px;border:1.5px solid var(–border);border-radius:var(–rs);font-size:10px;font-weight:700;cursor:pointer;text-align:center;color:var(–grey);background:var(–grey-bg);transition:all .12s;font-family:‘Golos Text’,sans-serif}
-.rb[data-v=“ok”]{border-color:#BBF7D0}.rb[data-v=“ok”].on{background:var(–green);color:#fff;border-color:var(–green)}
-.rb[data-v=“pt”]{border-color:#FDE68A}.rb[data-v=“pt”].on{background:var(–amber);color:#fff;border-color:var(–amber)}
-.rb[data-v=“no”]{border-color:#FECACA}.rb[data-v=“no”].on{background:var(–red);color:#fff;border-color:var(–red)}
-.rb[data-v=“na”]{border-color:var(–border)}.rb[data-v=“na”].on{background:var(–grey);color:#fff;border-color:var(–grey)}
-.note-tog{display:inline-flex;align-items:center;gap:3px;font-size:11px;color:var(–green);margin-top:6px;cursor:pointer;font-weight:600}
+.rb{flex:1;padding:7px 2px;border:1.5px solid var(--border);border-radius:var(--rs);font-size:10px;font-weight:700;cursor:pointer;text-align:center;color:var(--grey);background:var(--grey-bg);transition:all .12s;font-family:'Golos Text',sans-serif}
+.rb[data-v="ok"]{border-color:#BBF7D0}.rb[data-v="ok"].on{background:var(--green);color:#fff;border-color:var(--green)}
+.rb[data-v="pt"]{border-color:#FDE68A}.rb[data-v="pt"].on{background:var(--amber);color:#fff;border-color:var(--amber)}
+.rb[data-v="no"]{border-color:#FECACA}.rb[data-v="no"].on{background:var(--red);color:#fff;border-color:var(--red)}
+.rb[data-v="na"]{border-color:var(--border)}.rb[data-v="na"].on{background:var(--grey);color:#fff;border-color:var(--grey)}
+.note-tog{display:inline-flex;align-items:center;gap:3px;font-size:11px;color:var(--green);margin-top:6px;cursor:pointer;font-weight:600}
 .note-box{display:none;margin-top:7px}
 .note-box.open{display:block}
-.note-box textarea{width:100%;padding:8px 10px;border:1.5px solid var(–border);border-radius:var(–rs);font-size:13px;font-family:‘Golos Text’,sans-serif;resize:none;min-height:52px;background:var(–grey-bg);color:var(–text)}
-.note-box textarea:focus{outline:none;border-color:var(–blue);background:var(–white)}
+.note-box textarea{width:100%;padding:8px 10px;border:1.5px solid var(--border);border-radius:var(--rs);font-size:13px;font-family:'Golos Text',sans-serif;resize:none;min-height:52px;background:var(--grey-bg);color:var(--text)}
+.note-box textarea:focus{outline:none;border-color:var(--blue);background:var(--white)}
 
 /* PLACEHOLDER */
 .placeholder{padding:32px 20px;text-align:center}
 .placeholder-ico{font-size:36px;margin-bottom:10px}
-.placeholder-txt{font-size:13px;color:var(–grey);line-height:1.6}
-.placeholder-txt b{color:var(–navy)}
+.placeholder-txt{font-size:13px;color:var(--grey);line-height:1.6}
+.placeholder-txt b{color:var(--navy)}
 
 /* TASKS */
-.task-hint{background:#FFF7ED;border:1px solid #FED7AA;border-radius:var(–rs);padding:9px 12px;font-size:12px;color:#C2410C;font-weight:600;margin-bottom:10px}
-.task-card{background:var(–white);border-radius:var(–r);padding:13px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.task-card:nth-child(2){border-left:3px solid var(–red)}
-.task-card:nth-child(3){border-left:3px solid var(–amber)}
-.task-card:nth-child(4){border-left:3px solid var(–blue)}
-.task-num{font-size:10px;font-weight:700;color:var(–grey);text-transform:uppercase;letter-spacing:.4px;margin-bottom:7px}
-.task-card textarea{width:100%;padding:9px 10px;border:1.5px solid var(–border);border-radius:var(–rs);font-size:14px;font-family:‘Golos Text’,sans-serif;resize:none;min-height:50px;background:var(–grey-bg);color:var(–text);margin-bottom:7px}
-.task-card textarea:focus{outline:none;border-color:var(–blue);background:var(–white)}
+.task-hint{background:#FFF7ED;border:1px solid #FED7AA;border-radius:var(--rs);padding:9px 12px;font-size:12px;color:#C2410C;font-weight:600;margin-bottom:10px}
+.task-card{background:var(--white);border-radius:var(--r);padding:13px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.task-card:nth-child(2){border-left:3px solid var(--red)}
+.task-card:nth-child(3){border-left:3px solid var(--amber)}
+.task-card:nth-child(4){border-left:3px solid var(--blue)}
+.task-num{font-size:10px;font-weight:700;color:var(--grey);text-transform:uppercase;letter-spacing:.4px;margin-bottom:7px}
+.task-card textarea{width:100%;padding:9px 10px;border:1.5px solid var(--border);border-radius:var(--rs);font-size:14px;font-family:'Golos Text',sans-serif;resize:none;min-height:50px;background:var(--grey-bg);color:var(--text);margin-bottom:7px}
+.task-card textarea:focus{outline:none;border-color:var(--blue);background:var(--white)}
 .task-row{display:grid;grid-template-columns:1fr 1fr;gap:7px}
-.task-lbl{font-size:10px;font-weight:700;color:var(–grey);text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px}
-.task-card select,.task-card input{width:100%;padding:8px 10px;border:1.5px solid var(–border);border-radius:var(–rs);font-size:13px;font-family:‘Golos Text’,sans-serif;color:var(–text);background:var(–grey-bg);appearance:none;-webkit-appearance:none}
-.task-card select:focus,.task-card input:focus{outline:none;border-color:var(–blue);background:var(–white)}
+.task-lbl{font-size:10px;font-weight:700;color:var(--grey);text-transform:uppercase;letter-spacing:.4px;margin-bottom:4px}
+.task-card select,.task-card input{width:100%;padding:8px 10px;border:1.5px solid var(--border);border-radius:var(--rs);font-size:13px;font-family:'Golos Text',sans-serif;color:var(--text);background:var(--grey-bg);appearance:none;-webkit-appearance:none}
+.task-card select:focus,.task-card input:focus{outline:none;border-color:var(--blue);background:var(--white)}
 
 /* SUMMARY */
-.sum-block{background:var(–white);border-radius:var(–r);padding:14px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.sum-ttl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(–grey);margin-bottom:10px}
+.sum-block{background:var(--white);border-radius:var(--r);padding:14px;margin-bottom:10px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.sum-ttl{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--grey);margin-bottom:10px}
 .score-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
-.sc-item{background:var(–grey-bg);border-radius:var(–rs);padding:10px;text-align:center}
-.sc-val{font-family:‘JetBrains Mono’,monospace;font-size:20px;font-weight:700;color:var(–navy);display:block}
-.sc-lbl{font-size:9px;color:var(–grey);margin-top:2px;display:block;line-height:1.3}
+.sc-item{background:var(--grey-bg);border-radius:var(--rs);padding:10px;text-align:center}
+.sc-val{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700;color:var(--navy);display:block}
+.sc-lbl{font-size:9px;color:var(--grey);margin-top:2px;display:block;line-height:1.3}
 .status-row{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
-.st-btn{padding:10px 4px;border:1.5px solid var(–border);border-radius:var(–rs);background:var(–grey-bg);font-size:11px;font-weight:700;cursor:pointer;text-align:center;color:var(–grey);transition:all .15s}
-.st-btn[data-s=“g”].on{background:var(–green);color:#fff;border-color:var(–green)}
-.st-btn[data-s=“y”].on{background:var(–amber);color:#fff;border-color:var(–amber)}
-.st-btn[data-s=“r”].on{background:var(–red);color:#fff;border-color:var(–red)}
-.overall{width:100%;padding:10px 11px;border:1.5px solid var(–border);border-radius:var(–rs);font-size:14px;font-family:‘Golos Text’,sans-serif;resize:none;min-height:68px;background:var(–grey-bg);color:var(–text)}
-.overall:focus{outline:none;border-color:var(–blue);background:var(–white)}
+.st-btn{padding:10px 4px;border:1.5px solid var(--border);border-radius:var(--rs);background:var(--grey-bg);font-size:11px;font-weight:700;cursor:pointer;text-align:center;color:var(--grey);transition:all .15s}
+.st-btn[data-s="g"].on{background:var(--green);color:#fff;border-color:var(--green)}
+.st-btn[data-s="y"].on{background:var(--amber);color:#fff;border-color:var(--amber)}
+.st-btn[data-s="r"].on{background:var(--red);color:#fff;border-color:var(--red)}
+.overall{width:100%;padding:10px 11px;border:1.5px solid var(--border);border-radius:var(--rs);font-size:14px;font-family:'Golos Text',sans-serif;resize:none;min-height:68px;background:var(--grey-bg);color:var(--text)}
+.overall:focus{outline:none;border-color:var(--blue);background:var(--white)}
 
 /* BAR */
-.bar{position:fixed;bottom:0;left:0;right:0;padding:10px 12px;background:var(–white);border-top:1px solid var(–border);z-index:200}
+.bar{position:fixed;bottom:0;left:0;right:0;padding:10px 12px;background:var(--white);border-top:1px solid var(--border);z-index:200}
 .bar-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.btn{width:100%;padding:13px;font-family:‘Golos Text’,sans-serif;font-size:14px;font-weight:700;border:none;border-radius:var(–r);cursor:pointer;transition:opacity .15s}
+.btn{width:100%;padding:13px;font-family:'Golos Text',sans-serif;font-size:14px;font-weight:700;border:none;border-radius:var(--r);cursor:pointer;transition:opacity .15s}
 .btn:active{opacity:.75}
-.btn-sec{background:var(–grey-bg);color:var(–navy)}
-.btn-pri{background:var(–navy);color:#fff}
-.btn-full{width:100%;padding:14px;font-family:‘Golos Text’,sans-serif;font-size:15px;font-weight:700;border:none;border-radius:var(–r);cursor:pointer;background:var(–navy);color:#fff}
-.btn-full:active{background:var(–blue)}
+.btn-sec{background:var(--grey-bg);color:var(--navy)}
+.btn-pri{background:var(--navy);color:#fff}
+.btn-full{width:100%;padding:14px;font-family:'Golos Text',sans-serif;font-size:15px;font-weight:700;border:none;border-radius:var(--r);cursor:pointer;background:var(--navy);color:#fff}
+.btn-full:active{background:var(--blue)}
 
 /* SUCCESS */
 .success{display:none;padding:48px 16px;text-align:center}
 .success-ico{font-size:52px;margin-bottom:12px}
-.success-ttl{font-size:22px;font-weight:700;color:var(–navy);margin-bottom:6px}
-.success-sub{font-size:13px;color:var(–grey);margin-bottom:16px;line-height:1.6}
-.success-card{background:var(–white);border-radius:var(–r);padding:14px;text-align:left;font-size:13px;line-height:1.9;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.success-card b{color:var(–navy)}
-.send-info{background:var(–green-bg);border:1px solid #BBF7D0;border-radius:var(–rs);padding:10px 12px;font-size:12px;color:var(–green);font-weight:600;margin-bottom:14px;text-align:left}
-.btn-restart{padding:11px 22px;background:var(–grey-bg);color:var(–navy);font-family:‘Golos Text’,sans-serif;font-size:14px;font-weight:700;border:none;border-radius:var(–r);cursor:pointer}
+.success-ttl{font-size:22px;font-weight:700;color:var(--navy);margin-bottom:6px}
+.success-sub{font-size:13px;color:var(--grey);margin-bottom:16px;line-height:1.6}
+.success-card{background:var(--white);border-radius:var(--r);padding:14px;text-align:left;font-size:13px;line-height:1.9;margin-bottom:14px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.success-card b{color:var(--navy)}
+.send-info{background:var(--green-bg);border:1px solid #BBF7D0;border-radius:var(--rs);padding:10px 12px;font-size:12px;color:var(--green);font-weight:600;margin-bottom:14px;text-align:left}
+.btn-restart{padding:11px 22px;background:var(--grey-bg);color:var(--navy);font-family:'Golos Text',sans-serif;font-size:14px;font-weight:700;border:none;border-radius:var(--r);cursor:pointer}
 </style>
-
 </head>
 <body>
 <div id="app">
@@ -161,150 +159,146 @@ body{font-family:'Golos Text',sans-serif;background:#EEF2F7;color:var(--text);mi
 
   <div class="content">
 
-```
-<!-- 0: ИНФО -->
-<div class="page active" id="p0">
-  <div class="meta">
-    <label>Визитёр</label>
-    <div class="visitor-grid" id="visitorGrid">
-      <div class="vcard" data-role="div" onclick="selectVisitor(this)">
-        <span class="vi">📊</span><span class="vn">Директор Дивизиона</span><span class="vs">Системный контроль</span>
+    <!-- 0: ИНФО -->
+    <div class="page active" id="p0">
+      <div class="meta">
+        <label>Визитёр</label>
+        <div class="visitor-grid" id="visitorGrid">
+          <div class="vcard" data-role="div" onclick="selectVisitor(this)">
+            <span class="vi">📊</span><span class="vn">Директор Дивизиона</span><span class="vs">Системный контроль</span>
+          </div>
+          <div class="vcard" data-role="ops" onclick="selectVisitor(this)">
+            <span class="vi">🔍</span><span class="vn">Операционный Директор</span><span class="vs">Операционный аудит</span>
+          </div>
+          <div class="vcard" data-role="hr" onclick="selectVisitor(this)">
+            <span class="vi">👥</span><span class="vn">HRBP</span><span class="vs">Команда и люди</span>
+          </div>
+          <div class="vcard" data-role="rkr_w1" onclick="selectVisitor(this)">
+            <span class="vi">👗</span><span class="vn">РКР Женского · Москва 1</span><span class="vs">Света</span>
+          </div>
+          <div class="vcard" data-role="rkr_w2" onclick="selectVisitor(this)">
+            <span class="vi">👗</span><span class="vn">РКР Женского · Москва 2</span><span class="vs">Женя</span>
+          </div>
+          <div class="vcard" data-role="rkr_m" onclick="selectVisitor(this)">
+            <span class="vi">👔</span><span class="vn">РКР Мужского</span><span class="vs">Только маг. с муж. отделом</span>
+          </div>
+          <div class="vcard" data-role="rkr_k" onclick="selectVisitor(this)">
+            <span class="vi">🧒</span><span class="vn">РКР Детского</span><span class="vs">Только маг. с дет. отделом</span>
+          </div>
+        </div>
       </div>
-      <div class="vcard" data-role="ops" onclick="selectVisitor(this)">
-        <span class="vi">🔍</span><span class="vn">Операционный Директор</span><span class="vs">Операционный аудит</span>
+      <div class="meta" id="storeBlock" style="display:none">
+        <label>Магазин</label>
+        <select id="store" onchange="onStoreSelect()">
+          <option value="">— выбрать магазин</option>
+        </select>
+        <div class="email-hint" id="emailHint">Email подставится автоматически</div>
       </div>
-      <div class="vcard" data-role="hr" onclick="selectVisitor(this)">
-        <span class="vi">👥</span><span class="vn">HRBP</span><span class="vs">Команда и люди</span>
+      <div class="meta" style="display:none" id="dateBlock">
+        <div class="meta-row">
+          <div><label>Дата</label><input type="date" id="vdate"></div>
+          <div><label>Имя</label><input type="text" id="vname" placeholder="Ваше имя"></div>
+        </div>
       </div>
-      <div class="vcard" data-role="rkr_w1" onclick="selectVisitor(this)">
-        <span class="vi">👗</span><span class="vn">РКР Женского · Москва 1</span><span class="vs">Света</span>
-      </div>
-      <div class="vcard" data-role="rkr_w2" onclick="selectVisitor(this)">
-        <span class="vi">👗</span><span class="vn">РКР Женского · Москва 2</span><span class="vs">Женя</span>
-      </div>
-      <div class="vcard" data-role="rkr_m" onclick="selectVisitor(this)">
-        <span class="vi">👔</span><span class="vn">РКР Мужского</span><span class="vs">Только маг. с муж. отделом</span>
-      </div>
-      <div class="vcard" data-role="rkr_k" onclick="selectVisitor(this)">
-        <span class="vi">🧒</span><span class="vn">РКР Детского</span><span class="vs">Только маг. с дет. отделом</span>
+      <div class="bar" id="startBar" style="display:none">
+        <button class="btn-full" onclick="startVisit()">Начать визит →</button>
       </div>
     </div>
-  </div>
-  <div class="meta" id="storeBlock" style="display:none">
-    <label>Магазин</label>
-    <select id="store" onchange="onStoreSelect()">
-      <option value="">— выбрать магазин</option>
-    </select>
-    <div class="email-hint" id="emailHint">Email подставится автоматически</div>
-  </div>
-  <div class="meta" style="display:none" id="dateBlock">
-    <div class="meta-row">
-      <div><label>Дата</label><input type="date" id="vdate"></div>
-      <div><label>Имя</label><input type="text" id="vname" placeholder="Ваше имя"></div>
-    </div>
-  </div>
-  <div class="bar" id="startBar" style="display:none">
-    <button class="btn-full" onclick="startVisit()">Начать визит →</button>
-  </div>
-</div>
 
-<!-- 1: СОСТОЯНИЕ -->
-<div class="page" id="p1">
-  <div class="sec"><div class="sec-hdr"><span class="sec-ico">🏪</span><span class="sec-name">Состояние магазина</span><span class="sec-score" id="s1">0/—</span></div><div id="items1"></div></div>
-  <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="go(0)">← Назад</button><button class="btn btn-pri" id="next1" onclick="goNext(1)">Дальше →</button></div></div>
-</div>
-<!-- 2: ТОРГ.ЗАЛ -->
-<div class="page" id="p2">
-  <div class="sec"><div class="sec-hdr"><span class="sec-ico">👗</span><span class="sec-name">Торговый зал</span><span class="sec-score" id="s2">0/—</span></div><div id="items2"></div></div>
-  <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="goPrev(2)">← Назад</button><button class="btn btn-pri" onclick="goNext(2)">Дальше →</button></div></div>
-</div>
-<!-- 3: КАССА -->
-<div class="page" id="p3">
-  <div class="sec"><div class="sec-hdr"><span class="sec-ico">💳</span><span class="sec-name">Кассовая зона</span><span class="sec-score" id="s3">0/—</span></div><div id="items3"></div></div>
-  <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="goPrev(3)">← Назад</button><button class="btn btn-pri" onclick="goNext(3)">Дальше →</button></div></div>
-</div>
-<!-- 4: СКЛАД -->
-<div class="page" id="p4">
-  <div class="sec"><div class="sec-hdr"><span class="sec-ico">📦</span><span class="sec-name">Склад</span><span class="sec-score" id="s4">0/—</span></div><div id="items4"></div></div>
-  <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="goPrev(4)">← Назад</button><button class="btn btn-pri" onclick="goNext(4)">Дальше →</button></div></div>
-</div>
-<!-- 5: ПЕРСОНАЛ -->
-<div class="page" id="p5">
-  <div class="sec"><div class="sec-hdr"><span class="sec-ico">👥</span><span class="sec-name">Персонал</span><span class="sec-score" id="s5">0/—</span></div><div id="items5"></div></div>
-  <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="goPrev(5)">← Назад</button><button class="btn btn-pri" onclick="goNext(5)">Дальше →</button></div></div>
-</div>
-<!-- 6: МЕРМА -->
-<div class="page" id="p6">
-  <div class="sec"><div class="sec-hdr"><span class="sec-ico">🔒</span><span class="sec-name">Мерма / Потери</span><span class="sec-score" id="s6">0/—</span></div><div id="items6"></div></div>
-  <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="goPrev(6)">← Назад</button><button class="btn btn-pri" onclick="goNext(6)">Дальше →</button></div></div>
-</div>
-<!-- 7: ЕДИНЫЙ ЧЕК-ЛИСТ (для HR, РКР) -->
-<div class="page" id="p7">
-  <div id="items7"></div>
-  <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="go(0)">← Назад</button><button class="btn btn-pri" onclick="go(8)">Задачи →</button></div></div>
-</div>
-<!-- 8: ЗАДАЧИ -->
-<div class="page" id="p8">
-  <div class="task-hint">⚠️ Максимум 3 задачи. Каждая с ответственным и дедлайном.</div>
-  <div class="task-card">
-    <div class="task-num">Задача 1 — приоритетная</div>
-    <textarea id="t1" placeholder="Что нужно сделать..."></textarea>
-    <div class="task-row">
-      <div><div class="task-lbl">Ответственный</div>
-        <select id="to1"><option value="">— выбрать</option><option>Директор магазина</option><option>Менеджер смены</option><option>Операционный директор</option><option>HRBP</option><option>РКР Женского</option><option>РКР Мужского</option><option>РКР Детского</option></select></div>
-      <div><div class="task-lbl">Дедлайн</div><input type="date" id="td1"></div>
+    <!-- 1: СОСТОЯНИЕ -->
+    <div class="page" id="p1">
+      <div class="sec"><div class="sec-hdr"><span class="sec-ico">🏪</span><span class="sec-name">Состояние магазина</span><span class="sec-score" id="s1">0/—</span></div><div id="items1"></div></div>
+      <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="go(0)">← Назад</button><button class="btn btn-pri" id="next1" onclick="goNext(1)">Дальше →</button></div></div>
     </div>
-  </div>
-  <div class="task-card">
-    <div class="task-num">Задача 2</div>
-    <textarea id="t2" placeholder="Что нужно сделать..."></textarea>
-    <div class="task-row">
-      <div><div class="task-lbl">Ответственный</div>
-        <select id="to2"><option value="">— выбрать</option><option>Директор магазина</option><option>Менеджер смены</option><option>Операционный директор</option><option>HRBP</option><option>РКР Женского</option><option>РКР Мужского</option><option>РКР Детского</option></select></div>
-      <div><div class="task-lbl">Дедлайн</div><input type="date" id="td2"></div>
+    <!-- 2: ТОРГ.ЗАЛ -->
+    <div class="page" id="p2">
+      <div class="sec"><div class="sec-hdr"><span class="sec-ico">👗</span><span class="sec-name">Торговый зал</span><span class="sec-score" id="s2">0/—</span></div><div id="items2"></div></div>
+      <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="goPrev(2)">← Назад</button><button class="btn btn-pri" onclick="goNext(2)">Дальше →</button></div></div>
     </div>
-  </div>
-  <div class="task-card">
-    <div class="task-num">Задача 3</div>
-    <textarea id="t3" placeholder="Что нужно сделать..."></textarea>
-    <div class="task-row">
-      <div><div class="task-lbl">Ответственный</div>
-        <select id="to3"><option value="">— выбрать</option><option>Директор магазина</option><option>Менеджер смены</option><option>Операционный директор</option><option>HRBP</option><option>РКР Женского</option><option>РКР Мужского</option><option>РКР Детского</option></select></div>
-      <div><div class="task-lbl">Дедлайн</div><input type="date" id="td3"></div>
+    <!-- 3: КАССА -->
+    <div class="page" id="p3">
+      <div class="sec"><div class="sec-hdr"><span class="sec-ico">💳</span><span class="sec-name">Кассовая зона</span><span class="sec-score" id="s3">0/—</span></div><div id="items3"></div></div>
+      <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="goPrev(3)">← Назад</button><button class="btn btn-pri" onclick="goNext(3)">Дальше →</button></div></div>
     </div>
-  </div>
-  <div class="bar"><div class="bar-btns">
-    <button class="btn btn-sec" onclick="goPrev(8)">← Назад</button>
-    <button class="btn btn-pri" onclick="go(9)">Итог →</button>
-  </div></div>
-</div>
-<!-- 9: ИТОГ -->
-<div class="page" id="p9">
-  <div class="sum-block">
-    <div class="sum-ttl">Результат по разделам</div>
-    <div class="score-grid" id="scoreGrid"></div>
-  </div>
-  <div class="sum-block">
-    <div class="sum-ttl">Статус магазина</div>
-    <div class="status-row">
-      <div class="st-btn" data-s="g" onclick="selStatus(this)">🟢 Норма</div>
-      <div class="st-btn" data-s="y" onclick="selStatus(this)">🟡 Внимание</div>
-      <div class="st-btn" data-s="r" onclick="selStatus(this)">🔴 Риск</div>
+    <!-- 4: СКЛАД -->
+    <div class="page" id="p4">
+      <div class="sec"><div class="sec-hdr"><span class="sec-ico">📦</span><span class="sec-name">Склад</span><span class="sec-score" id="s4">0/—</span></div><div id="items4"></div></div>
+      <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="goPrev(4)">← Назад</button><button class="btn btn-pri" onclick="goNext(4)">Дальше →</button></div></div>
     </div>
-  </div>
-  <div class="sum-block">
-    <div class="sum-ttl">Общее впечатление</div>
-    <textarea class="overall" id="overall" placeholder="Ключевые наблюдения, что изменилось с прошлого визита..."></textarea>
-  </div>
-  <div class="bar"><button class="btn-full" onclick="submitVisit()">✓ Завершить и отправить</button></div>
-</div>
-```
-
+    <!-- 5: ПЕРСОНАЛ -->
+    <div class="page" id="p5">
+      <div class="sec"><div class="sec-hdr"><span class="sec-ico">👥</span><span class="sec-name">Персонал</span><span class="sec-score" id="s5">0/—</span></div><div id="items5"></div></div>
+      <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="goPrev(5)">← Назад</button><button class="btn btn-pri" onclick="goNext(5)">Дальше →</button></div></div>
+    </div>
+    <!-- 6: МЕРМА -->
+    <div class="page" id="p6">
+      <div class="sec"><div class="sec-hdr"><span class="sec-ico">🔒</span><span class="sec-name">Мерма / Потери</span><span class="sec-score" id="s6">0/—</span></div><div id="items6"></div></div>
+      <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="goPrev(6)">← Назад</button><button class="btn btn-pri" onclick="goNext(6)">Дальше →</button></div></div>
+    </div>
+    <!-- 7: ЕДИНЫЙ ЧЕК-ЛИСТ (для HR, РКР) -->
+    <div class="page" id="p7">
+      <div id="items7"></div>
+      <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="go(0)">← Назад</button><button class="btn btn-pri" onclick="go(8)">Задачи →</button></div></div>
+    </div>
+    <!-- 8: ЗАДАЧИ -->
+    <div class="page" id="p8">
+      <div class="task-hint">⚠️ Максимум 3 задачи. Каждая с ответственным и дедлайном.</div>
+      <div class="task-card">
+        <div class="task-num">Задача 1 — приоритетная</div>
+        <textarea id="t1" placeholder="Что нужно сделать..."></textarea>
+        <div class="task-row">
+          <div><div class="task-lbl">Ответственный</div>
+            <select id="to1"><option value="">— выбрать</option><option>Директор магазина</option><option>Менеджер смены</option><option>Операционный директор</option><option>HRBP</option><option>РКР Женского</option><option>РКР Мужского</option><option>РКР Детского</option></select></div>
+          <div><div class="task-lbl">Дедлайн</div><input type="date" id="td1"></div>
+        </div>
+      </div>
+      <div class="task-card">
+        <div class="task-num">Задача 2</div>
+        <textarea id="t2" placeholder="Что нужно сделать..."></textarea>
+        <div class="task-row">
+          <div><div class="task-lbl">Ответственный</div>
+            <select id="to2"><option value="">— выбрать</option><option>Директор магазина</option><option>Менеджер смены</option><option>Операционный директор</option><option>HRBP</option><option>РКР Женского</option><option>РКР Мужского</option><option>РКР Детского</option></select></div>
+          <div><div class="task-lbl">Дедлайн</div><input type="date" id="td2"></div>
+        </div>
+      </div>
+      <div class="task-card">
+        <div class="task-num">Задача 3</div>
+        <textarea id="t3" placeholder="Что нужно сделать..."></textarea>
+        <div class="task-row">
+          <div><div class="task-lbl">Ответственный</div>
+            <select id="to3"><option value="">— выбрать</option><option>Директор магазина</option><option>Менеджер смены</option><option>Операционный директор</option><option>HRBP</option><option>РКР Женского</option><option>РКР Мужского</option><option>РКР Детского</option></select></div>
+          <div><div class="task-lbl">Дедлайн</div><input type="date" id="td3"></div>
+        </div>
+      </div>
+      <div class="bar"><div class="bar-btns">
+        <button class="btn btn-sec" onclick="goPrev(8)">← Назад</button>
+        <button class="btn btn-pri" onclick="go(9)">Итог →</button>
+      </div></div>
+    </div>
+    <!-- 9: ИТОГ -->
+    <div class="page" id="p9">
+      <div class="sum-block">
+        <div class="sum-ttl">Результат по разделам</div>
+        <div class="score-grid" id="scoreGrid"></div>
+      </div>
+      <div class="sum-block">
+        <div class="sum-ttl">Статус магазина</div>
+        <div class="status-row">
+          <div class="st-btn" data-s="g" onclick="selStatus(this)">🟢 Норма</div>
+          <div class="st-btn" data-s="y" onclick="selStatus(this)">🟡 Внимание</div>
+          <div class="st-btn" data-s="r" onclick="selStatus(this)">🔴 Риск</div>
+        </div>
+      </div>
+      <div class="sum-block">
+        <div class="sum-ttl">Общее впечатление</div>
+        <textarea class="overall" id="overall" placeholder="Ключевые наблюдения, что изменилось с прошлого визита..."></textarea>
+      </div>
+      <div class="bar"><button class="btn-full" onclick="submitVisit()">✓ Завершить и отправить</button></div>
+    </div>
   </div>
 </div>
 
 <!-- SUCCESS -->
-
 <div class="success" id="succ">
   <div class="success-ico">✅</div>
   <div class="success-ttl">Визит зафиксирован</div>
@@ -694,155 +688,161 @@ function makeItem(key, text) {
     </div>
     <span class="note-tog" onclick="togNote('n_${key}')">+ заметка</span>
     <div class="note-box" id="n_${key}"><textarea placeholder="Комментарий..."></textarea></div>`;
-
-return div;
+  return div;
 }
 
 // ═══════════════════════════════════════════════════════
 // ОЦЕНКА
 // ═══════════════════════════════════════════════════════
 function rate(key, val, btn) {
-ratings[key] = val;
-btn.closest(’.btns’).querySelectorAll(’.rb’).forEach(b => b.classList.remove(‘on’));
-btn.classList.add(‘on’);
-const sec = parseInt(key.split(’_’)[0]);
-if (document.getElementById(‘s’ + sec)) updateSecScore(sec);
-updateProgress();
-markDone(sec);
+  ratings[key] = val;
+  btn.closest('.btns').querySelectorAll('.rb').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  const sec = parseInt(key.split('_')[0]);
+  if (document.getElementById('s' + sec)) updateSecScore(sec);
+  updateProgress();
+  markDone(sec);
 }
 
-function togNote(id) { document.getElementById(id).classList.toggle(‘open’); }
+function togNote(id) { document.getElementById(id).classList.toggle('open'); }
 
 function updateProgress() {
-if (!currentChecklist) {
-document.getElementById(‘pl’).textContent = ‘Заполни наблюдения’;
-return;
-}
-const total = currentChecklist.reduce((a, s) => a + s.items.length, 0);
-const done = Object.keys(ratings).length;
-const pct = total > 0 ? Math.round(done / total * 100) : 0;
-document.getElementById(‘pf’).style.width = pct + ‘%’;
-document.getElementById(‘pl’).textContent = `${done} / ${total} пунктов`;
+  if (!currentChecklist) {
+    document.getElementById('pl').textContent = 'Заполни наблюдения';
+    return;
+  }
+  const total = currentChecklist.reduce((a, s) => a + s.items.length, 0);
+  const done = Object.keys(ratings).length;
+  const pct = total > 0 ? Math.round(done / total * 100) : 0;
+  document.getElementById('pf').style.width = pct + '%';
+  document.getElementById('pl').textContent = `${done} / ${total} пунктов`;
 }
 
 function updateSecScore(sec) {
-if (!currentChecklist) return;
-const section = currentChecklist.find(s => s.id === sec);
-if (!section) return;
-let ok = 0;
-section.items.forEach((_, i) => { if (ratings[`${sec}_${i}`] === ‘ok’) ok++; });
-const el = document.getElementById(‘s’ + sec);
-if (el) el.textContent = `${ok}/${section.items.length}`;
+  if (!currentChecklist) return;
+  const section = currentChecklist.find(s => s.id === sec);
+  if (!section) return;
+  let ok = 0;
+  section.items.forEach((_, i) => { if (ratings[`${sec}_${i}`] === 'ok') ok++; });
+  const el = document.getElementById('s' + sec);
+  if (el) el.textContent = `${ok}/${section.items.length}`;
 }
 
 function markDone(sec) {
-if (!currentChecklist) return;
-const section = currentChecklist.find(s => s.id === sec);
-if (!section) return;
-const done = section.items.filter((_, i) => ratings[`${sec}_${i}`]).length;
-const tab = document.querySelector(`.tab[data-p="${sec}"]`);
-if (tab) tab.classList.toggle(‘done’, done === section.items.length);
+  if (!currentChecklist) return;
+  const section = currentChecklist.find(s => s.id === sec);
+  if (!section) return;
+  const done = section.items.filter((_, i) => ratings[`${sec}_${i}`]).length;
+  const tab = document.querySelector(`.tab[data-p="${sec}"]`);
+  if (tab) tab.classList.toggle('done', done === section.items.length);
 }
 
 // ═══════════════════════════════════════════════════════
 // НАВИГАЦИЯ
 // ═══════════════════════════════════════════════════════
 function go(p) {
-document.querySelectorAll(’.page’).forEach(el => el.classList.remove(‘active’));
-document.getElementById(‘p’ + p).classList.add(‘active’);
-document.querySelectorAll(’.tab’).forEach(t => t.classList.remove(‘active’));
-const activeTab = document.querySelector(`.tab[data-p="${p}"]`);
-if (activeTab) { activeTab.classList.add(‘active’); activeTab.scrollIntoView({behavior:‘smooth’,block:‘nearest’,inline:‘center’}); }
-if (p === 9) buildSummary();
-window.scrollTo(0, 0);
+  document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
+  document.getElementById('p' + p).classList.add('active');
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  const activeTab = document.querySelector(`.tab[data-p="${p}"]`);
+  if (activeTab) { activeTab.classList.add('active'); activeTab.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'}); }
+  if (p === 9) buildSummary();
+  window.scrollTo(0, 0);
 }
 
 function goNext(current) {
-const idx = activePages.indexOf(current);
-if (idx < activePages.length - 1) go(activePages[idx + 1]);
+  const idx = activePages.indexOf(current);
+  if (idx < activePages.length - 1) go(activePages[idx + 1]);
 }
 function goPrev(current) {
-const idx = activePages.indexOf(current);
-if (idx > 0) go(activePages[idx - 1]);
-else go(0);
+  const idx = activePages.indexOf(current);
+  if (idx > 0) go(activePages[idx - 1]);
+  else go(0);
 }
 
 function selStatus(btn) {
-document.querySelectorAll(’.st-btn’).forEach(b => b.classList.remove(‘on’));
-btn.classList.add(‘on’); visitStatus = btn.dataset.s;
+  document.querySelectorAll('.st-btn').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on'); visitStatus = btn.dataset.s;
 }
 
 // ═══════════════════════════════════════════════════════
 // ИТОГ
 // ═══════════════════════════════════════════════════════
 function buildSummary() {
-const grid = document.getElementById(‘scoreGrid’);
-grid.innerHTML = ‘’;
-if (!currentChecklist) {
-grid.innerHTML = ‘<div class="sc-item" style="grid-column:1/-1"><span class="sc-val">—</span><span class="sc-lbl">Чек-лист будет добавлен</span></div>’;
-return;
-}
-currentChecklist.forEach(sec => {
-let ok = 0;
-sec.items.forEach((_, i) => { if (ratings[`${sec.id}_${i}`] === ‘ok’) ok++; });
-const pct = Math.round(ok / sec.items.length * 100);
-const col = pct >= 80 ? ‘var(–green)’ : pct >= 50 ? ‘var(–amber)’ : ‘var(–red)’;
-grid.innerHTML += `<div class="sc-item"><span class="sc-val" style="color:${col}">${pct}%</span><span class="sc-lbl">${sec.label}</span></div>`;
-});
+  const grid = document.getElementById('scoreGrid');
+  grid.innerHTML = '';
+  if (!currentChecklist) {
+    grid.innerHTML = '<div class="sc-item" style="grid-column:1/-1"><span class="sc-val">—</span><span class="sc-lbl">Чек-лист будет добавлен</span></div>';
+    return;
+  }
+  currentChecklist.forEach(sec => {
+    let ok = 0;
+    sec.items.forEach((_, i) => { if (ratings[`${sec.id}_${i}`] === 'ok') ok++; });
+    const pct = Math.round(ok / sec.items.length * 100);
+    const col = pct >= 80 ? 'var(--green)' : pct >= 50 ? 'var(--amber)' : 'var(--red)';
+    grid.innerHTML += `<div class="sc-item"><span class="sc-val" style="color:${col}">${pct}%</span><span class="sc-lbl">${sec.label}</span></div>`;
+  });
 }
 
 function submitVisit() {
-const storeName = document.getElementById(‘store’).value || ‘Не указан’;
-const storeInfo = STORES[storeName];
-const email = storeInfo ? storeInfo.email : ‘—’;
-const vname = document.getElementById(‘vname’).value || VISITOR_CONFIG[currentRole]?.label || ‘—’;
-const date = document.getElementById(‘vdate’).value || ‘Сегодня’;
-const badge = document.getElementById(‘badge’).textContent;
-const comment = document.getElementById(‘overall’).value;
-const statusMap = {g:‘🟢 Норма’, y:‘🟡 Внимание’, r:‘🔴 Риск’, ‘’:‘Не указан’};
+  const storeName = document.getElementById('store').value || 'Не указан';
+  const storeInfo = STORES[storeName];
+  const email = storeInfo ? storeInfo.email : '—';
+  const vname = document.getElementById('vname').value || VISITOR_CONFIG[currentRole]?.label || '—';
+  const date = document.getElementById('vdate').value || 'Сегодня';
+  const badge = document.getElementById('badge').textContent;
+  const comment = document.getElementById('overall').value;
+  const statusMap = {g:'🟢 Норма', y:'🟡 Внимание', r:'🔴 Риск', '':'Не указан'};
 
-let totalOk = 0, total = 0;
-if (currentChecklist) {
-total = currentChecklist.reduce((a,s) => a + s.items.length, 0);
-Object.values(ratings).forEach(v => { if (v === ‘ok’) totalOk++; });
-}
-const pct = total > 0 ? Math.round(totalOk / total * 100) : null;
+  let totalOk = 0, total = 0;
+  if (currentChecklist) {
+    total = currentChecklist.reduce((a,s) => a + s.items.length, 0);
+    Object.values(ratings).forEach(v => { if (v === 'ok') totalOk++; });
+  }
+  const pct = total > 0 ? Math.round(totalOk / total * 100) : null;
 
-const tasks = [1,2,3].map(i => {
-const t = document.getElementById(‘t’+i).value.trim();
-const o = document.getElementById(‘to’+i).value;
-const d = document.getElementById(‘td’+i).value;
-return t ? `${i}. ${t}${o?' — '+o:''}${d?' · до '+d:''}` : null;
-}).filter(Boolean);
+  const tasks = [1,2,3].map(i => {
+    const t = document.getElementById('t'+i).value.trim();
+    const o = document.getElementById('to'+i).value;
+    const d = document.getElementById('td'+i).value;
+    return t ? `${i}. ${t}${o?' — '+o:''}${d?' · до '+d:''}` : null;
+  }).filter(Boolean);
 
-document.getElementById(‘succSub’).textContent = `Отчёт зафиксирован${email !== '—' ? ' и готов к отправке' : ''}.`;
-document.getElementById(‘sendInfo’).innerHTML = `📧 Магазин: <b>${email}</b>`;
-document.getElementById(‘succCard’).innerHTML = `<b>Магазин:</b> SELA ${storeName}<br> <b>Дата:</b> ${date} · <b>Роль:</b> ${badge}<br> <b>Визитёр:</b> ${vname}<br> ${pct !== null ?`<b>Результат:</b> ${pct}% (${totalOk}/${total})<br>`: ''} <b>Статус:</b> ${statusMap[visitStatus]} ${tasks.length ? '<br><br><b>Задачи:</b><br>' + tasks.join('<br>') : ''} ${comment ?`<br><br><b>Заметка:</b> ${comment.slice(0,120)}${comment.length>120?’…’:’’}`: ''}`;
+  document.getElementById('succSub').textContent = `Отчёт зафиксирован${email !== '—' ? ' и готов к отправке' : ''}.`;
+  document.getElementById('sendInfo').innerHTML = `📧 Магазин: <b>${email}</b>`;
+  document.getElementById('succCard').innerHTML = `
+    <b>Магазин:</b> SELA ${storeName}<br>
+    <b>Дата:</b> ${date} · <b>Роль:</b> ${badge}<br>
+    <b>Визитёр:</b> ${vname}<br>
+    ${pct !== null ? `<b>Результат:</b> ${pct}% (${totalOk}/${total})<br>` : ''}
+    <b>Статус:</b> ${statusMap[visitStatus]}
+    ${tasks.length ? '<br><br><b>Задачи:</b><br>' + tasks.join('<br>') : ''}
+    ${comment ? `<br><br><b>Заметка:</b> ${comment.slice(0,120)}${comment.length>120?'…':''}` : ''}
+  `;
 
-document.getElementById(‘app’).style.display = ‘none’;
-document.getElementById(‘succ’).style.display = ‘block’;
-window.scrollTo(0, 0);
-// Отправка на webhook
-fetch(‘https://sedovnn.app.n8n.cloud/webhook/50e2edb8-ac57-4aca-89b6-3f362bdc6737’, {
-method: ‘POST’,
-headers: { ‘Content-Type’: ‘application/json’ },
-body: JSON.stringify({
-store: storeName, visitor: vname, role: badge, visitDate: date,
-manager: storeManager, storeEmail: email,
-totalPct: totalPct, status: statusLabel,
-task1: tasks[0], task2: tasks[1], task3: tasks[2], comment: comment,
-}),
-})
-.then(() => { document.getElementById(‘succSub’).textContent = ‘Отчёт отправлен в Telegram и на почту магазина.’; })
-.catch(() => { document.getElementById(‘succSub’).textContent = ‘Визит сохранён. Проверь соединение — отчёт мог не уйти.’; });
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('succ').style.display = 'block';
+  window.scrollTo(0, 0);
+  // Отправка на webhook
+  fetch('https://sedovnn.app.n8n.cloud/webhook/50e2edb8-ac57-4aca-89b6-3f362bdc6737', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      store: storeName, visitor: vname, role: badge, visitDate: date,
+      manager: storeManager, storeEmail: email,
+      totalPct: totalPct, status: statusLabel,
+      task1: tasks[0], task2: tasks[1], task3: tasks[2], comment: comment,
+    }),
+  })
+  .then(() => { document.getElementById('succSub').textContent = 'Отчёт отправлен в Telegram и на почту магазина.'; })
+  .catch(() => { document.getElementById('succSub').textContent = 'Визит сохранён. Проверь соединение — отчёт мог не уйти.'; });
 
 }
 
 // ═══════════════════════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════════════════════
-document.getElementById(‘vdate’).valueAsDate = new Date();
+document.getElementById('vdate').valueAsDate = new Date();
 </script>
-
 </body>
 </html>
