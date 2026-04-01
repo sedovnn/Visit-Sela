@@ -195,11 +195,14 @@ body{font-family:'Golos Text',sans-serif;background:#EEF2F7;color:var(--text);mi
         <div class="email-hint" id="emailHint">Email подставится автоматически</div>
       </div>
       <div class="meta" style="display:none" id="dateBlock">
-        <div class="meta-row">
-          <div><label>Дата</label><input type="date" id="vdate"></div>
-          <div><label>Имя</label><input type="text" id="vname" placeholder="Ваше имя"></div>
-        </div>
-      </div>
+    <label>Дата</label>
+    <input type="date" id="vdate" style="margin-bottom:10px">
+    <label>Ответственный от магазина</label>
+    <select id="storeManager" onchange="onManagerSelect()">
+      <option value="">— выбрать</option>
+    </select>
+    <div style="margin-top:6px;font-size:11px;color:var(--grey)" id="managerRole"></div>
+  </div>
       <div class="bar" id="startBar" style="display:none">
         <button class="btn-full" onclick="startVisit()">Начать визит →</button>
       </div>
@@ -248,7 +251,7 @@ body{font-family:'Golos Text',sans-serif;background:#EEF2F7;color:var(--text);mi
         <textarea id="t1" placeholder="Что нужно сделать..."></textarea>
         <div class="task-row">
           <div><div class="task-lbl">Ответственный</div>
-            <select id="to1"><option value="">— выбрать</option><option>Директор магазина</option><option>Менеджер смены</option><option>Операционный директор</option><option>HRBP</option><option>РКР Женского</option><option>РКР Мужского</option><option>РКР Детского</option></select></div>
+            <select id="to1"><option value="">— выбрать</option></select></div>
           <div><div class="task-lbl">Дедлайн</div><input type="date" id="td1"></div>
         </div>
       </div>
@@ -257,7 +260,7 @@ body{font-family:'Golos Text',sans-serif;background:#EEF2F7;color:var(--text);mi
         <textarea id="t2" placeholder="Что нужно сделать..."></textarea>
         <div class="task-row">
           <div><div class="task-lbl">Ответственный</div>
-            <select id="to2"><option value="">— выбрать</option><option>Директор магазина</option><option>Менеджер смены</option><option>Операционный директор</option><option>HRBP</option><option>РКР Женского</option><option>РКР Мужского</option><option>РКР Детского</option></select></div>
+            <select id="to2"><option value="">— выбрать</option></select></div>
           <div><div class="task-lbl">Дедлайн</div><input type="date" id="td2"></div>
         </div>
       </div>
@@ -266,7 +269,7 @@ body{font-family:'Golos Text',sans-serif;background:#EEF2F7;color:var(--text);mi
         <textarea id="t3" placeholder="Что нужно сделать..."></textarea>
         <div class="task-row">
           <div><div class="task-lbl">Ответственный</div>
-            <select id="to3"><option value="">— выбрать</option><option>Директор магазина</option><option>Менеджер смены</option><option>Операционный директор</option><option>HRBP</option><option>РКР Женского</option><option>РКР Мужского</option><option>РКР Детского</option></select></div>
+            <select id="to3"><option value="">— выбрать</option></select></div>
           <div><div class="task-lbl">Дедлайн</div><input type="date" id="td3"></div>
         </div>
       </div>
@@ -570,10 +573,73 @@ const CHECKLIST_RKR_W = null;   // → пришли чек-лист
 const CHECKLIST_RKR_M = null;   // → пришли чек-лист
 const CHECKLIST_RKR_K = null;   // → пришли чек-лист
 
+
+// ═══════════════════════════════════════════════════════
+// КОМАНДЫ МАГАЗИНОВ
+// ═══════════════════════════════════════════════════════
+const STORE_STAFF = {
+  "Зеленоград Зеленопарк": { dm:"Степанова Алла", admins:["Волошина Любовь", "Евтухова Вероника"], vms:["Колпакова Юлия", "Попова Анастасия"] },
+  "Москва BOTANICA": { dm:"Трусов Сергей", admins:["Комиссаров Дмитрий", "Милованкина Елена"], vms:["Крайма Валерия", "Никулина Мария"] },
+  "Москва Columbus": { dm:"Аскерова Анжелика", admins:["Давыдова Юлиана"], vms:["Яриловец Елизавета", "Марсанов Артём", "Харькова Лидия"] },
+  "Москва XL": { dm:null, admins:["Селизова Ольга"], vms:[] },
+  "Москва Авиапарк": { dm:"Нелезина Анастасия", admins:[], vms:[] },
+  "Москва Ареал (Беляево)": { dm:"Дмитренко Екатерина", admins:["Данилин Александр"], vms:[] },
+  "Москва Афимолл": { dm:"Васильева Валерия", admins:["Захарова Татьяна", "Моргунова Елена"], vms:["Водянцова Екатерина", "Пономаренко Сергей", "Кудинова Елена"] },
+  "Москва Бутово Молл": { dm:"Гладкова Екатерина", admins:["Светлова Виктория"], vms:["Патрина Анастасия"] },
+  "Москва Вегас (Кунцево)": { dm:"Устиченко Любовь", admins:["Нефедьева Полина"], vms:["Суворова Юлия"] },
+  "Москва Вегас 2": { dm:"Кабартова Валентина", admins:["Кузнецова Любовь"], vms:["Жучкова Кира"] },
+  "Москва Весна": { dm:"Сотникова Виктория", admins:["Гасанова Виктория"], vms:[] },
+  "Москва Вэйпарк": { dm:null, admins:["Абдулгалимова Альбина", "Вишневская Кристина"], vms:[] },
+  "Москва Город Лефортово-2": { dm:"Брюшкова Екатерина", admins:["Аристова Ангелина", "Магомет-Хаджиева Зарина Зайнадиевна"], vms:["Кротикова Александра", "Пугачева Диана"] },
+  "Москва Домодедовский": { dm:"Копитцова Светлана", admins:["Кравченко Алина", "Кулакова Юлия"], vms:[] },
+  "Москва Европейский": { dm:"Суфьянова Эльвира", admins:["Дмитриева Ксения", "Сорокина Виктория"], vms:[] },
+  "Москва Европолис (Золотой Вавилон)": { dm:"Маслова Ирина", admins:["Патрикеева Александра", "Чернова Ирина"], vms:[] },
+  "Москва ЗУМ": { dm:"Канкина Алеся", admins:["Новикова Анастасия"], vms:["Кольцова Елена"] },
+  "Москва Иридиум": { dm:"Лобанова Ирина", admins:["Федосова Анастасия"], vms:[] },
+  "Москва Каширская Плаза": { dm:null, admins:["Микешина Юлия", "Шапошникова Карина"], vms:[] },
+  "Москва Ладья": { dm:"Николоеня Евгения", admins:["Зыкеева Елена"], vms:[] },
+  "Москва Мега Белая Дача": { dm:"Шуржумова Светлана", admins:["Касьянова Кристина", "Савельева Алёна"], vms:["Галич Алексей", "Латышева Самира"] },
+  "Москва Мега Тёплый Стан": { dm:"Немцева Анна", admins:["Питкевич Виктория", "Ивлева Алеся", "Селимов Халил"], vms:["Оккерт Анна"] },
+  "Москва Мега Химки": { dm:"Гусева Мария", admins:["Усенова Садбарг", "Чересеу Ала"], vms:["Багреева Вера", "Панина София", "Лучкина Кристина"] },
+  "Москва Мегаполис": { dm:"Степура Анастасия", admins:[], vms:[] },
+  "Москва Метрополис": { dm:"Иванова Серафима", admins:["Лаврова Александра"], vms:["Белова Мария", "Мохорина Дарья", "Курьянова Анжела"] },
+  "Москва Океания": { dm:"Кудрявцева Зинаида", admins:["Калинина Лина", "Конанухин Алексей"], vms:["Смахтина Елизавета", "Таранина Елизавета"] },
+  "Москва Остров Мечты Kids": { dm:"Пяткина Елизавета", admins:["Самкова Влада"], vms:[] },
+  "Москва Павелецкая Плаза": { dm:"Малиновская Юлия", admins:["Волковецкая Виктория", "Шилкина Елизавета"], vms:["Манихина Валерия", "Семенова Александра"] },
+  "Москва Пушкино Парк": { dm:"Денисова Дарья", admins:["Струкова Ольга", "Шалимова Анастасия"], vms:["Захарова Оксана", "Капранова Ирина"] },
+  "Москва Ривьера": { dm:"Ежова Анастасия", admins:["Калинин Егор", "Шарипов Тимур"], vms:["Гафурова Нигина", "Кунякин Андрей"] },
+  "Москва Саларис": { dm:"Черевко Анна", admins:["Бурдужа Олег", "Васильева Анна"], vms:["Крамарева Ксения", "Чевтаева Мария"] },
+  "Москва Селигерская (Avenue Sever)": { dm:"Воронова Виктория", admins:["Дубинина Елизавета", "Турецкая Карина"], vms:["Богуславская Елена"] },
+  "Москва Хорошо": { dm:"Годнюк Анастасия", admins:["Цуриков Александр"], vms:["Оконова Светлана"] },
+  "Москва Шоколад": { dm:"Брыксина Юлия", admins:["Латышева Мария"], vms:[] },
+  "Москва Щёлковский": { dm:"Ипатьева Ирина", admins:["Обара Наталия"], vms:[] },
+  "Мытищи Красный Кит": { dm:"Кожевникова Любовь", admins:["Голубева Ева", "Медведева Дарья"], vms:["Масальская Алина", "Яхина Елизавета"] },
+  "Одинцово Одипарк": { dm:"Джагаева Полина", admins:["Добриян Роман", "Юрасова Анастасия"], vms:["Веселова Анастасия", "Новикова Кристина"] },
+  "Красногорск РигаМолл": { dm:null, admins:[], vms:[] },
+};
+
+// ═══════════════════════════════════════════════════════
+// ИМЕНА ВИЗИТЁРОВ
+// ═══════════════════════════════════════════════════════
+const VISITOR_NAMES = {
+  div:    "Николай Седов",
+  ops:    "Ольга Щуренкова",
+  hr:     "Карина Авдышева",
+  rkr_w1: "Светлана Чечура",
+  rkr_w2: "Евгения Урсул",
+  rkr_m:  "Дарья Домот",
+  rkr_k:  "Олеся Привалова",
+};
+
 function getChecklist(role) {
-  if (role === 'ops') return CHECKLIST_OPS;
-  if (role === 'div') return CHECKLIST_DIV;
-  return null; // заглушка
+  if (role === 'ops')    return CHECKLIST_OPS;
+  if (role === 'div')    return CHECKLIST_DIV;
+  if (role === 'hr')     return CHECKLIST_HR;
+  if (role === 'rkr_w1') return CHECKLIST_RKR_W;
+  if (role === 'rkr_w2') return CHECKLIST_RKR_W;
+  if (role === 'rkr_m')  return CHECKLIST_RKR_M;
+  if (role === 'rkr_k')  return CHECKLIST_RKR_K;
+  return null;
 }
 
 // ═══════════════════════════════════════════════════════
@@ -641,6 +707,7 @@ function onStoreSelect() {
     hint.classList.remove('found');
   }
   populateManagerDropdown(val);
+  populateTaskOwners(val);
 }
 
 function populateManagerDropdown(storeVal) {
@@ -653,6 +720,28 @@ function populateManagerDropdown(storeVal) {
   staff.admins.forEach(name => sel.appendChild(new Option(name + ' (Администратор)', name + '||adm')));
   staff.vms.forEach(name => sel.appendChild(new Option(name + ' (VM)', name + '||vm')));
   if (sel.options.length === 2) { sel.selectedIndex = 1; onManagerSelect(); }
+}
+
+
+function populateTaskOwners(storeVal) {
+  const staff = storeVal && STORE_STAFF[storeVal] ? STORE_STAFF[storeVal] : null;
+  [1, 2, 3].forEach(i => {
+    const sel = document.getElementById('to' + i);
+    const prev = sel.value;
+    sel.innerHTML = '<option value="">— выбрать</option>';
+    if (staff) {
+      if (staff.dm) sel.appendChild(new Option(staff.dm + ' (ДМ)', staff.dm));
+      staff.admins.forEach(n => sel.appendChild(new Option(n + ' (Адм)', n)));
+      staff.vms.forEach(n => sel.appendChild(new Option(n + ' (VM)', n)));
+      sel.appendChild(new Option('─────────', '', false, false).cloneNode(true));
+    }
+    // Always add roles as fallback
+    ['Директор магазина','Менеджер смены','Операционный директор','HRBP',
+     'РКР Женского','РКР Мужского','РКР Детского'].forEach(r => {
+      sel.appendChild(new Option(r, r));
+    });
+    if (prev) sel.value = prev;
+  });
 }
 
 function onManagerSelect() {
@@ -841,7 +930,9 @@ function submitVisit() {
   const storeName = document.getElementById('store').value || 'Не указан';
   const storeInfo = STORES[storeName];
   const email = storeInfo ? storeInfo.email : '—';
-  const vname = document.getElementById('vname').value || VISITOR_CONFIG[currentRole]?.label || '—';
+  const vname = VISITOR_NAMES[currentRole] || VISITOR_CONFIG[currentRole]?.label || '—';
+  const rawManager = document.getElementById('storeManager').value || '';
+  const storeManager = rawManager || '—';
   const date = document.getElementById('vdate').value || 'Сегодня';
   const badge = document.getElementById('badge').textContent;
   const comment = document.getElementById('overall').value;
@@ -867,6 +958,7 @@ function submitVisit() {
     <b>Магазин:</b> SELA ${storeName}<br>
     <b>Дата:</b> ${date} · <b>Роль:</b> ${badge}<br>
     <b>Визитёр:</b> ${vname}<br>
+    ${storeManager !== '—' ? `<b>Представитель магазина:</b> ${storeManager}<br>` : ''}
     ${pct !== null ? `<b>Результат:</b> ${pct}% (${totalOk}/${total})<br>` : ''}
     <b>Статус:</b> ${statusMap[visitStatus]}
     ${tasks.length ? '<br><br><b>Задачи:</b><br>' + tasks.join('<br>') : ''}
