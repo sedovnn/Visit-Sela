@@ -152,6 +152,7 @@ body{font-family:'Golos Text',sans-serif;background:#EEF2F7;color:var(--text);mi
       <div class="tab hidden" data-p="5" onclick="go(5)">Персонал<span class="dot"></span></div>
       <div class="tab hidden" data-p="6" onclick="go(6)">Мерма<span class="dot"></span></div>
       <div class="tab hidden" data-p="7" onclick="go(7)">Чек-лист<span class="dot"></span></div>
+      <div class="tab hidden" data-p="18" onclick="go(18)">Особенности<span class="dot"></span></div>
       <div class="tab hidden" data-p="10" onclick="go(10)">Cost Control<span class="dot"></span></div>
       <div class="tab hidden" data-p="11" onclick="go(11)">Команда<span class="dot"></span></div>
       <div class="tab hidden" data-p="12" onclick="go(12)">Стандарты<span class="dot"></span></div>
@@ -162,6 +163,7 @@ body{font-family:'Golos Text',sans-serif;background:#EEF2F7;color:var(--text);mi
       <div class="tab hidden" data-p="17" onclick="go(17)">Финал<span class="dot"></span></div>
       <div class="tab hidden" data-p="8" onclick="go(8)">Задачи</div>
       <div class="tab hidden" data-p="9" onclick="go(9)">Итог</div>
+      <div class="tab hidden" data-p="18" onclick="go(18)">Особенности<span class="dot"></span></div>
       <div class="tab hidden" data-p="10" onclick="go(10)">Cost Control<span class="dot"></span></div>
       <div class="tab hidden" data-p="11" onclick="go(11)">Команда<span class="dot"></span></div>
       <div class="tab hidden" data-p="12" onclick="go(12)">Стандарты<span class="dot"></span></div>
@@ -292,8 +294,14 @@ body{font-family:'Golos Text',sans-serif;background:#EEF2F7;color:var(--text);mi
     </div>
     <!-- HR 16: Особенности -->
     <div class="page" id="p16">
-      <div class="sec"><div class="sec-hdr"><span class="sec-ico"></span><span class="sec-name">Особенности</span><span class="sec-score" id="sh7">0/—</span></div><div id="itemsh7"></div></div>
-      <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="goPrev(16)">← Назад</button><button class="btn btn-pri" onclick="goNext(16)">Дальше →</button></div></div>
+      <div class="sec">
+        <div class="sec-hdr"><span class="sec-ico">📍</span><span class="sec-name">Особенности магазина</span></div>
+        <div style="padding:12px 13px">
+          <div style="font-size:11px;color:var(--grey);margin-bottom:7px;line-height:1.6">Специфика ТЦ/района: откуда едут люди, конкуренты за персонал, тип покупателя, транспортная доступность, особенности команды.</div>
+          <textarea id="ff_h7" placeholder="Запиши особенности этого магазина..." style="width:100%;padding:9px 10px;border:1.5px solid var(--border);border-radius:var(--rs);font-size:13px;font-family:'Golos Text',sans-serif;resize:none;min-height:120px;background:var(--grey-bg);color:var(--text)"></textarea>
+        </div>
+      </div>
+      <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="go(15)">← Назад</button><button class="btn btn-pri" onclick="go(8)">Задачи →</button></div></div>
     </div>
     <!-- HR 17: Финал -->
     <div class="page" id="p17">
@@ -360,6 +368,19 @@ body{font-family:'Golos Text',sans-serif;background:#EEF2F7;color:var(--text);mi
         <textarea class="overall" id="overall" placeholder="Ключевые наблюдения, что изменилось с прошлого визита..."></textarea>
       </div>
       <div class="bar"><button class="btn-full" onclick="submitVisit()">✓ Завершить и отправить</button></div>
+    </div>
+
+
+    <!-- OPS: p18 Особенности магазина -->
+    <div class="page" id="p18">
+      <div class="sec">
+        <div class="sec-hdr"><span class="sec-ico">📍</span><span class="sec-name">Особенности магазина</span></div>
+        <div style="padding:12px 13px">
+          <div style="font-size:11px;color:var(--grey);margin-bottom:7px;line-height:1.6">Специфика ТЦ/магазина: особенности трафика, зоны риска, технические проблемы, история замечаний.</div>
+          <textarea id="ff_ops" placeholder="Запиши специфику и контекст этого магазина..." style="width:100%;padding:9px 10px;border:1.5px solid var(--border);border-radius:var(--rs);font-size:13px;font-family:'Golos Text',sans-serif;resize:none;min-height:120px;background:var(--grey-bg);color:var(--text)"></textarea>
+        </div>
+      </div>
+      <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="go(6)">← Назад</button><button class="btn btn-pri" onclick="go(8)">Задачи →</button></div></div>
     </div>
 
     <!-- HR PAGES: p10..p17 -->
@@ -476,21 +497,21 @@ const VISITOR_CONFIG = {
   div: {
     label: "Директор Дивизиона",
     badge: "ДИВ",
-    pages: [1,2,3,4,5,6], // многосекционный
+    pages: [1,2,3,4,5,6,18],
     mode: "multi",
     storeFilter: () => true,
   },
   ops: {
     label: "Операционный Директор",
     badge: "ОПЕРАЦИЯ",
-    pages: [1,2,3,4,5,6],
+    pages: [1,2,3,4,5,6,18],
     mode: "multi",
     storeFilter: () => true,
   },
   hr: {
     label: "HRBP",
     badge: "HR",
-    pages: [10,11,12,13,14,15,16,17],
+    pages: [10,11,12,13,14,15,16],
     mode: "hr",
     storeFilter: () => true,
   },
@@ -661,10 +682,7 @@ const CHECKLIST_HR = [
     hint:"Специфика ТЦ/района: откуда едут люди, конкуренты за персонал, тип покупателя, транспортная доступность, особенности команды.",
     items:[]
   },
-  { id:"h8", label:"Финал", ico:"✅", type:"freeform",
-    hint:"Вопросы и проблемы магазина · Дедлайны согласованы · Дата следующего визита",
-    items:[]
-  },
+
 ];
 const CHECKLIST_RKR_W = null;   // → пришли чек-лист
 const CHECKLIST_RKR_M = null;   // → пришли чек-лист
@@ -875,9 +893,12 @@ function startVisit() {
         tabEl.classList.remove('hidden');
       }
     });
+    // Вкладка Особенности магазина (p18) — всегда для ops/div
+    const tabOps = document.querySelector('.tab[data-p="18"]');
+    if (tabOps) { const d=tabOps.querySelector('.dot'); tabOps.textContent='Особенности'; if(d) tabOps.appendChild(d); }
   } else if (cfg.mode === 'hr') {
     currentChecklist = getChecklist('hr');
-    activePages = cfg.pages.slice(); // [10,11,12,13,14,15,16,17]
+    activePages = cfg.pages.slice(); // [10,11,12,13,14,15,16]
     buildHRChecklist(currentChecklist);
     // Переименовать вкладки HR
     activePages.forEach((pageNum, i) => {
