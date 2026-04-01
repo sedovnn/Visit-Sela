@@ -875,6 +875,19 @@ function startVisit() {
         tabEl.classList.remove('hidden');
       }
     });
+  } else if (cfg.mode === 'hr') {
+    currentChecklist = getChecklist('hr');
+    activePages = cfg.pages.slice(); // [10,11,12,13,14,15,16,17]
+    buildHRChecklist(currentChecklist);
+    // Переименовать вкладки HR
+    activePages.forEach((pageNum, i) => {
+      const tabEl = document.querySelector('.tab[data-p="' + pageNum + '"]');
+      if (tabEl && currentChecklist[i]) {
+        const dot = tabEl.querySelector('.dot');
+        tabEl.textContent = currentChecklist[i].label;
+        if (dot) tabEl.appendChild(dot);
+      }
+    });
   } else if (cfg.mode === 'single') {
     activePages = [7];
     buildSingleChecklist(currentRole);
