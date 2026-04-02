@@ -1074,12 +1074,43 @@ function refreshStoreList() {
   document.getElementById('emailHint').classList.remove('found');
 }
 
+// Резолвер: из полного ключа STORES ("Москва Авиапарк") -> ключ STORE_STAFF ("Авиапарк")
+function resolveStaffKey(storeVal) {
+  if (!storeVal) return null;
+  if (STORE_STAFF[storeVal]) return storeVal;
+  const prefixes = ['Москва ', 'Зеленоград ', 'Мытищи ', 'Одинцово ', 'Красногорск '];
+  for (const p of prefixes) {
+    if (storeVal.startsWith(p)) {
+      const short = storeVal.slice(p.length);
+      if (STORE_STAFF[short]) return short;
+    }
+  }
+  // Явный маппинг для неоднозначных названий
+  const explicit = {
+    'Москва Город Лефортово-2': 'Город Лефортово',
+    'Москва Вегас 2':           'Вегас',
+    'Москва Вегас (Кунцево)':   'Вегас Кунцево',
+    'Москва Европолис (Золотой Вавилон)': 'Европолис',
+    'Москва Селигерская':       'Avenue-Sever',
+    'Красногорск РигаМолл':     'Рига Молл',
+  };
+  if (explicit[storeVal]) return explicit[storeVal];
+  // частичное совпадение по последнему слову
+  const words = storeVal.split(' ');
+  const last = words[words.length - 1].toLowerCase();
+  for (const key of Object.keys(STORE_STAFF)) {
+    if (key.toLowerCase().includes(last)) return key;
+  }
+  return null;
+}
+
 function populateManagerDropdown(storeVal) {
   const sel = document.getElementById('storeManager');
   sel.innerHTML = '<option value="">— выбрать</option>';
   document.getElementById('managerRole').textContent = '';
-  if (!storeVal || !STORE_STAFF[storeVal]) return;
-  const staff = STORE_STAFF[storeVal];
+  const staffKey = resolveStaffKey(storeVal);
+  if (!staffKey) return;
+  const staff = STORE_STAFF[staffKey];
   if (staff.dm) sel.appendChild(new Option(staff.dm + ' (Директор/Управляющий)', staff.dm + '||dm'));
   staff.admins.forEach(name => sel.appendChild(new Option(name + ' (Администратор)', name + '||adm')));
   staff.vms.forEach(name => sel.appendChild(new Option(name + ' (VM)', name + '||vm')));
@@ -1088,7 +1119,8 @@ function populateManagerDropdown(storeVal) {
 
 
 function populateTaskOwners(storeVal) {
-  const staff = storeVal && STORE_STAFF[storeVal] ? STORE_STAFF[storeVal] : null;
+  const staffKey = resolveStaffKey(storeVal);
+  const staff = staffKey ? STORE_STAFF[staffKey] : null;
   [1, 2, 3].forEach(i => {
     const sel = document.getElementById('to' + i);
     const prev = sel.value;
@@ -1097,13 +1129,7 @@ function populateTaskOwners(storeVal) {
       if (staff.dm) sel.appendChild(new Option(staff.dm + ' (ДМ)', staff.dm));
       staff.admins.forEach(n => sel.appendChild(new Option(n + ' (Адм)', n)));
       staff.vms.forEach(n => sel.appendChild(new Option(n + ' (VM)', n)));
-      sel.appendChild(new Option('─────────', '', false, false).cloneNode(true));
     }
-    // Always add roles as fallback
-    ['Директор магазина','Менеджер смены','Операционный директор','HRBP',
-     'РКР Женского','РКР Мужского','РКР Детского'].forEach(r => {
-      sel.appendChild(new Option(r, r));
-    });
     if (prev) sel.value = prev;
   });
 }
