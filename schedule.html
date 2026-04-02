@@ -274,6 +274,55 @@ body { font-family:'Golos Text',sans-serif; background:var(--bg); color:var(--te
 .sheet-btn-cancel { background:var(--grey-dim); color:var(--text); }
 .sheet-btn-save { background:var(--navy); color:#fff; }
 .sheet-btn-save.saving { opacity:.6; pointer-events:none; }
+
+/* ─── EVENT BANNERS ─── */
+.event-banner {
+  display:flex; align-items:center; justify-content:space-between;
+  background:rgba(214,59,59,.08); border:1.5px solid rgba(214,59,59,.25);
+  border-left:4px solid var(--red);
+  border-radius:var(--r); padding:10px 10px 10px 13px;
+  margin-bottom:8px;
+}
+.eb-left { flex:1; min-width:0; }
+.eb-title { display:block; font-size:13px; font-weight:700; color:var(--red); margin-bottom:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.eb-date  { display:block; font-size:11px; color:var(--text-soft); }
+.eb-actions { display:flex; gap:2px; flex-shrink:0; }
+
+.week-banners-wrap { margin-bottom:4px; }
+.week-banners-wrap .event-banner { border-radius:var(--r); }
+.week-day-block {
+  background:var(--white); border-radius:var(--r); margin-bottom:10px;
+  box-shadow:var(--shadow); overflow:hidden;
+}
+.week-day-block.wdb-today { box-shadow:0 0 0 2px var(--green), var(--shadow); }
+.wdb-header {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:10px 12px 8px; border-bottom:1px solid var(--border);
+  background:var(--grey-dim);
+}
+.wdb-today .wdb-header { background:rgba(60,178,75,.08); }
+.wdb-label {
+  font-size:12px; font-weight:700; color:var(--text-soft);
+  display:flex; align-items:center; gap:6px;
+}
+.wdb-today .wdb-label { color:var(--green); }
+.wdb-today-badge {
+  font-family:'JetBrains Mono',monospace; font-size:8px; font-weight:700;
+  background:var(--green); color:#fff; padding:2px 6px; border-radius:10px; letter-spacing:.3px;
+}
+.wdb-add {
+  font-size:11px; font-weight:700; color:var(--green); background:rgba(60,178,75,.1);
+  border:none; border-radius:20px; padding:4px 10px; cursor:pointer; font-family:'Golos Text',sans-serif;
+  white-space:nowrap; flex-shrink:0;
+}
+.wdb-add:active { background:rgba(60,178,75,.22); }
+.wdb-empty {
+  padding:8px 12px 10px; font-size:11px; color:var(--grey); font-style:italic;
+}
+.week-day-block .vc {
+  border-radius:0; margin-bottom:0; box-shadow:none;
+  border-top:1px solid var(--border);
+}
 </style>
 </head>
 <body>
@@ -365,6 +414,7 @@ body { font-family:'Golos Text',sans-serif; background:var(--bg); color:var(--te
     <div class="toggle">
       <button class="tg-btn on" id="tgMy"   onclick="setView('my')">Мои</button>
       <button class="tg-btn"    id="tgTeam" onclick="setView('team')">Вся команда</button>
+      <button class="tg-btn"    id="tgWeek" onclick="setView('week')">Неделя</button>
     </div>
   </div>
 
@@ -412,12 +462,12 @@ body { font-family:'Golos Text',sans-serif; background:var(--bg); color:var(--te
 <!-- ─── SHEET: СОБЫТИЕ ─── -->
 <div class="overlay" id="ovEvent" onclick="closeOverlay(event,'ovEvent')"><div class="sheet">
   <div class="sheet-handle"></div>
-  <div class="sheet-title">🔴 Добавить событие</div>
+  <div class="sheet-title" id="shEventTitle">🔴 Общее событие</div>
   <div class="sheet-body">
-    <div class="field"><label>Название</label><input type="text" id="evTitle" placeholder="Визит из офиса, аудит..."></div>
+    <div class="field"><label>Название</label><input type="text" id="evTitle" placeholder="Открытие магазина, корпоратив..."></div>
     <div class="field-row">
-      <div class="field"><label>Дата</label><input type="date" id="evDt"></div>
-      <div class="field"><label>Время</label><input type="time" id="evTm" value="10:00"></div>
+      <div class="field"><label>С</label><input type="date" id="evFrom"></div>
+      <div class="field"><label>По</label><input type="date" id="evTo"></div>
     </div>
     <div class="field"><label>Комментарий</label><input type="text" id="evCm" placeholder="Подробности..."></div>
   </div>
@@ -647,7 +697,7 @@ function buildStrip() {
     const s = toIso(d);
     const isToday = s === todayIso;
     const isSel = s === selDay;
-    const hasV = visits.some(v => v.date===s && (view==="team" || v.role===role || v.type==="event" || v.type==="block"));
+    const hasV = visits.some(v => v.date===s && v.type!=="event" && (view==="team" || v.role===role || v.type==="block"));
 
     const el = document.createElement("div");
     const cls = ["ds-day"];
@@ -689,6 +739,7 @@ async function loadVisits() {
       name:  v["Визитёр"]||v.name||"",
       store: v["Магазин"]||v.store||"",
       date:  v["Дата"]||v.date||"",
+      dateTo: v["ДатаДо"]||v.dateTo||v["Дата"]||v.date||"",
       time:  v["Время"]||v.time||"",
       comment: v["Комментарий"]||v.comment||"",
       status: v["Статус"]||v.status||"план",
@@ -707,77 +758,164 @@ function setView(v) {
   view = v;
   document.getElementById("tgMy").classList.toggle("on", v==="my");
   document.getElementById("tgTeam").classList.toggle("on", v==="team");
+  document.getElementById("tgWeek").classList.toggle("on", v==="week");
   buildStrip(); render();
 }
 
+// ─── EVENT BANNERS ────────────────────────────────────────
+function getActiveBanners(dateIso) {
+  return visits.filter(v =>
+    v.type === "event" &&
+    v.date <= dateIso &&
+    (v.dateTo || v.date) >= dateIso
+  );
+}
+
+function renderBanners(banners, container) {
+  banners.forEach(v => {
+    const isSingle = v.date === (v.dateTo || v.date);
+    const dateLabel = isSingle ? fmtDate(v.date) : `${fmtDate(v.date)} — ${fmtDate(v.dateTo||v.date)}`;
+    const el = document.createElement("div");
+    el.className = "event-banner";
+    el.innerHTML = `
+      <div class="eb-left">
+        <span class="eb-title">🔴 ${v.store}</span>
+        <span class="eb-date">${dateLabel}${v.comment ? " · "+v.comment : ""}</span>
+      </div>
+      <div class="eb-actions">
+        <button class="va-btn" data-action="edit" data-id="${String(v.id)}">✏️</button>
+        <button class="va-btn" data-action="delete" data-id="${String(v.id)}">✕</button>
+      </div>`;
+    container.appendChild(el);
+  });
+}
+
 function render() {
+  if (view === "week") { renderWeek(); return; }
   const content = document.getElementById("content");
+  content.innerHTML = `<div class="day-lbl">${fmtDate(selDay)}</div>`;
+
+  // Banners for active events on this day
+  const banners = getActiveBanners(selDay);
+  if (banners.length) renderBanners(banners, content);
+
   const list = visits
-    .filter(v => v.date===selDay && (view==="team" || v.role===role || v.type==="event" || v.type==="block"))
+    .filter(v => v.date===selDay && v.type!=="event" && (view==="team" || v.role===role || v.type==="block"))
     .sort((a,b) => {
-      if (a.type==="event" && b.type!=="event") return -1;
-      if (b.type==="event" && a.type!=="event") return 1;
       if (a.type==="block" && b.type!=="block") return -1;
       if (b.type==="block" && a.type!=="block") return 1;
       return (a.time||"").localeCompare(b.time||"");
     });
 
-  content.innerHTML = `<div class="day-lbl">${fmtDate(selDay)}</div>`;
-
-  if (!list.length) {
+  if (!list.length && !banners.length) {
     content.innerHTML += `<div class="empty"><div class="empty-ico">📅</div><div class="empty-txt">Нет записей на этот день</div></div>`;
     return;
   }
+  if (!list.length) return;
 
-  list.forEach(v => {
-    const own = v.role===role || v.type==="event" || v.type==="block";
-    const done = v.status==="выполнен";
-    const isBlock = v.type==="block";
-    const isEvent = v.type==="event";
+  list.forEach(v => renderCard(v, content));
+}
 
-    // Bar color
-    const barCls = isBlock ? "bar-block" : isEvent ? "bar-event" : `bar-${v.role}`;
+function renderCard(v, container) {
+  const own = v.role===role || v.type==="block";
+  const done = v.status==="выполнен";
+  const isBlock = v.type==="block";
+  const barCls = isBlock ? "bar-block" : `bar-${v.role}`;
+  const title = isBlock ? "🟣 "+v.store+" · "+(v.name||NAMES[v.role]||v.role) : "SELA "+v.store;
 
-    // Title
-    const title = isEvent ? "🔴 "+v.store : isBlock ? "🟣 "+v.store+" · "+(v.name||NAMES[v.role]||v.role) : "SELA "+v.store;
+  let pills = "";
+  if (isBlock) {
+    const blockName = (view==="team"||view==="week") ? `<span class="pill pill-role">${BADGES[v.role]||v.role}</span>` : "";
+    pills = `<span class="pill pill-block">${v.comment||v.store}</span>${blockName}`;
+  }
+  else pills = `<span class="pill ${done?"pill-done":"pill-plan"}">${done?"✓ выполнен":"план"}</span>`;
 
-    // Pills
-    let pills = "";
-    if (isBlock) {
-      const blockName = view==="team" ? `<span class="pill pill-role">${BADGES[v.role]||v.role}</span>` : "";
-      pills = `<span class="pill pill-block">${v.comment||v.store}</span>${blockName}`;
-    }
-    else if (isEvent) pills = `<span class="pill pill-event">событие</span>`;
-    else              pills = `<span class="pill ${done?"pill-done":"pill-plan"}">${done?"✓ выполнен":"план"}</span>`;
+  if ((view==="team" || view==="week") && !isBlock) {
+    const nameParts = (v.name||NAMES[v.role]||v.role).toUpperCase().split(' ');
+    const visitorName = nameParts[1] || nameParts[0];
+    pills += ` <span class="pill pill-role">${visitorName}</span>`;
+  }
+  if (v.comment && !isBlock) pills += ` <span style="font-size:11px;color:var(--grey)">· ${v.comment}</span>`;
 
-    if (view==="team" && !isBlock && !isEvent) {
-      const nameParts = (v.name||NAMES[v.role]||v.role).toUpperCase().split(' ');
-      const visitorName = nameParts[1] || nameParts[0]; // Имя (второе слово)
-      pills += ` <span class="pill pill-role">${visitorName}</span>`;
-    }
-    if (v.comment && !isBlock) pills += ` <span style="font-size:11px;color:var(--grey)">· ${v.comment}</span>`;
-
-    const el = document.createElement("div");
-    el.className = "vc" + (done?" done":"");
-    el.innerHTML = `
-      <div class="vc-bar ${barCls}"></div>
-      <div class="va-check ${done?"on":""}" data-action="toggle" data-id="${String(v.id)}" data-status="${v.status}">
-        <svg viewBox="0 0 10 10" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 5l2.5 2.5 4.5-4"/></svg>
+  const el = document.createElement("div");
+  el.className = "vc" + (done?" done":"");
+  el.innerHTML = `
+    <div class="vc-bar ${barCls}"></div>
+    <div class="va-check ${done?"on":""}" data-action="toggle" data-id="${String(v.id)}" data-status="${v.status}">
+      <svg viewBox="0 0 10 10" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 5l2.5 2.5 4.5-4"/></svg>
+    </div>
+    <div class="vc-body">
+      <span class="vc-title">${title}</span>
+      <div class="vc-meta">
+        ${v.time ? `<span class="vc-time">🕐 ${v.time}</span>` : ""}
+        ${!isBlock && view!=="team" && view!=="week" ? `<span class="pill pill-role">${((v.name||NAMES[v.role]||v.role).toUpperCase().split(' ')[1]||(v.name||NAMES[v.role]||v.role).toUpperCase().split(' ')[0])}</span>` : ""}
+        ${pills}
       </div>
-      <div class="vc-body">
-        <span class="vc-title">${title}</span>
-        <div class="vc-meta">
-          ${v.time ? `<span class="vc-time">🕐 ${v.time}</span>` : ""}
-          ${!isBlock && !isEvent && view!=="team" ? `<span class="pill pill-role">${((v.name||NAMES[v.role]||v.role).toUpperCase().split(' ')[1]||(v.name||NAMES[v.role]||v.role).toUpperCase().split(' ')[0])}</span>` : ""}
-          ${pills}
-        </div>
-      </div>
-      ${own ? `<div class="vc-actions">
-        <button class="va-btn" data-action="edit" data-id="${String(v.id)}">✏️</button>
-        <button class="va-btn" data-action="delete" data-id="${String(v.id)}">✕</button>
-      </div>` : ""}`;
-    content.appendChild(el);
-  });
+    </div>
+    ${own ? `<div class="vc-actions">
+      <button class="va-btn" data-action="edit" data-id="${String(v.id)}">✏️</button>
+      <button class="va-btn" data-action="delete" data-id="${String(v.id)}">✕</button>
+    </div>` : ""}`;
+  container.appendChild(el);
+}
+
+function renderWeek() {
+  const content = document.getElementById("content");
+  content.innerHTML = "";
+  const mon = getWeekMonday(weekOffset);
+  const todayIso = isoToday();
+
+  // Week-spanning banners: events that overlap with any day this week
+  const weekStart = toIso(mon);
+  const weekEndD = new Date(mon); weekEndD.setDate(mon.getDate()+6);
+  const weekEnd = toIso(weekEndD);
+  const weekBanners = visits.filter(v =>
+    v.type === "event" &&
+    v.date <= weekEnd &&
+    (v.dateTo || v.date) >= weekStart
+  );
+  // Deduplicate (same event shown once at top)
+  if (weekBanners.length) {
+    const bannerWrap = document.createElement("div");
+    bannerWrap.className = "week-banners-wrap";
+    renderBanners(weekBanners, bannerWrap);
+    content.appendChild(bannerWrap);
+  }
+
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(mon); d.setDate(mon.getDate()+i);
+    const dayIso = toIso(d);
+    const isToday = dayIso === todayIso;
+
+    const dayVisits = visits
+      .filter(v => v.date===dayIso && v.type!=="event" && (v.role===role || v.type==="block"))
+      .sort((a,b) => {
+        if (a.type==="block" && b.type!=="block") return -1;
+        if (b.type==="block" && a.type!=="block") return 1;
+        return (a.time||"").localeCompare(b.time||"");
+      });
+
+    const dayBlock = document.createElement("div");
+    dayBlock.className = "week-day-block" + (isToday ? " wdb-today" : "");
+
+    const hdr = document.createElement("div");
+    hdr.className = "wdb-header";
+    hdr.innerHTML = `
+      <span class="wdb-label">${DNF[d.getDay()]}, ${d.getDate()} ${MNS[d.getMonth()]}${isToday ? ' <span class="wdb-today-badge">Сегодня</span>' : ''}</span>
+      <button class="wdb-add" data-date="${dayIso}" data-action="week-add">＋ визит</button>`;
+    dayBlock.appendChild(hdr);
+
+    if (dayVisits.length === 0) {
+      const empty = document.createElement("div");
+      empty.className = "wdb-empty";
+      empty.textContent = "Нет визитов";
+      dayBlock.appendChild(empty);
+    } else {
+      dayVisits.forEach(v => renderCard(v, dayBlock));
+    }
+
+    content.appendChild(dayBlock);
+  }
 }
 
 // ─── ACTIONS ──────────────────────────────────────────────
@@ -799,9 +937,11 @@ function editEntry(id) {
   editId = id;
   if (v.type==="event") {
     document.getElementById("evTitle").value = v.store;
-    document.getElementById("evDt").value = v.date;
-    document.getElementById("evTm").value = v.time||"10:00";
+    document.getElementById("evFrom").value = v.date;
+    document.getElementById("evTo").value = v.dateTo || v.date;
     document.getElementById("evCm").value = v.comment||"";
+    document.getElementById("shEventTitle").textContent = "🔴 Изменить событие";
+    document.getElementById("shSaveE").textContent = "Сохранить";
     openSheet("event");
   } else if (v.type==="block") {
     document.getElementById("blType").value = v.store;
@@ -845,9 +985,11 @@ function openSheet(type) {
   }
   if (type==="event" && !editId) {
     document.getElementById("evTitle").value = "";
-    document.getElementById("evDt").value = selDay;
-    document.getElementById("evTm").value = "10:00";
+    document.getElementById("evFrom").value = selDay;
+    document.getElementById("evTo").value = selDay;
     document.getElementById("evCm").value = "";
+    document.getElementById("shEventTitle").textContent = "🔴 Общее событие";
+    document.getElementById("shSaveE").textContent = "Добавить";
   }
   if (type==="block" && !editId) {
     document.getElementById("blFrom").value = selDay;
@@ -898,29 +1040,45 @@ async function saveVisit() {
 
 async function saveEvent() {
   const title   = document.getElementById("evTitle").value.trim();
-  const date    = document.getElementById("evDt").value;
-  const time    = document.getElementById("evTm").value;
-  const comment = document.getElementById("evCm").value.trim();
-  if (!title||!date) { alert("Укажи название и дату"); return; }
+  const dateFrom = document.getElementById("evFrom").value;
+  const dateTo   = document.getElementById("evTo").value;
+  const comment  = document.getElementById("evCm").value.trim();
+  if (!title||!dateFrom||!dateTo) { alert("Укажи название и даты"); return; }
 
   const btn = document.getElementById("shSaveE");
-  btn.classList.add("saving"); btn.textContent = "Добавляем...";
+  btn.classList.add("saving"); btn.textContent = "Сохраняем...";
+
+  const authorName = NAMES[role] || role;
+  const dateLabel = dateFrom === dateTo
+    ? fmtDate(dateFrom)
+    : `${fmtDate(dateFrom)} — ${fmtDate(dateTo)}`;
 
   if (editId) {
     const v = visits.find(x=>String(x.id)===String(editId));
-    if (v) { v.store=title; v.date=date; v.time=time; v.comment=comment; }
-    try { await fetch(WR,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"update",id:editId,store:title,date,time,comment,status:"событие"})}); } catch(e){}
+    if (v) { v.store=title; v.date=dateFrom; v.dateTo=dateTo; v.comment=comment; }
+    try { await fetch(WR,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"update",id:editId,store:title,date:dateFrom,dateTo,comment,status:"событие",type:"event"})}); } catch(e){}
   } else {
     const id = Date.now().toString();
-    const nv = {id, role, name:NAMES[role], store:title, date, time, comment, status:"событие", type:"event"};
+    const nv = {id, role, name:authorName, store:title, date:dateFrom, dateTo, comment, status:"событие", type:"event"};
     visits.push(nv);
     try { await fetch(WR,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"create",...nv})}); } catch(e){}
+
+    // Telegram notification
+    const tgText = `📢 *Новое общее событие*\n\n🔴 *${title}*\n📅 ${dateLabel}${comment ? `\n💬 ${comment}` : ""}\n\n_Добавил: ${authorName}_`;
+    try {
+      await fetch(WR, {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify({
+        action: "telegram_notify",
+        message: tgText,
+        chat_id: "-1003627577889",
+        thread_id: "169"
+      })});
+    } catch(e){}
   }
 
   btn.classList.remove("saving"); btn.textContent = "Добавить";
   closeSheet("ovEvent");
-  selDay = date; buildStrip(); render();
-  document.querySelectorAll(".ds-day").forEach(d=>d.classList.toggle("sel",d.dataset.iso===date));
+  selDay = dateFrom; buildStrip(); render();
+  document.querySelectorAll(".ds-day").forEach(d=>d.classList.toggle("sel",d.dataset.iso===dateFrom));
 }
 
 async function saveBlock() {
@@ -957,9 +1115,19 @@ document.getElementById("content").addEventListener("click", function(e) {
   e.stopPropagation();
   const action = btn.dataset.action;
   const id = btn.dataset.id;
-  if (action === "edit")   editEntry(id);
-  if (action === "delete") deleteEntry(id);
-  if (action === "toggle") toggleDone(id, btn.dataset.status);
+  if (action === "edit")     editEntry(id);
+  if (action === "delete")   deleteEntry(id);
+  if (action === "toggle")   toggleDone(id, btn.dataset.status);
+  if (action === "week-add") {
+    editId = null;
+    const date = btn.dataset.date;
+    document.getElementById("shVisitTitle").textContent = "Добавить визит";
+    document.getElementById("shSt").value = "";
+    document.getElementById("shDt").value = date;
+    document.getElementById("shTm").value = "10:00";
+    document.getElementById("shCm").value = "";
+    document.getElementById("ovVisit").classList.add("open");
+  }
 });
 
 // ─── START ────────────────────────────────────────────────
