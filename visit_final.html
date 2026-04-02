@@ -45,13 +45,17 @@ body{font-family:'Golos Text',sans-serif;background:#EEF2F7;color:var(--text);mi
 .email-hint.found{color:var(--green);background:var(--green-bg)}
 
 /* VISITOR CARDS */
-.visitor-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.vcard{padding:10px 8px;border:2px solid var(--border);border-radius:var(--r);background:var(--white);text-align:center;cursor:pointer;transition:all .15s}
-.vcard.sel{border-color:var(--blue);background:var(--blue-bg)}
-.vcard .vi{font-size:18px;display:block;margin-bottom:3px}
-.vcard .vn{font-size:11px;font-weight:700;color:var(--text);display:block;line-height:1.3}
-.vcard .vs{font-size:10px;color:var(--grey);display:block;margin-top:2px}
+.visitor-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.visitor-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.vcard{padding:14px 8px 12px;border:1.5px solid var(--border);border-radius:var(--r);background:var(--white);text-align:center;cursor:pointer;transition:all .15s;position:relative}
+.vcard:active{transform:scale(.97)}
+.vcard.sel{border-color:var(--blue);background:var(--blue-bg);box-shadow:0 0 0 3px rgba(60,178,75,.12)}
+.vcard .vi{font-size:22px;display:block;margin-bottom:6px}
+.vcard .vn{font-size:11px;font-weight:700;color:var(--text);display:block;line-height:1.35}
 .vcard.sel .vn{color:var(--blue)}
+.vcard-wide{grid-column:1/-1;display:flex;align-items:center;justify-content:center;gap:10px;padding:14px 16px}
+.vcard-wide .vi{font-size:20px;margin-bottom:0}
+.vcard-wide .vn{font-size:13px}
 
 /* SECTION */
 .sec{background:var(--white);border-radius:var(--r);margin-bottom:10px;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.06)}
@@ -65,12 +69,13 @@ body{font-family:'Golos Text',sans-serif;background:#EEF2F7;color:var(--text);mi
 .ci:last-child{border-bottom:none}
 .ci-text{font-size:13px;line-height:1.4;color:var(--text);margin-bottom:7px}
 .btns{display:flex;gap:5px}
-.rb{flex:1;padding:7px 2px;border:1.5px solid var(--border);border-radius:var(--rs);font-size:10px;font-weight:700;cursor:pointer;text-align:center;color:var(--grey);background:var(--grey-bg);transition:all .12s;font-family:'Golos Text',sans-serif}
+.rb{flex:1;padding:11px 2px;border:1.5px solid var(--border);border-radius:var(--rs);font-size:11px;font-weight:700;cursor:pointer;text-align:center;color:var(--grey);background:var(--grey-bg);transition:all .12s;font-family:'Golos Text',sans-serif;min-height:44px;display:flex;align-items:center;justify-content:center}
 .rb[data-v="ok"]{border-color:#BBF7D0}.rb[data-v="ok"].on{background:var(--green);color:#fff;border-color:var(--green)}
 .rb[data-v="pt"]{border-color:#FDE68A}.rb[data-v="pt"].on{background:var(--amber);color:#fff;border-color:var(--amber)}
 .rb[data-v="no"]{border-color:#FECACA}.rb[data-v="no"].on{background:var(--red);color:#fff;border-color:var(--red)}
 .rb[data-v="na"]{border-color:var(--border)}.rb[data-v="na"].on{background:var(--grey);color:#fff;border-color:var(--grey)}
 .note-tog{display:inline-flex;align-items:center;gap:3px;font-size:11px;color:var(--green);margin-top:6px;cursor:pointer;font-weight:600}
+.tag-oral{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:700;color:#7C3AED;background:#F5F3FF;border:1px solid #DDD6FE;border-radius:20px;padding:2px 8px;margin-left:6px;vertical-align:middle;white-space:nowrap}
 .note-box{display:none;margin-top:7px}
 .note-box.open{display:block}
 .note-box textarea{width:100%;padding:8px 10px;border:1.5px solid var(--border);border-radius:var(--rs);font-size:13px;font-family:'Golos Text',sans-serif;resize:none;min-height:52px;background:var(--grey-bg);color:var(--text)}
@@ -116,10 +121,11 @@ body{font-family:'Golos Text',sans-serif;background:#EEF2F7;color:var(--text);mi
 .bar-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .btn{width:100%;padding:13px;font-family:'Golos Text',sans-serif;font-size:14px;font-weight:700;border:none;border-radius:var(--r);cursor:pointer;transition:opacity .15s}
 .btn:active{opacity:.75}
-.btn-sec{background:var(--grey-bg);color:var(--navy)}
-.btn-pri{background:var(--navy);color:#fff}
-.btn-full{width:100%;padding:14px;font-family:'Golos Text',sans-serif;font-size:15px;font-weight:700;border:none;border-radius:var(--r);cursor:pointer;background:var(--navy);color:#fff}
-.btn-full:active{background:var(--blue)}
+.btn-sec{background:var(--grey-bg);color:var(--grey);font-weight:600}
+.btn-pri{background:var(--blue);color:#fff;box-shadow:0 2px 8px rgba(60,178,75,.3)}
+.btn-pri:active{background:#2a9e3a}
+.btn-full{width:100%;padding:14px;font-family:'Golos Text',sans-serif;font-size:15px;font-weight:700;border:none;border-radius:var(--r);cursor:pointer;background:var(--blue);color:#fff;box-shadow:0 2px 8px rgba(60,178,75,.3)}
+.btn-full:active{background:#2a9e3a}
 
 /* SUCCESS */
 .success{display:none;padding:48px 16px;text-align:center}
@@ -182,34 +188,48 @@ body{font-family:'Golos Text',sans-serif;background:#EEF2F7;color:var(--text);mi
     <!-- 0: ИНФО -->
     <div class="page active" id="p0">
       <div class="meta">
-        <label>Визитёр</label>
-        <div class="visitor-grid" id="visitorGrid">
-          <div class="vcard" data-role="div" onclick="selectVisitor(this)">
-            <span class="vi">📊</span><span class="vn">Директор Дивизиона</span><span class="vs">Системный контроль</span>
+        <label>Кто проводит визит</label>
+        <div id="visitorGrid">
+          <div class="visitor-grid" style="margin-bottom:8px">
+            <div class="vcard" data-role="div" onclick="selectVisitor(this)">
+              <span class="vi">📊</span><span class="vn">Директор Дивизиона</span>
+            </div>
+            <div class="vcard" data-role="ops" onclick="selectVisitor(this)">
+              <span class="vi">🔍</span><span class="vn">Операционный Директор</span>
+            </div>
+            <div class="vcard" data-role="hr" onclick="selectVisitor(this)">
+              <span class="vi">👥</span><span class="vn">HRBP</span>
+            </div>
           </div>
-          <div class="vcard" data-role="ops" onclick="selectVisitor(this)">
-            <span class="vi">🔍</span><span class="vn">Операционный Директор</span><span class="vs">Операционный аудит</span>
-          </div>
-          <div class="vcard" data-role="hr" onclick="selectVisitor(this)">
-            <span class="vi">👥</span><span class="vn">HRBP</span><span class="vs">Команда и люди</span>
-          </div>
-          <div class="vcard" data-role="rkr_w1" onclick="selectVisitor(this)">
-            <span class="vi">👗</span><span class="vn">РКР Женского · Москва 1</span><span class="vs">Света</span>
-          </div>
-          <div class="vcard" data-role="rkr_w2" onclick="selectVisitor(this)">
-            <span class="vi">👗</span><span class="vn">РКР Женского · Москва 2</span><span class="vs">Женя</span>
-          </div>
-          <div class="vcard" data-role="rkr_m" onclick="selectVisitor(this)">
-            <span class="vi">👔</span><span class="vn">РКР Мужского</span><span class="vs">Только маг. с муж. отделом</span>
-          </div>
-          <div class="vcard" data-role="rkr_k" onclick="selectVisitor(this)">
-            <span class="vi">🧒</span><span class="vn">РКР Детского</span><span class="vs">Только маг. с дет. отделом</span>
-          </div>
-          <div class="vcard" data-role="otpb" onclick="selectVisitor(this)">
-            <span class="vi">🔥</span><span class="vn">ОТ и ПБ</span><span class="vs">Охрана труда · Пожарная безопасность</span>
+          <div class="visitor-grid-2">
+            <div class="vcard vcard-wide" data-role="rkr" onclick="selectVisitor(this)">
+              <span class="vi">🏷️</span><span class="vn">РКР</span>
+            </div>
+            <div class="vcard vcard-wide" data-role="otpb" onclick="selectVisitor(this)">
+              <span class="vi">🔥</span><span class="vn">ОТ и ПБ</span>
+            </div>
           </div>
         </div>
       </div>
+      <!-- РКР: выбор отдела и территории -->
+      <div class="meta" id="rkrDeptBlock" style="display:none">
+        <label>Отдел</label>
+        <select id="rkrDept" onchange="onRkrDeptChange()">
+          <option value="">— выбрать отдел</option>
+          <option value="w">Женский</option>
+          <option value="m">Мужской</option>
+          <option value="k">Детский</option>
+        </select>
+      </div>
+      <div class="meta" id="rkrZoneBlock" style="display:none">
+        <label>Территория</label>
+        <select id="rkrZone" onchange="onRkrZoneChange()">
+          <option value="">— выбрать территорию</option>
+          <option value="rkr_w1">Москва 1 — Светлана Чечура</option>
+          <option value="rkr_w2">Москва 2 — Евгения Урсул</option>
+        </select>
+      </div>
+
       <div class="meta" id="storeBlock" style="display:none">
         <label>Магазин</label>
         <select id="store" onchange="onStoreSelect()">
@@ -451,7 +471,7 @@ body{font-family:'Golos Text',sans-serif;background:#EEF2F7;color:var(--text);mi
           <textarea id="ff_ops" placeholder="Запиши специфику и контекст этого магазина..." style="width:100%;padding:9px 10px;border:1.5px solid var(--border);border-radius:var(--rs);font-size:13px;font-family:'Golos Text',sans-serif;resize:none;min-height:120px;background:var(--grey-bg);color:var(--text)"></textarea>
         </div>
       </div>
-      <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="go(6)">← Назад</button><button class="btn btn-pri" onclick="go(8)">Задачи →</button></div></div>
+      <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="goPrev(18)">← Назад</button><button class="btn btn-pri" onclick="go(8)">Задачи →</button></div></div>
     </div>
 
     <!-- HR PAGES: p10..p17 -->
@@ -568,7 +588,7 @@ const VISITOR_CONFIG = {
   div: {
     label: "Директор Дивизиона",
     badge: "ДИВ",
-    pages: [1,2,3,4],
+    pages: [1,2,3,4,18],
     mode: "multi",
     storeFilter: () => true,
   },
@@ -585,6 +605,13 @@ const VISITOR_CONFIG = {
     pages: [10,11,12,13,14,15,16],
     mode: "hr",
     storeFilter: () => true,
+  },
+  rkr: {
+    label: "РКР",
+    badge: "РКР",
+    pages: [20,21,22,23,24,25,26],
+    mode: "rkr",
+    storeFilter: () => true, // фильтр переопределяется динамически
   },
   rkr_w1: {
     label: "РКР Женского · Москва 1 (Света)",
@@ -856,43 +883,43 @@ const CHECKLIST_RKR_K = CHECKLIST_RKR;
 // ═══════════════════════════════════════════════════════
 const STORE_STAFF = {
   "Зеленоград Зеленопарк": { dm:"Степанова Алла", admins:["Волошина Любовь", "Евтухова Вероника"], vms:["Колпакова Юлия", "Попова Анастасия"] },
-  "Москва BOTANICA": { dm:"Трусов Сергей", admins:["Комиссаров Дмитрий", "Милованкина Елена"], vms:["Крайма Валерия", "Никулина Мария"] },
-  "Москва Columbus": { dm:"Аскерова Анжелика", admins:["Давыдова Юлиана"], vms:["Яриловец Елизавета", "Марсанов Артём", "Харькова Лидия"] },
-  "Москва XL": { dm:null, admins:["Селизова Ольга"], vms:[] },
-  "Москва Авиапарк": { dm:"Нелезина Анастасия", admins:[], vms:[] },
-  "Москва Ареал (Беляево)": { dm:"Дмитренко Екатерина", admins:["Данилин Александр"], vms:[] },
-  "Москва Афимолл": { dm:"Васильева Валерия", admins:["Захарова Татьяна", "Моргунова Елена"], vms:["Водянцова Екатерина", "Пономаренко Сергей", "Кудинова Елена"] },
-  "Москва Бутово Молл": { dm:"Гладкова Екатерина", admins:["Светлова Виктория"], vms:["Патрина Анастасия"] },
-  "Москва Вегас (Кунцево)": { dm:"Устиченко Любовь", admins:["Нефедьева Полина"], vms:["Суворова Юлия"] },
-  "Москва Вегас 2": { dm:"Кабартова Валентина", admins:["Кузнецова Любовь"], vms:["Жучкова Кира"] },
-  "Москва Весна": { dm:"Сотникова Виктория", admins:["Гасанова Виктория"], vms:[] },
-  "Москва Вэйпарк": { dm:null, admins:["Абдулгалимова Альбина", "Вишневская Кристина"], vms:[] },
-  "Москва Город Лефортово-2": { dm:"Брюшкова Екатерина", admins:["Аристова Ангелина", "Магомет-Хаджиева Зарина Зайнадиевна"], vms:["Кротикова Александра", "Пугачева Диана"] },
-  "Москва Домодедовский": { dm:"Копитцова Светлана", admins:["Кравченко Алина", "Кулакова Юлия"], vms:[] },
-  "Москва Европейский": { dm:"Суфьянова Эльвира", admins:["Дмитриева Ксения", "Сорокина Виктория"], vms:[] },
-  "Москва Европолис (Золотой Вавилон)": { dm:"Маслова Ирина", admins:["Патрикеева Александра", "Чернова Ирина"], vms:[] },
-  "Москва ЗУМ": { dm:"Канкина Алеся", admins:["Новикова Анастасия"], vms:["Кольцова Елена"] },
+  "Красногорск РигаМолл": { dm:"Веселова Анастасия", admins:["Акопян Хатуна", "Петрина Полина", "Полянский Дмитрий"], vms:["Антонова Виктория"] },
+  "Москва Avenue Sever": { dm:"Воронова Виктория", admins:["Белова Светлана", "Турецкая Карина"], vms:["Богуславская Елена"] },
+  "Москва BOTANICA": { dm:"Трусов Сергей", admins:["Комиссаров Дмитрий", "Ширяев Данила"], vms:["Крайма Валерия", "Никулина Мария"] },
+  "Москва Columbus": { dm:"Аскерова Анжелика", admins:["Давыдова Юлиана", "Лукияненко Вера", "Шульгина Екатерина"], vms:["Марсанов Артём", "Харькова Лидия", "Яриловец Елизавета"] },
+  "Москва XL": { dm:"Маслова Ирина", admins:["Головин Игнат"], vms:[] },
+  "Москва Авиапарк": { dm:"Нелезина Анастасия", admins:["Васильев Даниил", "Касьянова Кристина", "Минкибаева Риназа", "Никонов Даниил"], vms:["Азымова Ася", "Баранова Татьяна", "Крамарева Ксения", "Кунякин Андрей"] },
+  "Москва Ареал (Беляево)": { dm:"Дмитренко Екатерина", admins:["Грибчук Дарья", "Данилин Александр", "Журавлева Анастасия"], vms:[] },
+  "Москва Афимолл": { dm:"Васильева Валерия", admins:["Захарова Татьяна", "Моргунова Елена"], vms:["Кудинова Елена", "Пономаренко Сергей"] },
+  "Москва Бутово Молл": { dm:"Романова Виктория", admins:["Гладкова Екатерина"], vms:["Патрина Анастасия"] },
+  "Москва Вегас (Кунцево)": { dm:"Коноплева Любовь", admins:["Нефедьева Полина", "Солодовникова Диана"], vms:["Суворова Юлия"] },
+  "Москва Вегас 2": { dm:"Кабартова Валентина", admins:["Кузнецова Любовь", "Кургузов Максим"], vms:["Жучкова Кира"] },
+  "Москва Весна": { dm:"Сотникова Виктория", admins:["Гасанова Виктория", "Чахур Валерия"], vms:[] },
+  "Москва Вэйпарк": { dm:"Вишневская Кристина", admins:["Абдулгалимова Альбина", "Токаревская Мария"], vms:[] },
+  "Москва Город Лефортово-2": { dm:"Брюшкова Екатерина", admins:["Булах Анастасия", "Магомет-Хаджиева Зарина", "Пастушкова Анастасия"], vms:["Пугачева Диана", "Романова Александра", "Семенов Никита"] },
+  "Москва Домодедовский": { dm:"Копитцова Светлана", admins:["Кравченко Алина"], vms:[] },
+  "Москва Европейский": { dm:"Суфьянова Эльвира", admins:["Дмитриева Ксения", "Сорокина Виктория"], vms:["Логовская Алёна"] },
+  "Москва Европолис (Золотой Вавилон)": { dm:null, admins:["Патрикеева Александра", "Чернова Ирина"], vms:[] },
+  "Москва ЗУМ": { dm:"Канкина Алеся", admins:["Биксаева Алтынай", "Новикова Анастасия"], vms:["Кольцова Елена"] },
   "Москва Иридиум": { dm:"Лобанова Ирина", admins:["Федосова Анастасия"], vms:[] },
-  "Москва Каширская Плаза": { dm:null, admins:["Микешина Юлия", "Шапошникова Карина"], vms:[] },
+  "Москва Каширская Плаза": { dm:"Иванова Виктория", admins:["Микешина Юлия", "Шапошникова Карина"], vms:["Колбая Хибла"] },
   "Москва Ладья": { dm:"Николоеня Евгения", admins:["Зыкеева Елена"], vms:[] },
-  "Москва Мега Белая Дача": { dm:"Шуржумова Светлана", admins:["Касьянова Кристина", "Савельева Алёна"], vms:["Галич Алексей", "Латышева Самира"] },
-  "Москва Мега Тёплый Стан": { dm:"Немцева Анна", admins:["Питкевич Виктория", "Ивлева Алеся", "Селимов Халил"], vms:["Оккерт Анна"] },
-  "Москва Мега Химки": { dm:"Гусева Мария", admins:["Усенова Садбарг", "Чересеу Ала"], vms:["Багреева Вера", "Панина София", "Лучкина Кристина"] },
-  "Москва Мегаполис": { dm:"Степура Анастасия", admins:[], vms:[] },
-  "Москва Метрополис": { dm:"Иванова Серафима", admins:["Лаврова Александра"], vms:["Белова Мария", "Мохорина Дарья", "Курьянова Анжела"] },
-  "Москва Океания": { dm:"Кудрявцева Зинаида", admins:["Калинина Лина", "Конанухин Алексей"], vms:["Смахтина Елизавета", "Таранина Елизавета"] },
-  "Москва Остров Мечты Kids": { dm:"Пяткина Елизавета", admins:["Самкова Влада"], vms:[] },
-  "Москва Павелецкая Плаза": { dm:"Малиновская Юлия", admins:["Волковецкая Виктория", "Шилкина Елизавета"], vms:["Манихина Валерия", "Семенова Александра"] },
+  "Москва Мега Белая Дача": { dm:"Лукинова Светлана", admins:["Савельева Алёна"], vms:["Галич Алексей", "Латышева Самира"] },
+  "Москва Мега Тёплый Стан": { dm:"Немцева Анна", admins:["Ивлева Алеся", "Питкевич Виктория"], vms:["Оккерт Анна"] },
+  "Москва Мега Химки": { dm:"Гусева Мария", admins:["Кумахова Фатимат", "Усенова Садбарг", "Чересеу Ала", "Чигарева Мария"], vms:["Багреева Вера", "Лучкина Кристина", "Панина София"] },
+  "Москва Мегаполис": { dm:"Степура Анастасия", admins:["Десятчикова Екатерина", "Евланова Марина"], vms:[] },
+  "Москва Метрополис": { dm:"Рожко Елена", admins:["Крутова Ирина", "Лаврова Александра"], vms:["Белова Мария", "Курьянова Анжела", "Пак Кира"] },
+  "Москва Океания": { dm:"Кудрявцева Зинаида", admins:["Конанухин Алексей", "Танакина Луиза"], vms:["Таранина Елизавета", "Чуева Елена"] },
+  "Москва Остров Мечты Kids": { dm:"Пяткина Елизавета", admins:["Антропова Арина", "Борисов Данила"], vms:[] },
+  "Москва Павелецкая Плаза": { dm:"Малиновская Юлия", admins:["Иващенко Антон", "Шилкина Елизавета"], vms:["Захарова Кристина", "Манихина Валерия", "Семенова Александра"] },
   "Москва Пушкино Парк": { dm:"Денисова Дарья", admins:["Струкова Ольга", "Шалимова Анастасия"], vms:["Захарова Оксана", "Капранова Ирина"] },
-  "Москва Ривьера": { dm:"Ежова Анастасия", admins:["Калинин Егор", "Шарипов Тимур"], vms:["Гафурова Нигина", "Кунякин Андрей"] },
-  "Москва Саларис": { dm:"Черевко Анна", admins:["Бурдужа Олег", "Васильева Анна"], vms:["Крамарева Ксения", "Чевтаева Мария"] },
-  "Москва Селигерская (Avenue Sever)": { dm:"Воронова Виктория", admins:["Дубинина Елизавета", "Турецкая Карина"], vms:["Богуславская Елена"] },
-  "Москва Хорошо": { dm:"Годнюк Анастасия", admins:["Цуриков Александр"], vms:["Оконова Светлана"] },
-  "Москва Шоколад": { dm:"Брыксина Юлия", admins:["Латышева Мария"], vms:[] },
+  "Москва Ривьера": { dm:"Ежова Анастасия", admins:["Калинин Егор", "Тельцова Олеся", "Шарипов Тимур"], vms:["Медведевских Оксана", "Мотявина Ирина", "Чуркина Анна"] },
+  "Москва Саларис": { dm:"Черевко Анна", admins:["Бурдужа Олег", "Васильева Анна"], vms:["Лебедева Софья", "Чевтаева Мария", "Чернышова Екатерина"] },
+  "Москва Хорошо": { dm:"Годнюк Анастасия", admins:["Дегтярева Ксения", "Цуриков Александр"], vms:["Оконова Светлана"] },
+  "Москва Шоколад": { dm:"Брыксина Юлия", admins:["Латышева Мария", "Литвинова Евгения"], vms:[] },
   "Москва Щёлковский": { dm:"Ипатьева Ирина", admins:["Обара Наталия"], vms:[] },
-  "Мытищи Красный Кит": { dm:"Кожевникова Любовь", admins:["Голубева Ева", "Медведева Дарья"], vms:["Масальская Алина", "Яхина Елизавета"] },
-  "Одинцово Одипарк": { dm:"Джагаева Полина", admins:["Добриян Роман", "Юрасова Анастасия"], vms:["Веселова Анастасия", "Новикова Кристина"] },
-  "Красногорск РигаМолл": { dm:null, admins:[], vms:[] },
+  "Мытищи Красный Кит": { dm:"Кожевникова Любовь", admins:["Голубева Ева", "Медведева Дарья", "Яхина Елизавета"], vms:["Масальская Алина", "Осипова Эльмира"] },
+  "Одинцово Одипарк": { dm:"Джагаева Полина", admins:["Добриян Роман", "Федорова Виктория"], vms:["Новикова Кристина"] },
 };
 
 // ═══════════════════════════════════════════════════════
@@ -952,9 +979,16 @@ function selectVisitor(card) {
     }
   });
 
-  document.getElementById('storeBlock').style.display = 'block';
-  document.getElementById('dateBlock').style.display = 'block';
-  document.getElementById('startBar').style.display = 'block';
+  const isRkr = currentRole === 'rkr';
+  // Блок отдела/территории РКР
+  document.getElementById('rkrDeptBlock').style.display = isRkr ? 'block' : 'none';
+  document.getElementById('rkrZoneBlock').style.display = 'none';
+  document.getElementById('rkrDept').value = '';
+  document.getElementById('rkrZone').value = '';
+  // Магазин и дата — только если не РКР (для РКР покажем после выбора отдела)
+  document.getElementById('storeBlock').style.display = isRkr ? 'none' : 'block';
+  document.getElementById('dateBlock').style.display = isRkr ? 'none' : 'block';
+  document.getElementById('startBar').style.display = isRkr ? 'none' : 'block';
   // Блок выбора проверяющего — только для ОТ/ПБ
   const otpbBlock = document.getElementById('otpbVisitorBlock');
   if (otpbBlock) otpbBlock.style.display = currentRole === 'otpb' ? 'block' : 'none';
@@ -990,6 +1024,67 @@ function onStoreSelect() {
   }
   populateManagerDropdown(val);
   populateTaskOwners(val);
+}
+
+
+function onRkrDeptChange() {
+  const dept = document.getElementById('rkrDept').value;
+  const zoneBlock = document.getElementById('rkrZoneBlock');
+  const storeBlock = document.getElementById('storeBlock');
+  const dateBlock = document.getElementById('dateBlock');
+  const startBar = document.getElementById('startBar');
+
+  if (!dept) {
+    zoneBlock.style.display = 'none';
+    storeBlock.style.display = 'none';
+    dateBlock.style.display = 'none';
+    startBar.style.display = 'none';
+    return;
+  }
+
+  if (dept === 'w') {
+    // Женский — нужно выбрать территорию
+    zoneBlock.style.display = 'block';
+    storeBlock.style.display = 'none';
+    dateBlock.style.display = 'none';
+    startBar.style.display = 'none';
+  } else {
+    // Мужской или Детский — сразу показываем магазины
+    zoneBlock.style.display = 'none';
+    currentRole = dept === 'm' ? 'rkr_m' : 'rkr_k';
+    document.getElementById('badge').textContent = VISITOR_CONFIG[currentRole].badge;
+    refreshStoreList();
+    storeBlock.style.display = 'block';
+    dateBlock.style.display = 'block';
+    startBar.style.display = 'block';
+  }
+}
+
+function onRkrZoneChange() {
+  const zone = document.getElementById('rkrZone').value;
+  if (!zone) return;
+  currentRole = zone; // 'rkr_w1' или 'rkr_w2'
+  document.getElementById('badge').textContent = VISITOR_CONFIG[currentRole].badge;
+  refreshStoreList();
+  document.getElementById('storeBlock').style.display = 'block';
+  document.getElementById('dateBlock').style.display = 'block';
+  document.getElementById('startBar').style.display = 'block';
+}
+
+function refreshStoreList() {
+  const cfg = VISITOR_CONFIG[currentRole];
+  const sel = document.getElementById('store');
+  sel.innerHTML = '<option value="">— выбрать магазин</option>';
+  Object.entries(STORES).forEach(([name, info]) => {
+    if (cfg.storeFilter(info)) {
+      const opt = document.createElement('option');
+      opt.value = name;
+      opt.textContent = 'SELA ' + name;
+      sel.appendChild(opt);
+    }
+  });
+  document.getElementById('emailHint').textContent = 'Выбери магазин — email подставится';
+  document.getElementById('emailHint').classList.remove('found');
 }
 
 function populateManagerDropdown(storeVal) {
@@ -1115,6 +1210,14 @@ function buildMultiChecklist(checklist) {
   checklist.forEach(sec => {
     const cont = document.getElementById('items' + sec.id);
     cont.innerHTML = '';
+    // Обновляем заголовок и иконку секции по данным чек-листа
+    const page = document.getElementById('p' + sec.id);
+    if (page) {
+      const nameEl = page.querySelector('.sec-name');
+      const icoEl = page.querySelector('.sec-ico');
+      if (nameEl) nameEl.textContent = sec.label;
+      if (icoEl && sec.ico) icoEl.textContent = sec.ico;
+    }
     document.getElementById('s' + sec.id).textContent = '0/' + sec.items.length;
     sec.items.forEach((text, idx) => {
       const key = `${sec.id}_${idx}`;
@@ -1266,15 +1369,20 @@ function buildSingleChecklist(role) {
 function makeItem(key, text) {
   const div = document.createElement('div');
   div.className = 'ci';
+  // Выделяем "(проверить устно)" тегом
+  const displayText = text.replace(
+    /\(проверить устно\)/g,
+    '<span class="tag-oral">💬 устно</span>'
+  );
   div.innerHTML = `
-    <div class="ci-text">${text}</div>
+    <div class="ci-text">${displayText}</div>
     <div class="btns">
       <button class="rb" data-v="ok" onclick="rate('${key}','ok',this)">✓ Да</button>
       <button class="rb" data-v="pt" onclick="rate('${key}','pt',this)">⚠ Частично</button>
       <button class="rb" data-v="no" onclick="rate('${key}','no',this)">✗ Нет</button>
       <button class="rb" data-v="na" onclick="rate('${key}','na',this)">— Н/П</button>
     </div>
-    <span class="note-tog" onclick="togNote('n_${key}')">+ заметка</span>
+    <span class="note-tog" onclick="togNote('n_${key}')">✏️ заметка</span>
     <div class="note-box" id="n_${key}"><textarea placeholder="Комментарий..."></textarea></div>`;
   return div;
 }
