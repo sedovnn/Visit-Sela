@@ -539,46 +539,44 @@ body{font-family:'Golos Text',sans-serif;background:#EEF2F7;color:var(--text);mi
 // rkr_w1 = Света, rkr_w2 = Женя
 // ═══════════════════════════════════════════════════════
 const STORES = {
-  "Москва Columbus":              { email:"sl.moskva.columbus3@melonfashion.com",       has_w:true,  has_m:true,  has_k:true,  rkr_w:"rkr_w1" },
-  "Москва Мега Химки":            { email:"sl.moskva.megakhimki2@melonfashion.com",      has_w:true,  has_m:true,  has_k:true,  rkr_w:"rkr_w2" },
-  "Москва Авиапарк":              { email:"sl.moskva.aviapark@melonfashion.com",         has_w:true,  has_m:true,  has_k:true,  rkr_w:"rkr_w2" },
-  "Москва Метрополис":            { email:"sl.moskva.metropolis@melonfashion.com",       has_w:true,  has_m:true,  has_k:true,  rkr_w:"rkr_w2" },
-  "Москва Саларис":               { email:"sl.moskva.salaris2@melonfashion.com",         has_w:true,  has_m:true,  has_k:true,  rkr_w:"rkr_w1" },
-  "Москва Афимолл":               { email:"sl.moskva.afimoll@melonfashion.com",          has_w:true,  has_m:true,  has_k:true,  rkr_w:"rkr_w1" },
-  "Москва Европейский":           { email:"sl.moskva.evropeyskiy@melonfashion.com",      has_w:true,  has_m:false, has_k:true,  rkr_w:"rkr_w1" },
-  "Москва Город Лефортово-2":     { email:"sl.moskva.gorodlefortovo@melonfashion.com",   has_w:true,  has_m:true,  has_k:true,  rkr_w:"rkr_w2" },
-  "Зеленоград Зеленопарк":        { email:"sl.zelenograd.zelenopark2@melonfashion.com",  has_w:true,  has_m:true,  has_k:true,  rkr_w:"rkr_w2" },
-  "Москва Павелецкая Плаза":      { email:"sl.moskva.paveletskayaplaza@melonfashion.com",has_w:true,  has_m:true,  has_k:true,  rkr_w:"rkr_w1" },
-  "Москва BOTANICA":              { email:"sl.moskva.botanica@melonfashion.com",         has_w:true,  has_m:true,  has_k:true,  rkr_w:"rkr_w2" },
-  "Мытищи Красный Кит":           { email:"sl.mytischi.krasniykit@melonfashion.com",     has_w:true,  has_m:true,  has_k:true,  rkr_w:"rkr_w2" },
-  "Москва Мега Белая Дача":       { email:"sl.moskva.megabelayadacha@melonfashion.com",  has_w:true,  has_m:true,  has_k:true,  rkr_w:"rkr_w1" },
-  "Одинцово Одипарк":             { email:"sl.odintsovo.odipark@melonfashion.com",       has_w:true,  has_m:true,  has_k:true,  rkr_w:"rkr_w1" },
-  "Москва Хорошо":                { email:"sl.moskva.khorosho@melonfashion.com",         has_w:true,  has_m:true,  has_k:true,  rkr_w:"rkr_w2" },
-  "Москва Мега Тёплый Стан":      { email:"sl.moskva.megatepliystan@melonfashion.com",   has_w:true,  has_m:true,  has_k:true,  rkr_w:"rkr_w1" },
-  "Москва Бутово Молл":           { email:"sl.moskva.butovomoll@melonfashion.com",       has_w:true,  has_m:true,  has_k:true,  rkr_w:"rkr_w1" },
-  "Москва Каширская Плаза":       { email:"sl.moskva.kashirskayaplaza@melonfashion.com", has_w:true,  has_m:true,  has_k:true,  rkr_w:"rkr_w1" },
-  "Москва Вегас 2":               { email:"sl.moskva.vegas2@melonfashion.com",           has_w:true,  has_m:false, has_k:true,  rkr_w:"rkr_w1" },
-  "Москва Вегас (Кунцево)":       { email:"sl.moskva.vegaskuntsevo@melonfashion.com",    has_w:true,  has_m:false, has_k:true,  rkr_w:"rkr_w1" },
-  "Москва Пушкино Парк":          { email:"sl.moskva.pushkinopark@melonfashion.com",     has_w:true,  has_m:true,  has_k:true,  rkr_w:"rkr_w2" },
-  "Москва ЗУМ":                   { email:"sl.moskva.zum@melonfashion.com",              has_w:true,  has_m:true,  has_k:true,  rkr_w:"rkr_w1" },
-  "Москва Европолис (Золотой Вавилон)": { email:"sl.moskva.evropoliszolotoyvavilonrostokino@melonfashion.com", has_w:true, has_m:false, has_k:true, rkr_w:"rkr_w2" },
-  "Москва Щёлковский":            { email:"sl.moskva.schelkovskiy@melonfashion.com",     has_w:true,  has_m:false, has_k:true,  rkr_w:"rkr_w2" },
-  "Москва Селигерская":           { email:"—",                                           has_w:true,  has_m:true,  has_k:true,  rkr_w:"rkr_w2" },
-  "Москва Весна":                 { email:"sl.moskva.vesna@melonfashion.com",            has_w:true,  has_m:false, has_k:true,  rkr_w:"rkr_w2" },
-  "Москва Ареал (Беляево)":       { email:"sl.moskva.arealbelyaevo@melonfashion.com",    has_w:true,  has_m:false, has_k:false, rkr_w:"rkr_w1" },
-  "Москва Домодедовский":         { email:"sl.moskva.domodedovskiy@melonfashion.com",    has_w:true,  has_m:false, has_k:true,  rkr_w:"rkr_w1" },
-  "Москва Шоколад":               { email:"sl.moskva.shokolad@melonfashion.com",         has_w:true,  has_m:false, has_k:true,  rkr_w:"rkr_w2" },
-  "Москва Ладья":                 { email:"sl.moskva.ladya@melonfashion.com",            has_w:true,  has_m:false, has_k:true,  rkr_w:"rkr_w2" },
-  "Москва Мегаполис":             { email:"sl.moskva.megapolis@melonfashion.com",        has_w:true,  has_m:false, has_k:true,  rkr_w:"rkr_w1" },
-  "Красногорск РигаМолл":         { email:"sl.krasnogorsk.rigamoll@melonfashion.com",    has_w:true,  has_m:true,  has_k:true,  rkr_w:"rkr_w2" },
-  "Москва Вэйпарк":               { email:"sl.moskva.veypark@melonfashion.com",          has_w:true,  has_m:false, has_k:true,  rkr_w:"rkr_w2" },
-  "Москва Иридиум":               { email:"sl.moskva.iridium@melonfashion.com",          has_w:true,  has_m:false, has_k:true,  rkr_w:"rkr_w2" },
-  "Москва Ривьера":               { email:"sl.moskva.rivyera@melonfashion.com",          has_w:true,  has_m:true,  has_k:true,  rkr_w:"rkr_w1" },
-  "Москва Океания":               { email:"sl.moskva.okeaniya@melonfashion.com",         has_w:true,  has_m:true,  has_k:true,  rkr_w:"rkr_w1" },
-  "Москва Остров Мечты Kids":     { email:"sl.moskva.ostrovmechtykids@melonfashion.com", has_w:false, has_m:false, has_k:true,  rkr_w:null },
-  // Магазины из базы без РКР-привязки (пока)
-  "Москва XL":                    { email:"sl.moskva.xl@melonfashion.com",               has_w:true,  has_m:true,  has_k:true,  rkr_w:null },
-  "Москва Avenue Sever":          { email:"sl.moskva.avenuesever@melonfashion.com",      has_w:true,  has_m:true,  has_k:true,  rkr_w:null },
+  "Авиапарк":              { email:"sl.moskva.aviapark@melonfashion.com",         has_w:true,  has_m:true,  has_k:true,  rkr_w:"rkr_w2" },
+  "Ареал (Беляево)":       { email:"sl.moskva.arealbelyaevo@melonfashion.com",    has_w:true,  has_m:false, has_k:false, rkr_w:"rkr_w1" },
+  "Афимолл":               { email:"sl.moskva.afimoll@melonfashion.com",          has_w:true,  has_m:true,  has_k:true,  rkr_w:"rkr_w1" },
+  "Бутово Молл":           { email:"sl.moskva.butovomoll@melonfashion.com",       has_w:true,  has_m:true,  has_k:true,  rkr_w:"rkr_w1" },
+  "Вегас (Кунцево)":       { email:"sl.moskva.vegaskuntsevo@melonfashion.com",    has_w:true,  has_m:false, has_k:true,  rkr_w:"rkr_w1" },
+  "Вегас 2":               { email:"sl.moskva.vegas2@melonfashion.com",           has_w:true,  has_m:false, has_k:true,  rkr_w:"rkr_w1" },
+  "Весна":                 { email:"sl.moskva.vesna@melonfashion.com",            has_w:true,  has_m:false, has_k:true,  rkr_w:"rkr_w2" },
+  "Вэйпарк":               { email:"sl.moskva.veypark@melonfashion.com",          has_w:true,  has_m:false, has_k:true,  rkr_w:"rkr_w2" },
+  "Город Лефортово-2":     { email:"sl.moskva.gorodlefortovo@melonfashion.com",   has_w:true,  has_m:true,  has_k:true,  rkr_w:"rkr_w2" },
+  "Домодедовский":         { email:"sl.moskva.domodedovskiy@melonfashion.com",    has_w:true,  has_m:false, has_k:true,  rkr_w:"rkr_w1" },
+  "Европейский":           { email:"sl.moskva.evropeyskiy@melonfashion.com",      has_w:true,  has_m:false, has_k:true,  rkr_w:"rkr_w1" },
+  "Европолис (Золотой Вавилон)": { email:"sl.moskva.evropoliszolotoyvavilonrostokino@melonfashion.com", has_w:true, has_m:false, has_k:true, rkr_w:"rkr_w2" },
+  "Зеленопарк":        { email:"sl.zelenograd.zelenopark2@melonfashion.com",  has_w:true,  has_m:true,  has_k:true,  rkr_w:"rkr_w2" },
+  "ЗУМ":                   { email:"sl.moskva.zum@melonfashion.com",              has_w:true,  has_m:true,  has_k:true,  rkr_w:"rkr_w1" },
+  "Иридиум":               { email:"sl.moskva.iridium@melonfashion.com",          has_w:true,  has_m:false, has_k:true,  rkr_w:"rkr_w2" },
+  "Каширская Плаза":       { email:"sl.moskva.kashirskayaplaza@melonfashion.com", has_w:true,  has_m:true,  has_k:true,  rkr_w:"rkr_w1" },
+  "Красный Кит":           { email:"sl.mytischi.krasniykit@melonfashion.com",     has_w:true,  has_m:true,  has_k:true,  rkr_w:"rkr_w2" },
+  "Ладья":                 { email:"sl.moskva.ladya@melonfashion.com",            has_w:true,  has_m:false, has_k:true,  rkr_w:"rkr_w2" },
+  "Мега Белая Дача":       { email:"sl.moskva.megabelayadacha@melonfashion.com",  has_w:true,  has_m:true,  has_k:true,  rkr_w:"rkr_w1" },
+  "Мега Тёплый Стан":      { email:"sl.moskva.megatepliystan@melonfashion.com",   has_w:true,  has_m:true,  has_k:true,  rkr_w:"rkr_w1" },
+  "Мега Химки":            { email:"sl.moskva.megakhimki2@melonfashion.com",      has_w:true,  has_m:true,  has_k:true,  rkr_w:"rkr_w2" },
+  "Мегаполис":             { email:"sl.moskva.megapolis@melonfashion.com",        has_w:true,  has_m:false, has_k:true,  rkr_w:"rkr_w1" },
+  "Метрополис":            { email:"sl.moskva.metropolis@melonfashion.com",       has_w:true,  has_m:true,  has_k:true,  rkr_w:"rkr_w2" },
+  "Одипарк":             { email:"sl.odintsovo.odipark@melonfashion.com",       has_w:true,  has_m:true,  has_k:true,  rkr_w:"rkr_w1" },
+  "Океания":               { email:"sl.moskva.okeaniya@melonfashion.com",         has_w:true,  has_m:true,  has_k:true,  rkr_w:"rkr_w1" },
+  "Остров Мечты Kids":     { email:"sl.moskva.ostrovmechtykids@melonfashion.com", has_w:false, has_m:false, has_k:true,  rkr_w:null },
+  "Павелецкая Плаза":      { email:"sl.moskva.paveletskayaplaza@melonfashion.com",has_w:true,  has_m:true,  has_k:true,  rkr_w:"rkr_w1" },
+  "Пушкино Парк":          { email:"sl.moskva.pushkinopark@melonfashion.com",     has_w:true,  has_m:true,  has_k:true,  rkr_w:"rkr_w2" },
+  "Ривьера":               { email:"sl.moskva.rivyera@melonfashion.com",          has_w:true,  has_m:true,  has_k:true,  rkr_w:"rkr_w1" },
+  "РигаМолл":         { email:"sl.krasnogorsk.rigamoll@melonfashion.com",    has_w:true,  has_m:true,  has_k:true,  rkr_w:"rkr_w2" },
+  "Саларис":               { email:"sl.moskva.salaris2@melonfashion.com",         has_w:true,  has_m:true,  has_k:true,  rkr_w:"rkr_w1" },
+  "Хорошо":                { email:"sl.moskva.khorosho@melonfashion.com",         has_w:true,  has_m:true,  has_k:true,  rkr_w:"rkr_w2" },
+  "Шоколад":               { email:"sl.moskva.shokolad@melonfashion.com",         has_w:true,  has_m:false, has_k:true,  rkr_w:"rkr_w2" },
+  "Щёлковский":            { email:"sl.moskva.schelkovskiy@melonfashion.com",     has_w:true,  has_m:false, has_k:true,  rkr_w:"rkr_w2" },
+  "Avenue Sever":          { email:"sl.moskva.avenuesever@melonfashion.com",      has_w:true,  has_m:true,  has_k:true,  rkr_w:"rkr_w2" },
+  "BOTANICA":              { email:"sl.moskva.botanica@melonfashion.com",         has_w:true,  has_m:true,  has_k:true,  rkr_w:"rkr_w2" },
+  "Columbus":              { email:"sl.moskva.columbus3@melonfashion.com",       has_w:true,  has_m:true,  has_k:true,  rkr_w:"rkr_w1" },
+  "XL":                    { email:"sl.moskva.xl@melonfashion.com",               has_w:true,  has_m:false,  has_k:true,  rkr_w:null }
 };
 
 // ═══════════════════════════════════════════════════════
@@ -882,10 +880,6 @@ const CHECKLIST_RKR_K = CHECKLIST_RKR;
 // КОМАНДЫ МАГАЗИНОВ
 // ═══════════════════════════════════════════════════════
 const STORE_STAFF = {
-  "Avenue-Sever": {dm:"Воронова Виктория", admins:["Белова Светлана", "Турецкая Карина"], vms:["Богуславская Елена"]},
-  "Botanica": {dm:"Трусов Сергей", admins:["Комиссаров Дмитрий", "Ширяев Данила"], vms:["Крайма Валерия", "Никулина Мария"]},
-  "Columbus": {dm:"Аскерова Анжелика", admins:["Давыдова Юлиана", "Лукияненко Вера", "Шульгина Екатерина"], vms:["Марсанов Артём", "Харькова Лидия", "Яриловец Елизавета"]},
-  "XL": {dm:"Маслова Ирина", admins:["Головин Игнат"], vms:[]},
   "Авиапарк": {dm:"Нелезина Анастасия", admins:["Васильев Даниил", "Касьянова Кристина", "Минкибаева Риназа", "Никонов Даниил"], vms:["Азымова Ася", "Баранова Татьяна", "Крамарева Ксения", "Кунякин Андрей"]},
   "Ареал (Беляево)": {dm:"Дмитренко Екатерина", admins:["Грибчук Дарья", "Данилин Александр", "Журавлева Анастасия"], vms:[]},
   "Афимолл": {dm:"Васильева Валерия", admins:["Захарова Татьяна", "Моргунова Елена"], vms:["Кудинова Елена", "Пономаренко Сергей"]},
@@ -898,8 +892,8 @@ const STORE_STAFF = {
   "Домодедовский": {dm:"Копитцова Светлана", admins:["Кравченко Алина"], vms:[]},
   "Европейский": {dm:"Суфьянова Эльвира", admins:["Дмитриева Ксения", "Сорокина Виктория"], vms:["Логовская Алёна"]},
   "Европолис": {dm:null, admins:["Патрикеева Александра", "Чернова Ирина"], vms:[]},
-  "ЗУМ": {dm:"Канкина Алеся", admins:["Биксаева Алтынай", "Новикова Анастасия"], vms:["Кольцова Елена"]},
   "Зеленопарк": {dm:"Степанова Алла", admins:["Волошина Любовь", "Евтухова Вероника"], vms:["Колпакова Юлия", "Попова Анастасия"]},
+  "ЗУМ": {dm:"Канкина Алеся", admins:["Биксаева Алтынай", "Новикова Анастасия"], vms:["Кольцова Елена"]},
   "Иридиум": {dm:"Лобанова Ирина", admins:["Федосова Анастасия"], vms:[]},
   "Каширская Плаза": {dm:"Иванова Виктория", admins:["Микешина Юлия", "Шапошникова Карина"], vms:["Колбая Хибла"]},
   "Красный Кит": {dm:"Кожевникова Любовь", admins:["Голубева Ева", "Медведева Дарья", "Яхина Елизавета"], vms:["Масальская Алина", "Осипова Эльмира"]},
@@ -920,6 +914,10 @@ const STORE_STAFF = {
   "Хорошо": {dm:"Годнюк Анастасия", admins:["Дегтярева Ксения", "Цуриков Александр"], vms:["Оконова Светлана"]},
   "Шоколад": {dm:"Брыксина Юлия", admins:["Латышева Мария", "Литвинова Евгения"], vms:[]},
   "Щёлковский": {dm:"Ипатьева Ирина", admins:["Обара Наталия"], vms:[]},
+  "Avenue-Sever": {dm:"Воронова Виктория", admins:["Белова Светлана", "Турецкая Карина"], vms:["Богуславская Елена"]},
+  "Botanica": {dm:"Трусов Сергей", admins:["Комиссаров Дмитрий", "Ширяев Данила"], vms:["Крайма Валерия", "Никулина Мария"]},
+  "Columbus": {dm:"Аскерова Анжелика", admins:["Давыдова Юлиана", "Лукияненко Вера", "Шульгина Екатерина"], vms:["Марсанов Артём", "Харькова Лидия", "Яриловец Елизавета"]},
+  "XL": {dm:"Маслова Ирина", admins:["Головин Игнат"], vms:[]}
 };
 
 // ═══════════════════════════════════════════════════════
@@ -1074,7 +1072,7 @@ function refreshStoreList() {
   document.getElementById('emailHint').classList.remove('found');
 }
 
-// Резолвер: из полного ключа STORES ("Москва Авиапарк") -> ключ STORE_STAFF ("Авиапарк")
+// Резолвер: из полного ключа STORES ("Авиапарк") -> ключ STORE_STAFF ("Авиапарк")
 function resolveStaffKey(storeVal) {
   if (!storeVal) return null;
   if (STORE_STAFF[storeVal]) return storeVal;
@@ -1087,12 +1085,11 @@ function resolveStaffKey(storeVal) {
   }
   // Явный маппинг для неоднозначных названий
   const explicit = {
-    'Москва Город Лефортово-2': 'Город Лефортово',
-    'Москва Вегас 2':           'Вегас',
-    'Москва Вегас (Кунцево)':   'Вегас Кунцево',
-    'Москва Европолис (Золотой Вавилон)': 'Европолис',
-    'Москва Селигерская':       'Avenue-Sever',
-    'Красногорск РигаМолл':     'Рига Молл',
+    'Город Лефортово-2': 'Город Лефортово',
+    'Вегас 2':           'Вегас',
+    'Вегас (Кунцево)':   'Вегас Кунцево',
+    'Европолис (Золотой Вавилон)': 'Европолис',
+    'РигаМолл':     'Рига Молл',
   };
   if (explicit[storeVal]) return explicit[storeVal];
   // частичное совпадение по последнему слову
@@ -1494,64 +1491,116 @@ function buildSummary() {
 }
 
 function submitVisit() {
-  const storeName = document.getElementById('store').value || 'Не указан';
-  const storeInfo = STORES[storeName];
-  const email = storeInfo ? storeInfo.email : '—';
-  const otpbInspectorEl = document.getElementById('otpbInspector');
-  const vname = currentRole === 'otpb' && otpbInspectorEl && otpbInspectorEl.value
-    ? otpbInspectorEl.value
-    : (VISITOR_NAMES[currentRole] || VISITOR_CONFIG[currentRole]?.label || '—');
-  const rawManager = document.getElementById('storeManager').value || '';
-  const storeManager = rawManager || '—';
-  const date = document.getElementById('vdate').value || 'Сегодня';
-  const badge = document.getElementById('badge').textContent;
-  const comment = document.getElementById('overall').value;
-  const statusMap = {g:'🟢 Норма', y:'🟡 Внимание', r:'🔴 Риск', '':'Не указан'};
+  const storeName   = document.getElementById('store').value || 'Не указан';
+  const storeInfo   = STORES[storeName];
+  const storeEmail  = storeInfo ? storeInfo.email : '—';
+  const vname       = VISITOR_NAMES[currentRole] || VISITOR_CONFIG[currentRole]?.label || '—';
+  const visitorEmail = {
+    div:    'sedovnn@melonfashion.com',
+    ops:    'schurenkovaos@melonfashion.com',
+    hr:     'avdyshevakg@melonfashion.com',
+    rkr:    'chechurasv@melonfashion.com',
+    otpb:   'sedovnn@melonfashion.com',
+  }[currentRole] || '';
 
-  let totalOk = 0, total = 0;
+  const storeManager = document.getElementById('storeManager').value || '—';
+  const date         = document.getElementById('vdate').value || new Date().toISOString().slice(0,10);
+  const badge        = document.getElementById('badge').textContent;
+  const comment      = document.getElementById('overall').value.trim();
+  const statusMap    = {g:'🟢 Норма', y:'🟡 Внимание', r:'🔴 Риск', '':'Не указан'};
+  const statusLabel  = statusMap[visitStatus] || 'Не указан';
+
+  // Результаты по секциям
+  const sections = [];
+  let totalOk = 0;
   if (currentChecklist) {
-    total = currentChecklist.reduce((a,s) => a + s.items.length, 0);
-    Object.values(ratings).forEach(v => { if (v === 'ok') totalOk++; });
+    currentChecklist.forEach(sec => {
+      if (!sec.items || sec.items.length === 0) return;
+      let secOk = 0, secPt = 0, secNo = 0, secNa = 0;
+      const items = [];
+      sec.items.forEach((text, idx) => {
+        const key    = `${sec.id}_${idx}`;
+        const val    = ratings[key] || null;
+        const noteEl = document.getElementById(`n_${key}`);
+        const note   = noteEl ? (noteEl.querySelector('textarea')?.value?.trim() || '') : '';
+        const valMap = {ok:'✓ Да', pt:'⚠ Частично', no:'✗ Нет', na:'— Н/П'};
+        if (val === 'ok') { secOk++; totalOk++; }
+        else if (val === 'pt') secPt++;
+        else if (val === 'no') secNo++;
+        else if (val === 'na') secNa++;
+        items.push({ text, val: val || '—', valLabel: valMap[val] || '—', note });
+      });
+      const scored = secOk + secPt + secNo;
+      const secPct = scored > 0 ? Math.round(secOk / scored * 100) : null;
+      sections.push({ label: sec.label, pct: secPct, ok: secOk, pt: secPt, no: secNo, na: secNa, items });
+    });
   }
-  const pct = total > 0 ? Math.round(totalOk / total * 100) : null;
+  const totalScored = sections.reduce((a,s) => a + s.ok + s.pt + s.no, 0);
+  const totalPct    = totalScored > 0 ? Math.round(totalOk / totalScored * 100) : null;
 
+  // Задачи
   const tasks = [1,2,3].map(i => {
     const t = document.getElementById('t'+i).value.trim();
     const o = document.getElementById('to'+i).value;
     const d = document.getElementById('td'+i).value;
-    return t ? `${i}. ${t}${o?' — '+o:''}${d?' · до '+d:''}` : null;
+    return t ? { text: t, owner: o || '—', deadline: d || '—' } : null;
   }).filter(Boolean);
 
-  document.getElementById('succSub').textContent = `Отчёт зафиксирован${email !== '—' ? ' и готов к отправке' : ''}.`;
-  document.getElementById('sendInfo').innerHTML = `📧 Магазин: <b>${email}</b>`;
+  // Свободные поля
+  const storeNotes = (document.getElementById('ff_ops')?.value?.trim() || document.getElementById('ff_h7')?.value?.trim() || '');
+  const finalNotes = document.getElementById('ff_h8')?.value?.trim() || '';
+
+  // Payload
+  const payload = {
+    store: storeName, storeEmail,
+    visitorName: vname, visitorEmail, role: badge,
+    visitDate: date, manager: storeManager,
+    status: statusLabel, totalPct: totalPct !== null ? totalPct : '—',
+    comment, sections,
+    task1: tasks[0] ? `${tasks[0].text} — ${tasks[0].owner} · до ${tasks[0].deadline}` : '',
+    task2: tasks[1] ? `${tasks[1].text} — ${tasks[1].owner} · до ${tasks[1].deadline}` : '',
+    task3: tasks[2] ? `${tasks[2].text} — ${tasks[2].owner} · до ${tasks[2].deadline}` : '',
+    tasksRaw: tasks, storeNotes, finalNotes,
+    emailTo:  storeEmail !== '—' ? storeEmail : '',
+    emailCc:  ['sedovnn@melonfashion.com', visitorEmail].filter((e,i,a) => e && a.indexOf(e)===i).join(','),
+  };
+
+  // Экран успеха
+  const secLines = sections.map(s => {
+    const pctStr = s.pct !== null ? `${s.pct}%` : '—';
+    const icon   = s.pct === null ? '' : s.pct >= 80 ? ' ✅' : s.pct >= 50 ? ' ⚠️' : ' 🔴';
+    return `<b>${s.label}:</b> ${pctStr}${icon}`;
+  }).join('<br>');
+
+  document.getElementById('sendInfo').innerHTML = `📧 Магазин: <b>${storeEmail}</b>`;
   document.getElementById('succCard').innerHTML = `
     <b>Магазин:</b> SELA ${storeName}<br>
-    <b>Дата:</b> ${date} · <b>Роль:</b> ${badge}<br>
+    <b>Дата:</b> ${date} &nbsp;·&nbsp; <b>Тип:</b> ${badge}<br>
     <b>Визитёр:</b> ${vname}<br>
-    ${storeManager !== '—' ? `<b>Представитель магазина:</b> ${storeManager}<br>` : ''}
-    ${pct !== null ? `<b>Результат:</b> ${pct}% (${totalOk}/${total})<br>` : ''}
-    <b>Статус:</b> ${statusMap[visitStatus]}
-    ${tasks.length ? '<br><br><b>Задачи:</b><br>' + tasks.join('<br>') : ''}
-    ${comment ? `<br><br><b>Заметка:</b> ${comment.slice(0,120)}${comment.length>120?'…':''}` : ''}
+    ${storeManager !== '—' ? `<b>Представитель:</b> ${storeManager}<br>` : ''}
+    <br>${secLines}<br><br>
+    <b>Итог:</b> ${totalPct !== null ? totalPct+'%' : '—'} &nbsp;·&nbsp; ${statusLabel}
+    ${tasks.length ? '<br><br><b>Задачи:</b><br>' + tasks.map((t,i)=>`${i+1}. ${t.text} — ${t.owner} · до ${t.deadline}`).join('<br>') : ''}
+    ${comment ? `<br><br><b>Комментарий:</b> ${comment}` : ''}
   `;
 
   document.getElementById('app').style.display = 'none';
   document.getElementById('succ').style.display = 'block';
+  document.getElementById('succSub').textContent = 'Отправляем отчёт...';
   window.scrollTo(0, 0);
-  // Отправка на webhook
-  fetch('https://sedovnn.app.n8n.cloud/webhook/50e2edb8-ac57-4aca-89b6-3f362bdc6737', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      store: storeName, visitor: vname, role: badge, visitDate: date,
-      manager: storeManager, storeEmail: email,
-      totalPct: totalPct, status: statusLabel,
-      task1: tasks[0], task2: tasks[1], task3: tasks[2], comment: comment,
-    }),
-  })
-  .then(() => { document.getElementById('succSub').textContent = 'Отчёт отправлен в Telegram и на почту магазина.'; })
-  .catch(() => { document.getElementById('succSub').textContent = 'Визит сохранён. Проверь соединение — отчёт мог не уйти.'; });
 
+  fetch('https://sedovnn.app.n8n.cloud/webhook/50e2edb8-ac57-4aca-89b6-3f362bdc6737', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  })
+  .then(r => {
+    document.getElementById('succSub').textContent = r.ok
+      ? 'Отчёт отправлен в Telegram и на почту.'
+      : `Ошибка отправки (${r.status}).`;
+  })
+  .catch(() => {
+    document.getElementById('succSub').textContent = 'Нет соединения — отчёт не ушёл.';
+  });
 }
 
 // ═══════════════════════════════════════════════════════
