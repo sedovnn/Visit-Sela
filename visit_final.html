@@ -161,6 +161,17 @@ body{font-family:'Golos Text',sans-serif;background:#EEF2F7;color:var(--text);mi
       <div class="tab hidden" data-p="15" onclick="go(15)">Условия<span class="dot"></span></div>
       <div class="tab hidden" data-p="16" onclick="go(16)">Особенности<span class="dot"></span></div>
       <div class="tab hidden" data-p="17" onclick="go(17)">Финал<span class="dot"></span></div>
+      <div class="tab hidden" data-p="20" onclick="go(20)">Фасад<span class="dot"></span></div>
+      <div class="tab hidden" data-p="21" onclick="go(21)">VM — Зал<span class="dot"></span></div>
+      <div class="tab hidden" data-p="22" onclick="go(22)">Коммерция<span class="dot"></span></div>
+      <div class="tab hidden" data-p="23" onclick="go(23)">Sale<span class="dot"></span></div>
+      <div class="tab hidden" data-p="24" onclick="go(24)">Склад<span class="dot"></span></div>
+      <div class="tab hidden" data-p="25" onclick="go(25)">Торг.зал<span class="dot"></span></div>
+      <div class="tab hidden" data-p="26" onclick="go(26)">Персонал<span class="dot"></span></div>
+      <div class="tab hidden" data-p="30" onclick="go(30)">ПБ<span class="dot"></span></div>
+      <div class="tab hidden" data-p="31" onclick="go(31)">Журналы<span class="dot"></span></div>
+      <div class="tab hidden" data-p="32" onclick="go(32)">Склад/ОТ<span class="dot"></span></div>
+      <div class="tab hidden" data-p="33" onclick="go(33)">Бытовая<span class="dot"></span></div>
       <div class="tab hidden" data-p="8" onclick="go(8)">Задачи</div>
       <div class="tab hidden" data-p="9" onclick="go(9)">Итог</div>
     </div>
@@ -194,6 +205,9 @@ body{font-family:'Golos Text',sans-serif;background:#EEF2F7;color:var(--text);mi
           <div class="vcard" data-role="rkr_k" onclick="selectVisitor(this)">
             <span class="vi">🧒</span><span class="vn">РКР Детского</span><span class="vs">Только маг. с дет. отделом</span>
           </div>
+          <div class="vcard" data-role="otpb" onclick="selectVisitor(this)">
+            <span class="vi">🔥</span><span class="vn">ОТ и ПБ</span><span class="vs">Охрана труда · Пожарная безопасность</span>
+          </div>
         </div>
       </div>
       <div class="meta" id="storeBlock" style="display:none">
@@ -212,6 +226,15 @@ body{font-family:'Golos Text',sans-serif;background:#EEF2F7;color:var(--text);mi
     </select>
     <div style="margin-top:6px;font-size:11px;color:var(--grey)" id="managerRole"></div>
   </div>
+      <div class="meta" id="otpbVisitorBlock" style="display:none">
+        <label>Кто проводит проверку</label>
+        <select id="otpbInspector">
+          <option value="">— выбрать</option>
+          <option value="Николай Седов">Николай Седов (Директор Дивизиона)</option>
+          <option value="Ольга Щуренкова">Ольга Щуренкова (Операционный Директор)</option>
+          <option value="HRBP">HRBP</option>
+        </select>
+      </div>
       <div class="bar" id="startBar" style="display:none">
         <button class="btn-full" onclick="startVisit()">Начать визит →</button>
       </div>
@@ -304,6 +327,63 @@ body{font-family:'Golos Text',sans-serif;background:#EEF2F7;color:var(--text);mi
         </div>
       </div>
       <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="go(16)">← Назад</button><button class="btn btn-pri" onclick="go(8)">Задачи →</button></div></div>
+    </div>
+
+    <!-- РКР p20: Фасад/Витрина -->
+    <div class="page" id="p20">
+      <div class="sec"><div class="sec-hdr"><span class="sec-ico">🏪</span><span class="sec-name">Фасад / Витрина</span><span class="sec-score" id="sr1">0/—</span></div><div id="itemsr1"></div></div>
+      <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="go(0)">← Назад</button><button class="btn btn-pri" onclick="goNext(20)">Дальше →</button></div></div>
+    </div>
+    <!-- РКР p21: VM Зал -->
+    <div class="page" id="p21">
+      <div class="sec"><div class="sec-hdr"><span class="sec-ico">👗</span><span class="sec-name">VM — Зал</span><span class="sec-score" id="sr2">0/—</span></div><div id="itemsr2"></div></div>
+      <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="goPrev(21)">← Назад</button><button class="btn btn-pri" onclick="goNext(21)">Дальше →</button></div></div>
+    </div>
+    <!-- РКР p22: Коммерция -->
+    <div class="page" id="p22">
+      <div class="sec"><div class="sec-hdr"><span class="sec-ico">📊</span><span class="sec-name">Коммерция</span><span class="sec-score" id="sr3">0/—</span></div><div id="itemsr3"></div></div>
+      <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="goPrev(22)">← Назад</button><button class="btn btn-pri" onclick="goNext(22)">Дальше →</button></div></div>
+    </div>
+    <!-- РКР p23: Sale -->
+    <div class="page" id="p23">
+      <div class="sec"><div class="sec-hdr"><span class="sec-ico">🏷️</span><span class="sec-name">Sale</span><span class="sec-score" id="sr4">0/—</span></div><div id="itemsr4"></div></div>
+      <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="goPrev(23)">← Назад</button><button class="btn btn-pri" onclick="goNext(23)">Дальше →</button></div></div>
+    </div>
+    <!-- РКР p24: Склад -->
+    <div class="page" id="p24">
+      <div class="sec"><div class="sec-hdr"><span class="sec-ico">📦</span><span class="sec-name">Склад</span><span class="sec-score" id="sr5">0/—</span></div><div id="itemsr5"></div></div>
+      <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="goPrev(24)">← Назад</button><button class="btn btn-pri" onclick="goNext(24)">Дальше →</button></div></div>
+    </div>
+    <!-- РКР p25: Торговый зал -->
+    <div class="page" id="p25">
+      <div class="sec"><div class="sec-hdr"><span class="sec-ico">✨</span><span class="sec-name">Торговый зал</span><span class="sec-score" id="sr6">0/—</span></div><div id="itemsr6"></div></div>
+      <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="goPrev(25)">← Назад</button><button class="btn btn-pri" onclick="goNext(25)">Дальше →</button></div></div>
+    </div>
+    <!-- РКР p26: Персонал -->
+    <div class="page" id="p26">
+      <div class="sec"><div class="sec-hdr"><span class="sec-ico">👥</span><span class="sec-name">Персонал</span><span class="sec-score" id="sr7">0/—</span></div><div id="itemsr7"></div></div>
+      <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="goPrev(26)">← Назад</button><button class="btn btn-pri" onclick="go(8)">Задачи →</button></div></div>
+    </div>
+
+    <!-- ОТ/ПБ p30: Пожарная безопасность -->
+    <div class="page" id="p30">
+      <div class="sec"><div class="sec-hdr"><span class="sec-ico">🔥</span><span class="sec-name">Пожарная безопасность</span><span class="sec-score" id="sob1">0/—</span></div><div id="itemsob1"></div></div>
+      <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="goPrev(30)">← Назад</button><button class="btn btn-pri" onclick="goNext(30)">Дальше →</button></div></div>
+    </div>
+    <!-- ОТ/ПБ p31: Журналы -->
+    <div class="page" id="p31">
+      <div class="sec"><div class="sec-hdr"><span class="sec-ico">📋</span><span class="sec-name">Журналы ПБ и ОТ</span><span class="sec-score" id="sob2">0/—</span></div><div id="itemsob2"></div></div>
+      <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="goPrev(31)">← Назад</button><button class="btn btn-pri" onclick="goNext(31)">Дальше →</button></div></div>
+    </div>
+    <!-- ОТ/ПБ p32: Склад и помещения -->
+    <div class="page" id="p32">
+      <div class="sec"><div class="sec-hdr"><span class="sec-ico">📦</span><span class="sec-name">Склад и помещения</span><span class="sec-score" id="sob3">0/—</span></div><div id="itemsob3"></div></div>
+      <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="goPrev(32)">← Назад</button><button class="btn btn-pri" onclick="goNext(32)">Дальше →</button></div></div>
+    </div>
+    <!-- ОТ/ПБ p33: Бытовая зона -->
+    <div class="page" id="p33">
+      <div class="sec"><div class="sec-hdr"><span class="sec-ico">🍵</span><span class="sec-name">Бытовая зона</span><span class="sec-score" id="sob4">0/—</span></div><div id="itemsob4"></div></div>
+      <div class="bar"><div class="bar-btns"><button class="btn btn-sec" onclick="goPrev(33)">← Назад</button><button class="btn btn-pri" onclick="goNext(33)">Дальше →</button></div></div>
     </div>
     <!-- 8: ЗАДАЧИ -->
     <div class="page" id="p8">
@@ -488,7 +568,7 @@ const VISITOR_CONFIG = {
   div: {
     label: "Директор Дивизиона",
     badge: "ДИВ",
-    pages: [1,2,3,4,5,6,18],
+    pages: [1,2,3,4],
     mode: "multi",
     storeFilter: () => true,
   },
@@ -509,30 +589,37 @@ const VISITOR_CONFIG = {
   rkr_w1: {
     label: "РКР Женского · Москва 1 (Света)",
     badge: "РКР ЖЕН·1",
-    pages: [7],
-    mode: "single",
+    pages: [20,21,22,23,24,25,26],
+    mode: "rkr",
     storeFilter: s => s.rkr_w === "rkr_w1",
   },
   rkr_w2: {
     label: "РКР Женского · Москва 2 (Женя)",
     badge: "РКР ЖЕН·2",
-    pages: [7],
-    mode: "single",
+    pages: [20,21,22,23,24,25,26],
+    mode: "rkr",
     storeFilter: s => s.rkr_w === "rkr_w2",
   },
   rkr_m: {
     label: "РКР Мужского",
     badge: "РКР МУЖ",
-    pages: [7],
-    mode: "single",
+    pages: [20,21,22,23,24,25,26],
+    mode: "rkr",
     storeFilter: s => s.has_m,
   },
   rkr_k: {
     label: "РКР Детского",
     badge: "РКР ДЕТ",
-    pages: [7],
-    mode: "single",
+    pages: [20,21,22,23,24,25,26],
+    mode: "rkr",
     storeFilter: s => s.has_k,
+  },
+  otpb: {
+    label: "ОТ и ПБ",
+    badge: "ОТ/ПБ",
+    pages: [30,31,32,33],
+    mode: "otpb",
+    storeFilter: () => true,
   },
 };
 
@@ -548,6 +635,7 @@ const CHECKLIST_OPS = [
     "Освещение — все лампы горят, нет перегоревших",
     "Музыка — актуальный плейлист, комфортная громкость",
     "Примерочные — номерки, зеркала, шторы, свет в порядке",
+    "В примерочных ничего не хранится (вещи, коробки, инвентарь)",
     "Комната персонала — чистота, наличие воды",
   ]},
   { id:2, label:"Торг.зал", ico:"👗", items:[
@@ -574,6 +662,7 @@ const CHECKLIST_OPS = [
     "VM-уголок в порядке, вешалки отсортированы по типам",
     "Алармы хранятся по стандарту — коробки/ящики опечатаны",
     "Все накладные в Melon Touch подписаны",
+    "Нет старого и неактуального оборудования — всё лишнее вывезено",
   ]},
   { id:5, label:"Персонал", ico:"👥", items:[
     "График активности заполнен и актуален",
@@ -600,32 +689,28 @@ const CHECKLIST_OPS = [
 
 // Сокращённый для Директора Дивизиона
 const CHECKLIST_DIV = [
-  { id:1, label:"Состояние", ico:"🏪", items:[
-    "Общий вид зала и витрины — первое впечатление",
-    "Освещение и чистота",
-    "Примерочные в порядке",
+  { id:1, label:"Операционка", ico:"🏪", items:[
+    "Первое впечатление: витрина, чистота, свет — всё в порядке",
+    "Зал: нет пустых мест, поразмерка соблюдена, товар отпарен",
+    "Примерочные и касса в порядке, ничего лишнего не хранится",
+    "Склад организован, нет старого и неактуального оборудования",
   ]},
-  { id:2, label:"Торг.зал", ico:"👗", items:[
-    "Нет пустых мест и экстры",
-    "Переоценки выполнены",
-    "Товар отпарен, библиотека в порядке",
+  { id:2, label:"Коммерция", ico:"📊", items:[
+    "Зонирование и блоки по обновлению / манекены стилизованы",
+    "Бестселлеры на видных местах / сотрудники их знают",
+    "KVI выделены / OSA по таргету",
+    "Sale-зона корректна: переоценка, POS, развеска",
   ]},
-  { id:3, label:"Касса", ico:"💳", items:[
-    "Порядок на кассовом узле",
-    "Сотрудники под своим паролем",
+  { id:3, label:"Команда", ico:"👥", items:[
+    "Команда на месте, внешний вид, сервис с покупателями",
+    "Ключевые позиции закрыты (АМ, ВМ, МС)",
+    "Задачи с прошлого визита выполнены",
   ]},
-  { id:4, label:"Склад", ico:"📦", items:[
-    "Организация склада соблюдена",
-    "Подсортировка работает",
-  ]},
-  { id:5, label:"Персонал", ico:"👥", items:[
-    "Команда на месте, внешний вид",
-    "Сервис — приветствие, активность на полу",
-    "Задачи с прошлого визита закрыты?",
-  ]},
-  { id:6, label:"Мерма", ico:"🔒", items:[
-    "Оборудование потерь работает",
-    "Алармы и шкафчики под контролем",
+  { id:4, label:"Финансы", ico:"💰", items:[
+    "Директор знает план/факт продаж на текущий момент",
+    "Директор знает свой ФОТ% и понимает отклонение",
+    "Директор знает ПРОД/ч и динамику за неделю",
+    "Директор знает топ-3 проблемы магазина и что с ними делает",
   ]},
 ];
 
@@ -676,9 +761,94 @@ const CHECKLIST_HR = [
   },
 
 ];
-const CHECKLIST_RKR_W = null;   // → пришли чек-лист
-const CHECKLIST_RKR_M = null;   // → пришли чек-лист
-const CHECKLIST_RKR_K = null;   // → пришли чек-лист
+// Единый коммерческий чек-лист РКР (женский / мужской / детский / home)
+const CHECKLIST_RKR = [
+  { id:"r1", label:"Фасад / Витрина", ico:"🏪", items:[
+    "Вывеска чистая и горит",
+    "Витрина (при наличии) чистая и соответствует обновлению",
+  ]},
+  { id:"r2", label:"VM — Зал", ico:"👗", items:[
+    "Оборудование по планограмме / пустых позиций нет",
+    "Входная группа манекенов по последнему обновлению / манекены стилизованы",
+    "Структуры стен и блоков соответствуют стандартам",
+    "Коллекции и блоки соответствуют актуальному обновлению",
+    "Зонирование корректно",
+    "Зал подсортирован / единички отсутствуют",
+    "Аксессуары, обувь оформлены по стандартам",
+    "Зона белья оформлена по стандартам",
+  ]},
+  { id:"r3", label:"Коммерция", ico:"📊", items:[
+    "Сотрудники знают коммерческие показатели магазина / департамента",
+    "Бестселлеры на видных местах / сотрудники их знают",
+    "Топ-3 товарных группы проработаны",
+    "Поразмерка соблюдена / товар отпарен / зал аккуратный",
+    "KVI выделены",
+    "Маркетинг расставлен корректно (составы, цены, анонсы)",
+    "OSA проработана / вынос NOOS и целевых групп по таргету",
+    "Зона распродажи корректна: переоценка произведена, маркетинг используется",
+    "Оборудование «Последний шанс» оформлено по стандартам",
+  ]},
+  { id:"r4", label:"Sale", ico:"🏷️", items:[
+    "Актуальный и сезонный товар представлен в видимой части торгового зала",
+    "Товар презентован товарными группами",
+    "Соблюдена развеска от светлого к тёмному, по длине рукава",
+    "POS-материалы корректны в зале и витрине",
+  ]},
+  { id:"r5", label:"Склад", ico:"📦", items:[
+    "Чистота на складе / в менеджерской / в комнате персонала",
+    "Товар по категориям и размерам / хранится надлежащим образом",
+    "Уголок VM находится в надлежащем виде",
+    "Информационная доска в комнате сотрудников оформлена согласно регламенту",
+  ]},
+  { id:"r6", label:"Торговый зал", ico:"✨", items:[
+    "Чистота в торговом зале и примерочных",
+    "Визуальный порядок на кассе",
+    "Музыка соответствует плейлисту и инфоповодам, громкость корректна",
+    "Свет настроен, нет негорящих ламп",
+  ]},
+  { id:"r7", label:"Персонал", ico:"👥", items:[
+    "Опрятный внешний вид, наличие бейджа",
+    "Форма персонала соответствует стилистике бренда",
+    "Сотрудники работают с сервисом",
+  ]},
+];
+
+const CHECKLIST_RKR_W = CHECKLIST_RKR;
+
+// ═══════════════════════════════════════════════════════
+// ЧЕК-ЛИСТ ОТ И ПБ (для Дир.Дивизиона, Опер.Директора, HRBP)
+// ═══════════════════════════════════════════════════════
+const CHECKLIST_OT_PB = [
+  { id:"ob1", label:"Пожарная безопасность", ico:"🔥", items:[
+    "Свободный доступ к эвакуационному выходу",
+    "Эвакуационные двери опечатаны",
+    "Огнетушители: наличие, расставлены по плану, сроки годности не истекли",
+    "Эвакуационный план размещён на видном месте",
+    "Персонал знает порядок действий при эвакуации (проверить устно)",
+  ]},
+  { id:"ob2", label:"Журналы ПБ и ОТ", ico:"📋", items:[
+    "Журнал осмотра помещений ведётся",
+    "Журнал учёта огнетушителей ведётся",
+    "Журнал вводного инструктажа по ПБ ведётся",
+    "Журнал регистрации инструктажа по ОТ ведётся",
+    "В папке ОТ: паспорта на огнетушители, удостоверения ответственного за ОТ и ПБ",
+  ]},
+  { id:"ob3", label:"Склад и помещения", ico:"📦", items:[
+    "Стеллажи закреплены, на верхних полках ничего не хранится",
+    "Стеллажи заземлены",
+    "Стремянка в исправном состоянии, хранится в отведённом месте",
+    "Химия для уборки хранится отдельно от зоны питания сотрудников",
+  ]},
+  { id:"ob4", label:"Бытовая зона", ico:"🍵", items:[
+    "Кулер в исправном состоянии, чистый",
+    "Микроволновка в исправном состоянии, чистая внутри",
+    "Чайник в исправном состоянии, без накипи",
+  ]},
+];
+
+
+const CHECKLIST_RKR_M = CHECKLIST_RKR;
+const CHECKLIST_RKR_K = CHECKLIST_RKR;
 
 
 // ═══════════════════════════════════════════════════════
@@ -736,6 +906,7 @@ const VISITOR_NAMES = {
   rkr_w2: "Евгения Урсул",
   rkr_m:  "Дарья Домот",
   rkr_k:  "Олеся Привалова",
+  otpb:   null, // выбирается на стартовом экране
 };
 
 function getChecklist(role) {
@@ -746,6 +917,7 @@ function getChecklist(role) {
   if (role === 'rkr_w2') return CHECKLIST_RKR_W;
   if (role === 'rkr_m')  return CHECKLIST_RKR_M;
   if (role === 'rkr_k')  return CHECKLIST_RKR_K;
+  if (role === 'otpb')   return CHECKLIST_OT_PB;
   return null;
 }
 
@@ -783,6 +955,9 @@ function selectVisitor(card) {
   document.getElementById('storeBlock').style.display = 'block';
   document.getElementById('dateBlock').style.display = 'block';
   document.getElementById('startBar').style.display = 'block';
+  // Блок выбора проверяющего — только для ОТ/ПБ
+  const otpbBlock = document.getElementById('otpbVisitorBlock');
+  if (otpbBlock) otpbBlock.style.display = currentRole === 'otpb' ? 'block' : 'none';
   document.getElementById('emailHint').textContent = 'Выбери магазин — email подставится';
   document.getElementById('emailHint').classList.remove('found');
 }
@@ -890,7 +1065,7 @@ function startVisit() {
     if (tabOps) { const d=tabOps.querySelector('.dot'); tabOps.textContent='Особенности'; if(d) tabOps.appendChild(d); }
   } else if (cfg.mode === 'hr') {
     currentChecklist = getChecklist('hr');
-    activePages = cfg.pages.slice(); // [10,11,12,13,14,15,16]
+    activePages = cfg.pages.slice(); // [10,11,12,13,14,15,16,30,31,32,33]
     buildHRChecklist(currentChecklist);
     // Переименовать вкладки HR
     activePages.forEach((pageNum, i) => {
@@ -901,9 +1076,25 @@ function startVisit() {
         if (dot) tabEl.appendChild(dot);
       }
     });
-  } else if (cfg.mode === 'single') {
-    activePages = [7];
-    buildSingleChecklist(currentRole);
+  } else if (cfg.mode === 'otpb') {
+    activePages = cfg.pages.slice();
+    buildOTPBChecklist(currentChecklist);
+    currentChecklist.forEach((sec, i) => {
+      const pn = [30,31,32,33][i];
+      const t = document.querySelector('.tab[data-p="' + pn + '"]');
+      if (t) { const d=t.querySelector('.dot'); t.textContent=sec.label; if(d) t.appendChild(d); t.classList.remove('hidden'); }
+    });
+  } else if (cfg.mode === 'rkr') {
+    activePages = cfg.pages.slice(); // [20..26]
+    buildRKRChecklist(currentChecklist);
+    activePages.forEach((pageNum, i) => {
+      const tabEl = document.querySelector('.tab[data-p="' + pageNum + '"]');
+      if (tabEl && currentChecklist[i]) {
+        const dot = tabEl.querySelector('.dot');
+        tabEl.textContent = currentChecklist[i].label;
+        if (dot) tabEl.appendChild(dot);
+      }
+    });
   }
   activePages.push(8, 9); // задачи + итог
 
@@ -958,6 +1149,46 @@ function buildHRChecklist(checklist) {
         cont.appendChild(makeItem(sec.id + '_' + i, text));
       });
     }
+  });
+  updateProgress();
+}
+
+
+function buildRKRChecklist(checklist) {
+  if (!checklist) return;
+  // Секции r1..r7 → страницы p20..p26
+  const pageMap = { r1:20, r2:21, r3:22, r4:23, r5:24, r6:25, r7:26 };
+  checklist.forEach(sec => {
+    const pageNum = pageMap[sec.id];
+    if (!pageNum) return;
+    const cont = document.getElementById('itemsr' + sec.id.replace('r',''));
+    if (!cont) return;
+    cont.innerHTML = '';
+    const scoreEl = document.getElementById('sr' + sec.id.replace('r',''));
+    if (scoreEl) scoreEl.textContent = '0/' + sec.items.length;
+    sec.items.forEach((text, i) => {
+      cont.appendChild(makeItem(sec.id + '_' + i, text));
+    });
+  });
+  updateProgress();
+}
+
+
+function buildOTPBChecklist(checklist) {
+  if (!checklist) return;
+  const pageMap = { ob1:30, ob2:31, ob3:32, ob4:33 };
+  checklist.forEach(sec => {
+    const pageNum = pageMap[sec.id];
+    if (!pageNum) return;
+    const num = sec.id.replace('ob','');
+    const cont = document.getElementById('itemsob' + num);
+    if (!cont) return;
+    cont.innerHTML = '';
+    const scoreEl = document.getElementById('sob' + num);
+    if (scoreEl) scoreEl.textContent = '0/' + sec.items.length;
+    sec.items.forEach((text, i) => {
+      cont.appendChild(makeItem(sec.id + '_' + i, text));
+    });
   });
   updateProgress();
 }
@@ -1145,7 +1376,10 @@ function submitVisit() {
   const storeName = document.getElementById('store').value || 'Не указан';
   const storeInfo = STORES[storeName];
   const email = storeInfo ? storeInfo.email : '—';
-  const vname = VISITOR_NAMES[currentRole] || VISITOR_CONFIG[currentRole]?.label || '—';
+  const otpbInspectorEl = document.getElementById('otpbInspector');
+  const vname = currentRole === 'otpb' && otpbInspectorEl && otpbInspectorEl.value
+    ? otpbInspectorEl.value
+    : (VISITOR_NAMES[currentRole] || VISITOR_CONFIG[currentRole]?.label || '—');
   const rawManager = document.getElementById('storeManager').value || '';
   const storeManager = rawManager || '—';
   const date = document.getElementById('vdate').value || 'Сегодня';
