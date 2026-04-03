@@ -157,10 +157,10 @@ body { font-family:'Golos Text',sans-serif; background:var(--bg); color:var(--te
 .pill-done  { background:var(--green-dim); color:var(--green); }
 .pill-block { background:var(--purple-dim); color:var(--purple); }
 .pill-role  { background:var(--grey-dim); color:var(--text-soft); }
-.vc-actions { display:flex; align-items:center; padding:0 8px; gap:2px; flex-shrink:0; }
+.vc-actions { display:flex; align-items:center; padding:0 8px; gap:4px; flex-shrink:0; }
 .va-btn { width:30px; height:30px; border-radius:8px; border:none; background:none; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:14px; transition:background .12s; color:var(--grey); }
 .va-btn:active { background:var(--grey-dim); }
-.va-check { width:22px; height:22px; border-radius:50%; border:2px solid var(--border); flex-shrink:0; cursor:pointer; display:flex; align-items:center; justify-content:center; margin:auto 0 auto 10px; transition:all .15s; }
+.va-check { width:22px; height:22px; border-radius:50%; border:2px solid var(--border); flex-shrink:0; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all .15s; }
 .va-check.on { background:var(--green); border-color:var(--green); }
 .va-check svg { width:10px; height:10px; stroke:#fff; stroke-width:2.5; opacity:0; }
 .va-check.on svg { opacity:1; }
@@ -835,9 +835,6 @@ function renderCard(v, container, ctx) {
   el.className = "vc"+(done?" done":"");
   el.innerHTML = `
     <div class="vc-bar ${barCls}"></div>
-    <div class="va-check ${done?"on":""}" data-action="toggle" data-id="${String(v.id)}" data-status="${v.status}">
-      <svg viewBox="0 0 10 10" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 5l2.5 2.5 4.5-4"/></svg>
-    </div>
     <div class="vc-body">
       <span class="vc-title">${title}</span>
       <div class="vc-meta">
@@ -845,10 +842,13 @@ function renderCard(v, container, ctx) {
         ${pills}
       </div>
     </div>
-    ${own ? `<div class="vc-actions">
-      <button class="va-btn" data-action="edit"   data-id="${String(v.id)}">✏️</button>
-      <button class="va-btn" data-action="delete" data-id="${String(v.id)}">✕</button>
-    </div>` : ""}`;
+    <div class="vc-actions">
+      <div class="va-check ${done?"on":""}" data-action="toggle" data-id="${String(v.id)}" data-status="${v.status}">
+        <svg viewBox="0 0 10 10" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M1.5 5l2.5 2.5 4.5-4"/></svg>
+      </div>
+      ${own ? `<button class="va-btn" data-action="edit" data-id="${String(v.id)}">✏️</button>
+      <button class="va-btn" data-action="delete" data-id="${String(v.id)}">✕</button>` : ""}
+    </div>`;
   container.appendChild(el);
 }
 
@@ -1005,9 +1005,11 @@ async function saveBlock() {
   btn.classList.add("saving"); btn.textContent = "Сохраняем...";
   const start = parseIso(from), end = parseIso(to);
   const ps = [];
+  let idx = 0;
   for (let d=new Date(start); d<=end; d.setDate(d.getDate()+1)) {
     const dateIso = toIso(new Date(d));
-    const id = Date.now().toString()+"_"+dateIso;
+    const id = `${Date.now()}_${idx}_${dateIso}`;
+    idx++;
     const nv = {id, role, name:NAMES[role], store:type, date:dateIso, time:"", comment, status:"блок", type:"block"};
     visits.push(nv);
     ps.push(fetch(WR,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"create",...nv})}).catch(()=>{}));
