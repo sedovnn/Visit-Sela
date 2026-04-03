@@ -435,8 +435,10 @@ body { font-family:'Golos Text',sans-serif; background:var(--bg); color:var(--te
 
 <script>
 // ─── CONSTANTS ───────────────────────────────────────────
-const WR = "https://sedovnn.app.n8n.cloud/webhook/sela-schedule-write";
-const RD = "https://sedovnn.app.n8n.cloud/webhook/sela-schedule-read";
+const VR = "https://sedovnn.app.n8n.cloud/webhook/sela-visits-read";
+const VW = "https://sedovnn.app.n8n.cloud/webhook/sela-visits-write";
+const ER = "https://sedovnn.app.n8n.cloud/webhook/sela-events-read";
+const EW = "https://sedovnn.app.n8n.cloud/webhook/sela-events-write";
 
 const NAMES  = {div:"Николай Седов",ops:"Ольга Щуренкова",hr:"—",rkr_w1:"Светлана Чечура",rkr_w2:"Евгения Урсул",rkr_m:"Дарья Домот",rkr_k:"Олеся Привалова"};
 const BADGES = {div:"ДИВ",ops:"ОПС",hr:"HR",rkr_w1:"РКР Ж·1",rkr_w2:"РКР Ж·2",rkr_m:"РКР МУЖ",rkr_k:"РКР ДЕТ"};
@@ -664,26 +666,51 @@ async function loadVisits() {
   document.getElementById("rfab").classList.add("spin");
   document.getElementById("content").innerHTML = '<div class="loading"><div class="spinner"></div>Загружаем...</div>';
   try {
-    const res = await fetch(RD);
-    const data = await res.json();
-    visits = (data.visits||[]).map(v=>({
+    const [vRes, eRes] = await Promise.all([fetch(VR), fetch(ER)]);
+    const vData = await vRes.json();
+    const eData = await eRes.json();
+
+    // Визиты из листа "Визиты"
+    const visitRows = (vData.visits||[]).map(v => ({
       id:      v.ID||v.id,
       role:    v["Роль"]||v.role||"",
       name:    v["Визитёр"]||v.name||"",
       store:   v["Магазин"]||v.store||"",
       date:    v["Дата"]||v.date||"",
-      dateTo:  v["ДатаДо"]||v.dateTo||v["Дата"]||v.date||"",
+      dateTo:  v["Дата"]||v.date||"",
       time:    v["Время"]||v.time||"",
       comment: v["Комментарий"]||v.comment||"",
       status:  v["Статус"]||v.status||"план",
-      type:    v["Тип"]||v.type||"visit",
-    })).filter(v=>v.date);
+      type:    "visit",
+    })).filter(v => v.date);
+
+    // События и блоки из листа "События"
+    const eventRows = (eData.events||[]).map(v => ({
+      id:      v.ID||v.id,
+      role:    v["Роль"]||v.role||"",
+      name:    v["Визитёр"]||v.name||"",
+      store:   v["Тип"]||v.store||"",
+      date:    v["ДатаС"]||v.date||"",
+      dateTo:  v["ДатаПо"]||v.dateTo||v["ДатаС"]||v.date||"",
+      time:    "",
+      comment: v["Комментарий"]||v.comment||"",
+      status:  v["Статус"]||v.status||"",
+      type:    inferEventType(v["Тип"]||v.store||""),
+    })).filter(v => v.date);
+
+    visits = [...visitRows, ...eventRows];
     buildStrip();
     render();
   } catch(e) {
     document.getElementById("content").innerHTML = '<div class="empty"><div class="empty-ico">⚠️</div><div class="empty-txt">Не удалось загрузить.<br>Нажми ↻ чтобы повторить.</div></div>';
   }
   document.getElementById("rfab").classList.remove("spin");
+}
+
+function inferEventType(tip) {
+  const t = (tip||"").toLowerCase();
+  if (["отгул","отпуск","больничный","обучение","другое"].some(x => t.includes(x))) return "block";
+  return "event";
 }
 
 // ─── EVENT BANNERS ───────────────────────────────────────
@@ -857,13 +884,16 @@ async function toggleDone(id, cur) {
   const ns = cur==="выполнен" ? "план" : "выполнен";
   const v = visits.find(x=>String(x.id)===String(id)); if(!v) return;
   v.status = ns; render();
-  try { await fetch(WR,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"update",id,status:ns,store:v.store,date:v.date,time:v.time,comment:v.comment})}); } catch(e){}
+  const url = v.type==="visit" ? VW : EW;
+  try { await fetch(url,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"update",id,status:ns,store:v.store,date:v.date,time:v.time,comment:v.comment})}); } catch(e){}
 }
 
 async function deleteEntry(id) {
+  const v = visits.find(x=>String(x.id)===String(id));
+  const url = v && v.type==="visit" ? VW : EW;
   visits = visits.filter(x=>String(x.id)!==String(id));
   buildStrip(); render();
-  try { await fetch(WR,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"delete",id})}); } catch(e){}
+  try { await fetch(url,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"delete",id})}); } catch(e){}
 }
 
 function editEntry(id) {
@@ -951,12 +981,12 @@ async function saveVisit() {
   if (editId) {
     const v = visits.find(x=>String(x.id)===String(editId));
     if (v) { v.store=store; v.date=date; v.time=time; v.comment=comment; }
-    try { await fetch(WR,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"update",id:editId,store,date,time,comment,status:v?.status||"план"})}); } catch(e){}
+    try { await fetch(VW,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"update",id:editId,store,date,time,comment,status:v?.status||"план"})}); } catch(e){}
   } else {
     const id = Date.now().toString();
     const nv = {id, role, name:NAMES[role], store, date, time, comment, status:"план", type:"visit"};
     visits.push(nv);
-    try { await fetch(WR,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"create",...nv})}); } catch(e){}
+    try { await fetch(VW,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"create",id,role,name:NAMES[role],store,date,time,comment,status:"план"})}); } catch(e){}
   }
   btn.classList.remove("saving"); btn.textContent = "Сохранить";
   closeSheet("ovVisit");
@@ -979,15 +1009,15 @@ async function saveEvent() {
   if (editId) {
     const v = visits.find(x=>String(x.id)===String(editId));
     if (v) { v.store=title; v.date=dateFrom; v.dateTo=dateTo; v.comment=comment; }
-    try { await fetch(WR,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"update",id:editId,store:title,date:dateFrom,dateTo,comment,status:"событие",type:"event"})}); } catch(e){}
+    try { await fetch(EW,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"update",id:editId,role,name:NAMES[role],store:title,date:dateFrom,dateTo,comment,status:"событие"})}); } catch(e){}
   } else {
     const id = Date.now().toString();
     const nv = {id, role, name:authorName, store:title, date:dateFrom, dateTo, comment, status:"событие", type:"event"};
     visits.push(nv);
-    try { await fetch(WR,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"create",...nv})}); } catch(e){}
+    try { await fetch(EW,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"create",id,role,name:authorName,store:title,date:dateFrom,dateTo,comment,status:"событие"})}); } catch(e){}
     // Telegram
     const tgText = `📢 *Новое общее событие*\n\n*${title}*\n📅 ${dateLabel}${comment?`\n💬 ${comment}`:""}\n\n_Добавил: ${authorName}_`;
-    try { await fetch(WR,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"telegram_notify",message:tgText,chat_id:"-1003627577889",thread_id:"169"})}); } catch(e){}
+    try { await fetch(EW,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"telegram_notify",message:tgText})}); } catch(e){}
   }
   btn.classList.remove("saving"); btn.textContent = "Добавить";
   closeSheet("ovEvent");
@@ -1010,9 +1040,9 @@ async function saveBlock() {
     const dateIso = toIso(new Date(d));
     const id = `${Date.now()}_${idx}_${dateIso}`;
     idx++;
-    const nv = {id, role, name:NAMES[role], store:type, date:dateIso, time:"", comment, status:"блок", type:"block"};
+    const nv = {id, role, name:NAMES[role], store:type, date:dateIso, dateTo:dateIso, time:"", comment, status:"блок", type:"block"};
     visits.push(nv);
-    ps.push(fetch(WR,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"create",...nv})}).catch(()=>{}));
+    ps.push(fetch(EW,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"create",id,role,name:NAMES[role],store:type,date:dateIso,dateTo:dateIso,comment,status:"блок"})}).catch(()=>{}));
   }
   await Promise.all(ps);
   btn.classList.remove("saving"); btn.textContent = "Добавить";
