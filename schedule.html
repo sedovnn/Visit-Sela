@@ -604,17 +604,21 @@ async function fetchWithRetry(url, retries=3, delayMs=1500){
 async function loadVisits(){
   document.getElementById("rfab").classList.add("spin");
   document.getElementById("content").innerHTML='<div class="loading"><div class="spinner"></div>Загружаем...</div>';
+  // Загружаем визиты и события независимо — ошибка одного не убивает другое
+  const [vResult, eResult] = await Promise.allSettled([
+    fetchWithRetry(VR).then(r=>r.json()).catch(()=>({visits:[]})),
+    fetchWithRetry(ER).then(r=>r.json()).catch(()=>({events:[]})),
+  ]);
+  const vD = vResult.status==="fulfilled" ? vResult.value : {visits:[]};
+  const eD = eResult.status==="fulfilled" ? eResult.value : {events:[]};
   try{
-    const[vR,eR]=await Promise.all([fetchWithRetry(VR),fetchWithRetry(ER)]);
-    const vD=await vR.json(),eD=await eR.json();
     const vRows=(vD.visits||[]).map(v=>({
       id:v.ID||v.id,role:v["Роль"]||v.role||"",name:v["Визитёр"]||v.name||"",
       store:v["Магазин"]||v.store||"",date:v["Дата"]||v.date||"",dateTo:v["Дата"]||v.date||"",
       time:v["Время"]||v.time||"",comment:v["Комментарий"]||v.comment||"",
       status:v["Статус"]||v.status||"план",type:"visit",
     })).filter(v=>v.date);
-    // Объединяем события из обоих ответов на случай если visits-read вернул events
-    const allEvents=[...(eD.events||[]),(vD.events||[])];
+    const allEvents=[...(eD.events||[]),...(vD.events||[])];
     const eRows=allEvents.map(v=>({
       id:v.ID||v.id,role:v["Роль"]||v.role||"",name:v["Визитёр"]||v.name||"",
       store:v["Тип"]||v.store||"",date:v["ДатаС"]||v.date||"",
