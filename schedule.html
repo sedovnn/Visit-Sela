@@ -619,13 +619,25 @@ async function loadVisits(){
       status:v["Статус"]||v.status||"план",type:"visit",
     })).filter(v=>v.date);
     const allEvents=[...(eD.events||[]),...(vD.events||[])];
-    const eRows=allEvents.map(v=>({
-      id:v.ID||v.id,role:v["Роль"]||v.role||"",name:v["Визитёр"]||v.name||"",
-      store:v["Тип"]||v.store||"",date:v["ДатаС"]||v.date||"",
-      dateTo:v["ДатаПо"]||v.dateTo||v["ДатаС"]||v.date||"",
-      time:"",comment:v["Комментарий"]||v.comment||"",
-      status:v["Статус"]||v.status||"",type:inferType(v["Тип"]||v.store||""),
-    })).filter(v=>v.date);
+    const eRows=[];
+    allEvents.forEach(v=>{
+      const id=v.ID||v.id,r=v["Роль"]||v.role||"",nm=v["Визитёр"]||v.name||"";
+      const store=v["Тип"]||v.store||"",comment=v["Комментарий"]||v.comment||"";
+      const status=v["Статус"]||v.status||"",type=inferType(store);
+      const dateFrom=v["ДатаС"]||v.date||"";
+      const dateTo=v["ДатаПО"]||v["ДатаПо"]||v.dateTo||dateFrom;
+      if(!dateFrom) return;
+      if(type==="block"&&dateFrom!==dateTo){
+        // Разворачиваем блок по дням
+        const start=parseIso(dateFrom),end=parseIso(dateTo);
+        for(let d=new Date(start);d<=end;d.setDate(d.getDate()+1)){
+          const di=toIso(new Date(d));
+          eRows.push({id,role:r,name:nm,store,date:di,dateTo:di,time:"",comment,status,type});
+        }
+      } else {
+        eRows.push({id,role:r,name:nm,store,date:dateFrom,dateTo,time:"",comment,status,type});
+      }
+    });
     visits=[...vRows,...eRows];render();
   }catch(e){
     document.getElementById("content").innerHTML='<div class="empty"><div class="empty-ico">⚠️</div><div class="empty-txt">Не удалось загрузить.<br>Нажми ↻ чтобы повторить.</div></div>';
