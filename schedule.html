@@ -613,7 +613,9 @@ async function loadVisits(){
       time:v["Время"]||v.time||"",comment:v["Комментарий"]||v.comment||"",
       status:v["Статус"]||v.status||"план",type:"visit",
     })).filter(v=>v.date);
-    const eRows=(eD.events||[]).map(v=>({
+    // Объединяем события из обоих ответов на случай если visits-read вернул events
+    const allEvents=[...(eD.events||[]),(vD.events||[])];
+    const eRows=allEvents.map(v=>({
       id:v.ID||v.id,role:v["Роль"]||v.role||"",name:v["Визитёр"]||v.name||"",
       store:v["Тип"]||v.store||"",date:v["ДатаС"]||v.date||"",
       dateTo:v["ДатаПо"]||v.dateTo||v["ДатаС"]||v.date||"",
