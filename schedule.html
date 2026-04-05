@@ -549,7 +549,7 @@ function showMain(){
 }
 function applyRole(){
   const p=(NAMES[role]||"").split(" ");
-  document.getElementById("tbName").textContent=p[1]||p[0]||"—";
+  document.getElementById("tbName").textContent=p[0]||"—";
   document.getElementById("tbBadge").textContent=BADGES[role]||"—";
   resetStoreSearch();
   document.getElementById("tbModeToggle").classList.toggle("vis",true);
