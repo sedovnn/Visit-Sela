@@ -554,7 +554,7 @@ function applyRole(){
   resetStoreSearch();
   document.getElementById("tbModeToggle").classList.toggle("vis",true);
   document.getElementById("eventFab").classList.toggle("vis",isDir());
-  document.getElementById("fabBlockItem").style.display=isDir()?"none":"";
+  document.getElementById("fabBlockItem").style.display="";
 }
 
 function openRoleSheet(){
@@ -693,9 +693,11 @@ function renderCard(v,container,isTeam){
     :`<div class="vc-bar ${isBlk?"bar-block":BCLS[v.role]||""}"></div>`;
 
   const storeName=v.store==="Офис"?"🏢 Офис":isBlk?`🚫 ${v.store}`:`SELA ${v.store}`;
-  const subLine=isTeam&&!isBlk
-    ?`<div class="vc-sub">${FNAME[v.role]||v.name||""}</div>`
-    :(v.comment?`<div class="vc-sub">${v.comment}</div>`:"");
+  const subLine=isBlk
+    ?`<div class="vc-sub">👤 ${FNAME[v.role]||v.name||""}</div>`
+    :isTeam
+      ?`<div class="vc-sub">${FNAME[v.role]||v.name||""}</div>`
+      :(v.comment?`<div class="vc-sub">${v.comment}</div>`:"");
   const statusPill=isBlk
     ?`<span class="pill pill-block">${v.comment||v.store}</span>`
     :`<span class="pill ${done?"pill-done":"pill-plan"}">${done?"✓ выполнен":"план"}</span>`;
@@ -825,13 +827,29 @@ async function saveBlock(){
     to=document.getElementById("blTo").value,comment=document.getElementById("blCm").value.trim();
   if(!from||!to){alert("Укажи даты");return;}
   const btn=document.getElementById("shSaveB");btn.classList.add("saving");btn.textContent="Сохраняем...";
-  const start=parseIso(from),end=parseIso(to),ps=[];let idx=0;
+  const id=Date.now().toString();
+  const auth=NAMES[role]||role;
+  const dl=from===to?fmtDate(from):`${fmtDate(from)} — ${fmtDate(to)}`;
+
+  // Добавляем одну запись на весь период (не по дням)
+  // Во фронте разворачиваем по дням для отображения
+  const start=parseIso(from),end=parseIso(to);
   for(let d=new Date(start);d<=end;d.setDate(d.getDate()+1)){
-    const di=toIso(new Date(d)),id=`${Date.now()}_${idx}_${di}`;idx++;
-    visits.push({id,role,name:NAMES[role],store:type,date:di,dateTo:di,time:"",comment,status:"блок",type:"block"});
-    ps.push(fetch(EW,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"create",id,role,name:NAMES[role],store:type,date:di,dateTo:di,comment,status:"блок"})}).catch(()=>{}));
+    const di=toIso(new Date(d));
+    visits.push({id,role,name:auth,store:type,date:di,dateTo:di,time:"",comment,status:"блок",type:"block"});
   }
-  await Promise.all(ps);btn.classList.remove("saving");btn.textContent="Добавить";closeSheet("ovBlock");render();
+
+  // В Sheets пишем одну строку с диапазоном дат
+  try{await fetch(EW,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({
+    action:"create",id,role,name:auth,store:type,date:from,dateTo:to,comment,status:"блок"
+  })});}catch(e){}
+
+  // Уведомление в Telegram
+  const emoji={Отгул:"🌴",Отпуск:"🏖",Больничный:"🤒",Обучение:"📚",Другое:"📌"}[type]||"📌";
+  const tg=`${emoji} *${type}*\n\n👤 ${auth}\n📅 ${dl}${comment?`\n💬 ${comment}`:""}`;
+  try{await fetch(EW,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"telegram_notify",message:tg})});}catch(e){}
+
+  btn.classList.remove("saving");btn.textContent="Добавить";closeSheet("ovBlock");render();
 }
 
 async function toggleDone(id,cur){
