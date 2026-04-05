@@ -666,7 +666,7 @@ function render(){
     dayEvts.forEach(ev=>{
       const f=ev.date,t=ev.dateTo||ev.date,dl=f===t?fmtDate(f):`${fmtDate(f)} — ${fmtDate(t)}`;
       const bn=document.createElement("div");bn.className="ev-banner";
-      bn.innerHTML=`<span class="ev-banner-ico">📢</span><span class="ev-banner-title">${ev.store}</span><span class="ev-banner-dates">${dl}</span><button class="ev-banner-edit" data-action="edit" data-id="${String(ev.id)}">✏️</button>`;
+      bn.innerHTML=`<span class="ev-banner-ico">📢</span><span class="ev-banner-title">${ev.store}</span><span class="ev-banner-dates">${dl}</span><button class="ev-banner-edit" data-action="edit" data-id="${String(ev.id)}">✏️</button><button class="ev-banner-edit" data-action="delete-event" data-id="${String(ev.id)}" data-store="${ev.store}" data-date="${ev.date}" data-dateto="${ev.dateTo||ev.date}" style="color:var(--red)">✕</button>`;
       blk.appendChild(bn);
     });
 
@@ -840,6 +840,20 @@ async function toggleDone(id,cur){
   v.status=ns;render();
   try{await fetch(VW,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"update",id,status:ns,store:v.store,date:v.date,time:v.time,comment:v.comment})});}catch(e){}
 }
+async function deleteEvent(data){
+  const {id, store, date, dateto} = data;
+  if(!confirm(`Отменить событие "${store}"?`)) return;
+  const auth = NAMES[role]||role;
+  const dl = date===dateto ? fmtDate(date) : `${fmtDate(date)} — ${fmtDate(dateto)}`;
+  visits = visits.filter(x=>String(x.id)!==String(id));
+  render();
+  // Удаляем из Sheets
+  try{await fetch(EW,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"delete",id})});}catch(e){}
+  // Уведомление в Telegram
+  const tg=`❌ *Событие отменено*\n\n*${store}*\n📅 ${dl}\n\n_Отменил: ${auth}_`;
+  try{await fetch(EW,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"telegram_notify",message:tg})});}catch(e){}
+}
+
 async function deleteEntry(id){
   const v=visits.find(x=>String(x.id)===String(id));
   const url=v&&v.type==="visit"?VW:EW;
@@ -871,6 +885,7 @@ document.getElementById("content").addEventListener("click",function(e){
   if(action==="edit")editEntry(id);
   if(action==="delete")deleteEntry(id);
   if(action==="toggle")toggleDone(id,btn.dataset.status);
+  if(action==="delete-event")deleteEvent(btn.dataset);
   if(action==="week-add"){
     editId=null;document.getElementById("shVisitTitle").textContent="Добавить визит";
     resetStoreSearch();document.getElementById("shDt").value=date;
